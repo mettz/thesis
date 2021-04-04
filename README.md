@@ -4,9 +4,9 @@ This repo contains all work related to my undergraduate thesis.
 
 ## TODO
 - [ ] Create solidity examples with their corresponding Yul compilation
-  - Example 1
-  - Example 2
-  - Example 3
+1. Example 1
+2. Example 2
+3. Example 3
 
 ## Resources
 
