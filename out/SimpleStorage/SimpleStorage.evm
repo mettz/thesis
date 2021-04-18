@@ -1,0 +1,91 @@
+    /* "examples/SimpleStorage.sol":70:287  contract SimpleStorage {... */
+  mstore(0x40, 0x80)
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "examples/SimpleStorage.sol":70:287  contract SimpleStorage {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x6d4ce63c
+      eq
+      tag_3
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "examples/SimpleStorage.sol":193:285  function get() public returns (uint256) {... */
+    tag_3:
+      tag_4
+      tag_5
+      jump	// in
+    tag_4:
+      mload(0x40)
+        /* "#utility.yul":160:185   */
+      swap1
+      dup2
+      mstore
+        /* "#utility.yul":148:150   */
+      0x20
+        /* "#utility.yul":133:151   */
+      add
+        /* "examples/SimpleStorage.sol":193:285  function get() public returns (uint256) {... */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+    tag_5:
+        /* "examples/SimpleStorage.sol":224:231  uint256 */
+      0x00
+        /* "examples/SimpleStorage.sol":243:251  set(254) */
+      tag_9
+        /* "examples/SimpleStorage.sol":247:250  254 */
+      0xfe
+        /* "examples/SimpleStorage.sol":166:176  storedData */
+      0x00
+        /* "examples/SimpleStorage.sol":166:180  storedData = x */
+      sstore
+        /* "examples/SimpleStorage.sol":124:187  function set(uint256 x) private {... */
+      jump
+        /* "examples/SimpleStorage.sol":243:251  set(254) */
+    tag_9:
+      pop
+        /* "examples/SimpleStorage.sol":268:278  storedData */
+      sload(0x00)
+        /* "examples/SimpleStorage.sol":193:285  function get() public returns (uint256) {... */
+      swap1
+      jump	// out
+
+    auxdata: 0xa26469706673582212209b4f56269889e2bda722f5f7abdb0c0ad66ea7da4ca936701ee8930ab9737fa564736f6c63430008030033
+}
