@@ -1,0 +1,345 @@
+    /* "examples/Modifiers.sol":1178:1701  contract Register is priced, destructible {... */
+  mstore(0x40, 0x80)
+    /* "examples/Modifiers.sol":1294:1350  constructor(uint initialPrice) { price = initialPrice; } */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  mload(0x40)
+  sub(codesize, bytecodeSize)
+  dup1
+  bytecodeSize
+  dup4
+  codecopy
+  dup2
+  add
+  0x40
+  dup2
+  swap1
+  mstore
+  tag_2
+  swap2
+  tag_3
+  jump	// in
+tag_2:
+    /* "examples/Modifiers.sol":105:110  owner */
+  0x00
+    /* "examples/Modifiers.sol":105:132  owner = payable(msg.sender) */
+  dup1
+  sload
+  not(sub(shl(0xa0, 0x01), 0x01))
+  and
+    /* "examples/Modifiers.sol":121:131  msg.sender */
+  caller
+    /* "examples/Modifiers.sol":105:132  owner = payable(msg.sender) */
+  or
+  swap1
+  sstore
+    /* "examples/Modifiers.sol":1327:1332  price */
+  0x02
+    /* "examples/Modifiers.sol":1327:1347  price = initialPrice */
+  sstore
+    /* "examples/Modifiers.sol":1178:1701  contract Register is priced, destructible {... */
+  jump(tag_9)
+    /* "#utility.yul":14:208   */
+tag_3:
+    /* "#utility.yul":84:90   */
+  0x00
+    /* "#utility.yul":137:139   */
+  0x20
+    /* "#utility.yul":125:134   */
+  dup3
+    /* "#utility.yul":116:123   */
+  dup5
+    /* "#utility.yul":112:135   */
+  sub
+    /* "#utility.yul":108:140   */
+  slt
+    /* "#utility.yul":105:107   */
+  iszero
+  tag_11
+  jumpi
+    /* "#utility.yul":158:164   */
+  dup1
+    /* "#utility.yul":150:156   */
+  dup2
+    /* "#utility.yul":143:165   */
+  revert
+    /* "#utility.yul":105:107   */
+tag_11:
+  pop
+    /* "#utility.yul":186:202   */
+  mload
+  swap2
+    /* "#utility.yul":95:208   */
+  swap1
+  pop
+  jump	// out
+tag_9:
+    /* "examples/Modifiers.sol":1178:1701  contract Register is priced, destructible {... */
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "examples/Modifiers.sol":1178:1701  contract Register is priced, destructible {... */
+      mstore(0x40, 0x80)
+      jumpi(tag_1, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x1aa3a008
+      eq
+      tag_2
+      jumpi
+      dup1
+      0x83197ef0
+      eq
+      tag_3
+      jumpi
+      dup1
+      0xa2b40d19
+      eq
+      tag_4
+      jumpi
+    tag_1:
+      0x00
+      dup1
+      revert
+        /* "examples/Modifiers.sol":1508:1611  function register() public payable costs(price) {... */
+    tag_2:
+      tag_5
+      tag_6
+      jump	// in
+    tag_5:
+      stop
+        /* "examples/Modifiers.sol":943:1015  function destroy() public onlyOwner {... */
+    tag_3:
+      callvalue
+      dup1
+      iszero
+      tag_7
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_7:
+      pop
+      tag_5
+      tag_9
+      jump	// in
+        /* "examples/Modifiers.sol":1617:1699  function changePrice(uint _price) public onlyOwner {... */
+    tag_4:
+      callvalue
+      dup1
+      iszero
+      tag_10
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_10:
+      pop
+      tag_5
+      tag_12
+      calldatasize
+      0x04
+      tag_13
+      jump	// in
+    tag_12:
+      tag_14
+      jump	// in
+        /* "examples/Modifiers.sol":1508:1611  function register() public payable costs(price) {... */
+    tag_6:
+        /* "examples/Modifiers.sol":1549:1554  price */
+      sload(0x02)
+        /* "examples/Modifiers.sol":1135:1140  price */
+      dup1
+        /* "examples/Modifiers.sol":1122:1131  msg.value */
+      callvalue
+        /* "examples/Modifiers.sol":1122:1140  msg.value >= price */
+      lt
+        /* "examples/Modifiers.sol":1118:1168  if (msg.value >= price) {... */
+      tag_16
+      jumpi
+        /* "examples/Modifiers.sol":1586:1596  msg.sender */
+      caller
+        /* "examples/Modifiers.sol":1566:1597  registeredAddresses[msg.sender] */
+      0x00
+      swap1
+      dup2
+      mstore
+        /* "examples/Modifiers.sol":1600:1604  true */
+      0x01
+        /* "examples/Modifiers.sol":1566:1597  registeredAddresses[msg.sender] */
+      0x20
+      dup2
+      swap1
+      mstore
+      0x40
+      swap1
+      swap2
+      keccak256
+        /* "examples/Modifiers.sol":1566:1604  registeredAddresses[msg.sender] = true */
+      dup1
+      sload
+      not(0xff)
+      and
+      swap1
+      swap2
+      or
+      swap1
+      sstore
+        /* "examples/Modifiers.sol":1118:1168  if (msg.value >= price) {... */
+    tag_16:
+        /* "examples/Modifiers.sol":1508:1611  function register() public payable costs(price) {... */
+      pop
+      jump	// out
+        /* "examples/Modifiers.sol":943:1015  function destroy() public onlyOwner {... */
+    tag_9:
+        /* "examples/Modifiers.sol":593:598  owner */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x00))
+        /* "examples/Modifiers.sol":579:589  msg.sender */
+      caller
+        /* "examples/Modifiers.sol":579:598  msg.sender == owner */
+      eq
+        /* "examples/Modifiers.sol":558:658  require(... */
+      tag_19
+      jumpi
+      mload(0x40)
+      shl(0xe5, 0x461bcd)
+      dup2
+      mstore
+      0x04
+      add
+      tag_20
+      swap1
+      tag_21
+      jump	// in
+    tag_20:
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+    tag_19:
+        /* "examples/Modifiers.sol":1002:1007  owner */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x00))
+        /* "examples/Modifiers.sol":989:1008  selfdestruct(owner) */
+      selfdestruct
+        /* "examples/Modifiers.sol":1617:1699  function changePrice(uint _price) public onlyOwner {... */
+    tag_14:
+        /* "examples/Modifiers.sol":593:598  owner */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x00))
+        /* "examples/Modifiers.sol":579:589  msg.sender */
+      caller
+        /* "examples/Modifiers.sol":579:598  msg.sender == owner */
+      eq
+        /* "examples/Modifiers.sol":558:658  require(... */
+      tag_24
+      jumpi
+      mload(0x40)
+      shl(0xe5, 0x461bcd)
+      dup2
+      mstore
+      0x04
+      add
+      tag_20
+      swap1
+      tag_21
+      jump	// in
+    tag_24:
+        /* "examples/Modifiers.sol":1678:1683  price */
+      0x02
+        /* "examples/Modifiers.sol":1678:1692  price = _price */
+      sstore
+        /* "examples/Modifiers.sol":1617:1699  function changePrice(uint _price) public onlyOwner {... */
+      jump	// out
+        /* "#utility.yul":14:204   */
+    tag_13:
+        /* "#utility.yul":73:79   */
+      0x00
+        /* "#utility.yul":126:128   */
+      0x20
+        /* "#utility.yul":114:123   */
+      dup3
+        /* "#utility.yul":105:112   */
+      dup5
+        /* "#utility.yul":101:124   */
+      sub
+        /* "#utility.yul":97:129   */
+      slt
+        /* "#utility.yul":94:96   */
+      iszero
+      tag_29
+      jumpi
+        /* "#utility.yul":147:153   */
+      dup1
+        /* "#utility.yul":139:145   */
+      dup2
+        /* "#utility.yul":132:154   */
+      revert
+        /* "#utility.yul":94:96   */
+    tag_29:
+      pop
+        /* "#utility.yul":175:198   */
+      calldataload
+      swap2
+        /* "#utility.yul":84:204   */
+      swap1
+      pop
+      jump	// out
+        /* "#utility.yul":209:607   */
+    tag_21:
+        /* "#utility.yul":411:413   */
+      0x20
+        /* "#utility.yul":393:414   */
+      dup1
+      dup3
+      mstore
+        /* "#utility.yul":450:452   */
+      0x22
+        /* "#utility.yul":430:448   */
+      swap1
+      dup3
+      add
+        /* "#utility.yul":423:453   */
+      mstore
+        /* "#utility.yul":489:523   */
+      0x4f6e6c79206f776e65722063616e2063616c6c20746869732066756e6374696f
+        /* "#utility.yul":484:486   */
+      0x40
+        /* "#utility.yul":469:487   */
+      dup3
+      add
+        /* "#utility.yul":462:524   */
+      mstore
+      shl(0xf1, 0x3717)
+        /* "#utility.yul":555:557   */
+      0x60
+        /* "#utility.yul":540:558   */
+      dup3
+      add
+        /* "#utility.yul":533:565   */
+      mstore
+        /* "#utility.yul":597:600   */
+      0x80
+        /* "#utility.yul":582:601   */
+      add
+      swap1
+        /* "#utility.yul":383:607   */
+      jump	// out
+
+    auxdata: 0xa2646970667358221220392a45725e84e66246befb8708bdc302e67dad5128f0c00c0e84841d10c3525364736f6c63430008040033
+}

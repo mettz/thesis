@@ -1,0 +1,993 @@
+    /* "examples/complex/Token.sol":2021:3017  contract TokenCreator {... */
+  mstore(0x40, 0x80)
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "examples/complex/Token.sol":2021:3017  contract TokenCreator {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x7379b422
+      eq
+      tag_3
+      jumpi
+      dup1
+      0xae3edb65
+      eq
+      tag_4
+      jumpi
+      dup1
+      0xc3cee9c1
+      eq
+      tag_5
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "examples/complex/Token.sol":2416:2614  function changeName(OwnedToken tokenAddress, bytes32 name) public {... */
+    tag_3:
+      tag_6
+      tag_7
+      calldatasize
+      0x04
+      tag_8
+      jump	// in
+    tag_7:
+      tag_9
+      jump	// in
+    tag_6:
+      stop
+        /* "examples/complex/Token.sol":2049:2410  function createToken(bytes32 name)... */
+    tag_4:
+      tag_10
+      tag_11
+      calldatasize
+      0x04
+      tag_12
+      jump	// in
+    tag_11:
+      tag_13
+      jump	// in
+    tag_10:
+      mload(0x40)
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "#utility.yul":1852:1884   */
+      swap1
+      swap2
+      and
+        /* "#utility.yul":1834:1885   */
+      dup2
+      mstore
+        /* "#utility.yul":1822:1824   */
+      0x20
+        /* "#utility.yul":1807:1825   */
+      add
+        /* "examples/complex/Token.sol":2049:2410  function createToken(bytes32 name)... */
+    tag_14:
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "examples/complex/Token.sol":2730:3015  function isTokenTransferOK(address currentOwner, address newOwner)... */
+    tag_5:
+      tag_16
+      tag_17
+      calldatasize
+      0x04
+      tag_18
+      jump	// in
+    tag_17:
+        /* "examples/complex/Token.sol":2956:2996  abi.encodePacked(currentOwner, newOwner) */
+      mload(0x40)
+      not(0xffffffffffffffffffffffff)
+        /* "#utility.yul":1186:1188   */
+      0x60
+        /* "#utility.yul":1182:1197   */
+      dup5
+      dup2
+      shl
+        /* "#utility.yul":1178:1202   */
+      dup3
+      and
+        /* "examples/complex/Token.sol":2956:2996  abi.encodePacked(currentOwner, newOwner) */
+      0x20
+      dup5
+      add
+        /* "#utility.yul":1166:1203   */
+      mstore
+        /* "#utility.yul":1237:1252   */
+      dup4
+      swap1
+      shl
+        /* "#utility.yul":1233:1257   */
+      and
+        /* "#utility.yul":1219:1231   */
+      0x34
+      dup3
+      add
+        /* "#utility.yul":1212:1258   */
+      mstore
+        /* "examples/complex/Token.sol":2842:2849  bool ok */
+      0x00
+      swap1
+        /* "#utility.yul":1274:1286   */
+      0x48
+      add
+        /* "examples/complex/Token.sol":2956:2996  abi.encodePacked(currentOwner, newOwner) */
+      0x40
+      dup1
+      mload
+      not(0x1f)
+      dup2
+      dup5
+      sub
+      add
+      dup2
+      mstore
+      swap2
+      swap1
+      mstore
+        /* "examples/complex/Token.sol":2946:2997  keccak256(abi.encodePacked(currentOwner, newOwner)) */
+      dup1
+      mload
+        /* "examples/complex/Token.sol":2956:2996  abi.encodePacked(currentOwner, newOwner) */
+      0x20
+        /* "examples/complex/Token.sol":2946:2997  keccak256(abi.encodePacked(currentOwner, newOwner)) */
+      swap1
+      swap2
+      add
+      keccak256
+        /* "examples/complex/Token.sol":2998:2999  0 */
+      0x00
+        /* "examples/complex/Token.sol":2946:3000  keccak256(abi.encodePacked(currentOwner, newOwner))[0] */
+      byte
+      0xf8
+      shl
+      sub(shl(0xf8, 0x01), 0x01)
+        /* "examples/complex/Token.sol":2946:3008  keccak256(abi.encodePacked(currentOwner, newOwner))[0] == 0x7f */
+      not
+      and
+        /* "examples/complex/Token.sol":3004:3008  0x7f */
+      0x7f
+        /* "examples/complex/Token.sol":2946:3008  keccak256(abi.encodePacked(currentOwner, newOwner))[0] == 0x7f */
+      0xf8
+      shl
+      eq
+        /* "examples/complex/Token.sol":2939:3008  return keccak256(abi.encodePacked(currentOwner, newOwner))[0] == 0x7f */
+      swap1
+      pop
+        /* "examples/complex/Token.sol":2730:3015  function isTokenTransferOK(address currentOwner, address newOwner)... */
+      swap3
+      swap2
+      pop
+      pop
+      jump
+    tag_16:
+      mload(0x40)
+        /* "#utility.yul":1462:1476   */
+      swap1
+      iszero
+        /* "#utility.yul":1455:1477   */
+      iszero
+        /* "#utility.yul":1437:1478   */
+      dup2
+      mstore
+        /* "#utility.yul":1425:1427   */
+      0x20
+        /* "#utility.yul":1410:1428   */
+      add
+        /* "examples/complex/Token.sol":2730:3015  function isTokenTransferOK(address currentOwner, address newOwner)... */
+      tag_14
+        /* "#utility.yul":1392:1484   */
+      jump
+        /* "examples/complex/Token.sol":2416:2614  function changeName(OwnedToken tokenAddress, bytes32 name) public {... */
+    tag_9:
+        /* "examples/complex/Token.sol":2578:2607  tokenAddress.changeName(name) */
+      mload(0x40)
+      shl(0xe0, 0x898855ed)
+      dup2
+      mstore
+      0x04
+      dup2
+      add
+        /* "#utility.yul":1635:1660   */
+      dup3
+      swap1
+      mstore
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "examples/complex/Token.sol":2578:2601  tokenAddress.changeName */
+      dup4
+      and
+      swap1
+      0x898855ed
+      swap1
+        /* "#utility.yul":1608:1626   */
+      0x24
+      add
+        /* "examples/complex/Token.sol":2578:2607  tokenAddress.changeName(name) */
+      0x00
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      0x00
+      dup8
+      dup1
+      extcodesize
+      iszero
+      dup1
+      iszero
+      tag_25
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_25:
+      pop
+      gas
+      call
+      iszero
+      dup1
+      iszero
+      tag_27
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_27:
+      pop
+      pop
+      pop
+      pop
+        /* "examples/complex/Token.sol":2416:2614  function changeName(OwnedToken tokenAddress, bytes32 name) public {... */
+      pop
+      pop
+      jump	// out
+        /* "examples/complex/Token.sol":2049:2410  function createToken(bytes32 name)... */
+    tag_13:
+        /* "examples/complex/Token.sol":2116:2139  OwnedToken tokenAddress */
+      0x00
+        /* "examples/complex/Token.sol":2398:2402  name */
+      dup2
+        /* "examples/complex/Token.sol":2383:2403  new OwnedToken(name) */
+      mload(0x40)
+      tag_29
+      swap1
+      tag_30
+      jump	// in
+    tag_29:
+        /* "#utility.yul":1635:1660   */
+      swap1
+      dup2
+      mstore
+        /* "#utility.yul":1623:1625   */
+      0x20
+        /* "#utility.yul":1608:1626   */
+      add
+        /* "examples/complex/Token.sol":2383:2403  new OwnedToken(name) */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      0x00
+      create
+      dup1
+      iszero
+      dup1
+      iszero
+      tag_32
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_32:
+      pop
+        /* "examples/complex/Token.sol":2376:2403  return new OwnedToken(name) */
+      swap3
+        /* "examples/complex/Token.sol":2049:2410  function createToken(bytes32 name)... */
+      swap2
+      pop
+      pop
+      jump	// out
+    tag_30:
+      dataSize(sub_0)
+      dup1
+      dataOffset(sub_0)
+      dup4
+      codecopy
+      add
+      swap1
+      jump	// out
+        /* "#utility.yul":14:412   */
+    tag_18:
+        /* "#utility.yul":82:88   */
+      0x00
+        /* "#utility.yul":90:96   */
+      dup1
+        /* "#utility.yul":143:145   */
+      0x40
+        /* "#utility.yul":131:140   */
+      dup4
+        /* "#utility.yul":122:129   */
+      dup6
+        /* "#utility.yul":118:141   */
+      sub
+        /* "#utility.yul":114:146   */
+      slt
+        /* "#utility.yul":111:113   */
+      iszero
+      tag_39
+      jumpi
+        /* "#utility.yul":164:170   */
+      dup2
+        /* "#utility.yul":156:162   */
+      dup3
+        /* "#utility.yul":149:171   */
+      revert
+        /* "#utility.yul":111:113   */
+    tag_39:
+        /* "#utility.yul":208:217   */
+      dup3
+        /* "#utility.yul":195:218   */
+      calldataload
+        /* "#utility.yul":227:258   */
+      tag_40
+        /* "#utility.yul":252:257   */
+      dup2
+        /* "#utility.yul":227:258   */
+      tag_41
+      jump	// in
+    tag_40:
+        /* "#utility.yul":277:282   */
+      swap2
+      pop
+        /* "#utility.yul":334:336   */
+      0x20
+        /* "#utility.yul":319:337   */
+      dup4
+      add
+        /* "#utility.yul":306:338   */
+      calldataload
+        /* "#utility.yul":347:380   */
+      tag_42
+        /* "#utility.yul":306:338   */
+      dup2
+        /* "#utility.yul":347:380   */
+      tag_41
+      jump	// in
+    tag_42:
+        /* "#utility.yul":399:406   */
+      dup1
+        /* "#utility.yul":389:406   */
+      swap2
+      pop
+      pop
+        /* "#utility.yul":101:412   */
+      swap3
+      pop
+      swap3
+      swap1
+      pop
+      jump	// out
+        /* "#utility.yul":417:607   */
+    tag_12:
+        /* "#utility.yul":476:482   */
+      0x00
+        /* "#utility.yul":529:531   */
+      0x20
+        /* "#utility.yul":517:526   */
+      dup3
+        /* "#utility.yul":508:515   */
+      dup5
+        /* "#utility.yul":504:527   */
+      sub
+        /* "#utility.yul":500:532   */
+      slt
+        /* "#utility.yul":497:499   */
+      iszero
+      tag_44
+      jumpi
+        /* "#utility.yul":550:556   */
+      dup1
+        /* "#utility.yul":542:548   */
+      dup2
+        /* "#utility.yul":535:557   */
+      revert
+        /* "#utility.yul":497:499   */
+    tag_44:
+      pop
+        /* "#utility.yul":578:601   */
+      calldataload
+      swap2
+        /* "#utility.yul":487:607   */
+      swap1
+      pop
+      jump	// out
+        /* "#utility.yul":612:954   */
+    tag_8:
+        /* "#utility.yul":697:703   */
+      0x00
+        /* "#utility.yul":705:711   */
+      dup1
+        /* "#utility.yul":758:760   */
+      0x40
+        /* "#utility.yul":746:755   */
+      dup4
+        /* "#utility.yul":737:744   */
+      dup6
+        /* "#utility.yul":733:756   */
+      sub
+        /* "#utility.yul":729:761   */
+      slt
+        /* "#utility.yul":726:728   */
+      iszero
+      tag_46
+      jumpi
+        /* "#utility.yul":779:785   */
+      dup2
+        /* "#utility.yul":771:777   */
+      dup3
+        /* "#utility.yul":764:786   */
+      revert
+        /* "#utility.yul":726:728   */
+    tag_46:
+        /* "#utility.yul":823:832   */
+      dup3
+        /* "#utility.yul":810:833   */
+      calldataload
+        /* "#utility.yul":842:873   */
+      tag_47
+        /* "#utility.yul":867:872   */
+      dup2
+        /* "#utility.yul":842:873   */
+      tag_41
+      jump	// in
+    tag_47:
+        /* "#utility.yul":892:897   */
+      swap5
+        /* "#utility.yul":944:946   */
+      0x20
+        /* "#utility.yul":929:947   */
+      swap4
+      swap1
+      swap4
+      add
+        /* "#utility.yul":916:948   */
+      calldataload
+      swap4
+      pop
+      pop
+      pop
+        /* "#utility.yul":716:954   */
+      jump	// out
+        /* "#utility.yul":1896:2027   */
+    tag_41:
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "#utility.yul":1971:2002   */
+      dup2
+      and
+        /* "#utility.yul":1961:2003   */
+      dup2
+      eq
+        /* "#utility.yul":1951:1953   */
+      tag_53
+      jumpi
+        /* "#utility.yul":2017:2018   */
+      0x00
+        /* "#utility.yul":2014:2015   */
+      dup1
+        /* "#utility.yul":2007:2019   */
+      revert
+        /* "#utility.yul":1951:1953   */
+    tag_53:
+        /* "#utility.yul":1941:2027   */
+      pop
+      jump	// out
+    stop
+
+    sub_0: assembly {
+            /* "examples/complex/Token.sol":70:2019  contract OwnedToken {... */
+          mstore(0x40, 0x80)
+            /* "examples/complex/Token.sol":406:1231  constructor(bytes32 _name) {... */
+          callvalue
+          dup1
+          iszero
+          tag_1
+          jumpi
+          0x00
+          dup1
+          revert
+        tag_1:
+          pop
+          mload(0x40)
+          sub(codesize, bytecodeSize)
+          dup1
+          bytecodeSize
+          dup4
+          codecopy
+          dup2
+          add
+          0x40
+          dup2
+          swap1
+          mstore
+          tag_2
+          swap2
+          tag_3
+          jump	// in
+        tag_2:
+            /* "examples/complex/Token.sol":870:875  owner */
+          0x01
+            /* "examples/complex/Token.sol":870:888  owner = msg.sender */
+          dup1
+          sload
+            /* "examples/complex/Token.sol":878:888  msg.sender */
+          caller
+          not(sub(shl(0xa0, 0x01), 0x01))
+            /* "examples/complex/Token.sol":870:888  owner = msg.sender */
+          swap2
+          dup3
+          and
+          dup2
+          or
+          swap1
+          swap3
+          sstore
+          0x00
+            /* "examples/complex/Token.sol":1168:1202  creator = TokenCreator(msg.sender) */
+          dup1
+          sload
+          swap1
+          swap2
+          and
+          swap1
+          swap2
+          or
+          swap1
+          sstore
+            /* "examples/complex/Token.sol":1212:1216  name */
+          0x02
+            /* "examples/complex/Token.sol":1212:1224  name = _name */
+          sstore
+            /* "examples/complex/Token.sol":70:2019  contract OwnedToken {... */
+          jump(tag_7)
+            /* "#utility.yul":14:208   */
+        tag_3:
+            /* "#utility.yul":84:90   */
+          0x00
+            /* "#utility.yul":137:139   */
+          0x20
+            /* "#utility.yul":125:134   */
+          dup3
+            /* "#utility.yul":116:123   */
+          dup5
+            /* "#utility.yul":112:135   */
+          sub
+            /* "#utility.yul":108:140   */
+          slt
+            /* "#utility.yul":105:107   */
+          iszero
+          tag_9
+          jumpi
+            /* "#utility.yul":158:164   */
+          dup1
+            /* "#utility.yul":150:156   */
+          dup2
+            /* "#utility.yul":143:165   */
+          revert
+            /* "#utility.yul":105:107   */
+        tag_9:
+          pop
+            /* "#utility.yul":186:202   */
+          mload
+          swap2
+            /* "#utility.yul":95:208   */
+          swap1
+          pop
+          jump	// out
+        tag_7:
+            /* "examples/complex/Token.sol":70:2019  contract OwnedToken {... */
+          dataSize(sub_0)
+          dup1
+          dataOffset(sub_0)
+          0x00
+          codecopy
+          0x00
+          return
+        stop
+
+        sub_0: assembly {
+                /* "examples/complex/Token.sol":70:2019  contract OwnedToken {... */
+              mstore(0x40, 0x80)
+              callvalue
+              dup1
+              iszero
+              tag_1
+              jumpi
+              0x00
+              dup1
+              revert
+            tag_1:
+              pop
+              jumpi(tag_2, lt(calldatasize, 0x04))
+              shr(0xe0, calldataload(0x00))
+              dup1
+              0x1a695230
+              eq
+              tag_3
+              jumpi
+              dup1
+              0x898855ed
+              eq
+              tag_4
+              jumpi
+            tag_2:
+              0x00
+              dup1
+              revert
+                /* "examples/complex/Token.sol":1538:2017  function transfer(address newOwner) public {... */
+            tag_3:
+              tag_5
+              tag_6
+              calldatasize
+              0x04
+              tag_7
+              jump	// in
+            tag_6:
+              tag_8
+              jump	// in
+            tag_5:
+              stop
+                /* "examples/complex/Token.sol":1237:1532  function changeName(bytes32 newName) public {... */
+            tag_4:
+              tag_5
+              tag_10
+              calldatasize
+              0x04
+              tag_11
+              jump	// in
+            tag_10:
+              tag_12
+              jump	// in
+                /* "examples/complex/Token.sol":1538:2017  function transfer(address newOwner) public {... */
+            tag_8:
+                /* "examples/complex/Token.sol":1667:1672  owner */
+              and(sub(shl(0xa0, 0x01), 0x01), sload(0x01))
+                /* "examples/complex/Token.sol":1653:1663  msg.sender */
+              caller
+                /* "examples/complex/Token.sol":1653:1672  msg.sender != owner */
+              eq
+                /* "examples/complex/Token.sol":1649:1681  if (msg.sender != owner) return; */
+              tag_14
+              jumpi
+                /* "examples/complex/Token.sol":1538:2017  function transfer(address newOwner) public {... */
+              pop
+              jump	// out
+                /* "examples/complex/Token.sol":1649:1681  if (msg.sender != owner) return; */
+            tag_14:
+                /* "examples/complex/Token.sol":1950:1957  creator */
+              sload(0x00)
+              0x01
+                /* "examples/complex/Token.sol":1976:1981  owner */
+              sload
+                /* "examples/complex/Token.sol":1950:1992  creator.isTokenTransferOK(owner, newOwner) */
+              mload(0x40)
+              shl(0xe0, 0xc3cee9c1)
+              dup2
+              mstore
+              0x01
+              dup1
+              0xa0
+              shl
+              sub
+                /* "examples/complex/Token.sol":1976:1981  owner */
+              swap2
+              dup3
+              and
+                /* "examples/complex/Token.sol":1950:1992  creator.isTokenTransferOK(owner, newOwner) */
+              0x04
+              dup3
+              add
+                /* "#utility.yul":1034:1068   */
+              mstore
+                /* "#utility.yul":1104:1119   */
+              dup4
+              dup3
+              and
+                /* "#utility.yul":1084:1102   */
+              0x24
+              dup3
+              add
+                /* "#utility.yul":1077:1120   */
+              mstore
+                /* "examples/complex/Token.sol":1950:1957  creator */
+              swap2
+              and
+              swap1
+                /* "examples/complex/Token.sol":1950:1975  creator.isTokenTransferOK */
+              0xc3cee9c1
+              swap1
+                /* "#utility.yul":969:987   */
+              0x44
+              add
+                /* "examples/complex/Token.sol":1950:1992  creator.isTokenTransferOK(owner, newOwner) */
+              0x20
+              mload(0x40)
+              dup1
+              dup4
+              sub
+              dup2
+              dup7
+              dup1
+              extcodesize
+              iszero
+              dup1
+              iszero
+              tag_17
+              jumpi
+              0x00
+              dup1
+              revert
+            tag_17:
+              pop
+              gas
+              staticcall
+              iszero
+              dup1
+              iszero
+              tag_19
+              jumpi
+              returndatasize
+              0x00
+              dup1
+              returndatacopy
+              revert(0x00, returndatasize)
+            tag_19:
+              pop
+              pop
+              pop
+              pop
+              mload(0x40)
+              returndatasize
+              not(0x1f)
+              0x1f
+              dup3
+              add
+              and
+              dup3
+              add
+              dup1
+              0x40
+              mstore
+              pop
+              dup2
+              add
+              swap1
+              tag_20
+              swap2
+              swap1
+              tag_21
+              jump	// in
+            tag_20:
+                /* "examples/complex/Token.sol":1946:2010  if (creator.isTokenTransferOK(owner, newOwner)) owner = newOwner */
+              iszero
+              tag_22
+              jumpi
+                /* "examples/complex/Token.sol":1994:1999  owner */
+              0x01
+                /* "examples/complex/Token.sol":1994:2010  owner = newOwner */
+              dup1
+              sload
+              not(sub(shl(0xa0, 0x01), 0x01))
+              and
+              sub(shl(0xa0, 0x01), 0x01)
+              dup4
+              and
+              or
+              swap1
+              sstore
+                /* "examples/complex/Token.sol":1946:2010  if (creator.isTokenTransferOK(owner, newOwner)) owner = newOwner */
+            tag_22:
+                /* "examples/complex/Token.sol":1538:2017  function transfer(address newOwner) public {... */
+              pop
+              jump	// out
+                /* "examples/complex/Token.sol":1237:1532  function changeName(bytes32 newName) public {... */
+            tag_12:
+                /* "examples/complex/Token.sol":1501:1508  creator */
+              and(sub(shl(0xa0, 0x01), 0x01), sload(0x00))
+                /* "examples/complex/Token.sol":1479:1489  msg.sender */
+              caller
+                /* "examples/complex/Token.sol":1479:1509  msg.sender == address(creator) */
+              eq
+                /* "examples/complex/Token.sol":1475:1525  if (msg.sender == address(creator)) name = newName */
+              iszero
+              tag_22
+              jumpi
+                /* "examples/complex/Token.sol":1511:1515  name */
+              0x02
+                /* "examples/complex/Token.sol":1511:1525  name = newName */
+              sstore
+                /* "examples/complex/Token.sol":1237:1532  function changeName(bytes32 newName) public {... */
+              jump	// out
+                /* "#utility.yul":14:320   */
+            tag_7:
+                /* "#utility.yul":73:79   */
+              0x00
+                /* "#utility.yul":126:128   */
+              0x20
+                /* "#utility.yul":114:123   */
+              dup3
+                /* "#utility.yul":105:112   */
+              dup5
+                /* "#utility.yul":101:124   */
+              sub
+                /* "#utility.yul":97:129   */
+              slt
+                /* "#utility.yul":94:96   */
+              iszero
+              tag_27
+              jumpi
+                /* "#utility.yul":147:153   */
+              dup1
+                /* "#utility.yul":139:145   */
+              dup2
+                /* "#utility.yul":132:154   */
+              revert
+                /* "#utility.yul":94:96   */
+            tag_27:
+                /* "#utility.yul":178:201   */
+              dup2
+              calldataload
+              sub(shl(0xa0, 0x01), 0x01)
+                /* "#utility.yul":230:261   */
+              dup2
+              and
+                /* "#utility.yul":220:262   */
+              dup2
+              eq
+                /* "#utility.yul":210:212   */
+              tag_28
+              jumpi
+                /* "#utility.yul":281:287   */
+              dup2
+                /* "#utility.yul":273:279   */
+              dup3
+                /* "#utility.yul":266:288   */
+              revert
+                /* "#utility.yul":210:212   */
+            tag_28:
+                /* "#utility.yul":309:314   */
+              swap4
+                /* "#utility.yul":84:320   */
+              swap3
+              pop
+              pop
+              pop
+              jump	// out
+                /* "#utility.yul":325:622   */
+            tag_21:
+                /* "#utility.yul":392:398   */
+              0x00
+                /* "#utility.yul":445:447   */
+              0x20
+                /* "#utility.yul":433:442   */
+              dup3
+                /* "#utility.yul":424:431   */
+              dup5
+                /* "#utility.yul":420:443   */
+              sub
+                /* "#utility.yul":416:448   */
+              slt
+                /* "#utility.yul":413:415   */
+              iszero
+              tag_30
+              jumpi
+                /* "#utility.yul":466:472   */
+              dup1
+                /* "#utility.yul":458:464   */
+              dup2
+                /* "#utility.yul":451:473   */
+              revert
+                /* "#utility.yul":413:415   */
+            tag_30:
+                /* "#utility.yul":503:512   */
+              dup2
+                /* "#utility.yul":497:513   */
+              mload
+                /* "#utility.yul":556:561   */
+              dup1
+                /* "#utility.yul":549:562   */
+              iszero
+                /* "#utility.yul":542:563   */
+              iszero
+                /* "#utility.yul":535:540   */
+              dup2
+                /* "#utility.yul":532:564   */
+              eq
+                /* "#utility.yul":522:524   */
+              tag_28
+              jumpi
+                /* "#utility.yul":583:589   */
+              dup2
+                /* "#utility.yul":575:581   */
+              dup3
+                /* "#utility.yul":568:590   */
+              revert
+                /* "#utility.yul":627:817   */
+            tag_11:
+                /* "#utility.yul":686:692   */
+              0x00
+                /* "#utility.yul":739:741   */
+              0x20
+                /* "#utility.yul":727:736   */
+              dup3
+                /* "#utility.yul":718:725   */
+              dup5
+                /* "#utility.yul":714:737   */
+              sub
+                /* "#utility.yul":710:742   */
+              slt
+                /* "#utility.yul":707:709   */
+              iszero
+              tag_33
+              jumpi
+                /* "#utility.yul":760:766   */
+              dup1
+                /* "#utility.yul":752:758   */
+              dup2
+                /* "#utility.yul":745:767   */
+              revert
+                /* "#utility.yul":707:709   */
+            tag_33:
+              pop
+                /* "#utility.yul":788:811   */
+              calldataload
+              swap2
+                /* "#utility.yul":697:817   */
+              swap1
+              pop
+              jump	// out
+
+            auxdata: 0xa264697066735822122043ad6a84b6f185d07caf419a86928fa0fbd2ee1d9f14131a61c8a4db306539e064736f6c63430008040033
+        }
+    }
+
+    auxdata: 0xa26469706673582212205985f233b7c430a498c257708a362d40b0315025fd848f2e473eb3386cf634d164736f6c63430008040033
+}

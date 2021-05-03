@@ -1,0 +1,265 @@
+    /* "examples/ConstAndImmutable.sol":93:620  contract C {... */
+  mstore(0x40, 0xe0)
+    /* "examples/ConstAndImmutable.sol":279:289  msg.sender */
+  caller
+    /* "examples/ConstAndImmutable.sol":253:289  address immutable owner = msg.sender */
+  0x60
+  shl
+  0xc0
+  mstore
+    /* "examples/ConstAndImmutable.sol":296:492  constructor(uint _decimals, address _reference) {... */
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  mload(0x40)
+  sub(codesize, bytecodeSize)
+  dup1
+  bytecodeSize
+  dup4
+  codecopy
+  dup2
+  add
+  0x40
+  dup2
+  swap1
+  mstore
+  tag_2
+  swap2
+  tag_3
+  jump	// in
+tag_2:
+    /* "examples/ConstAndImmutable.sol":354:374  decimals = _decimals */
+  0x80
+  swap2
+  swap1
+  swap2
+  mstore
+  sub(shl(0xa0, 0x01), 0x01)
+    /* "examples/ConstAndImmutable.sol":467:485  _reference.balance */
+  and
+  balance
+    /* "examples/ConstAndImmutable.sol":454:485  maxBalance = _reference.balance */
+  0xa0
+  mstore
+    /* "examples/ConstAndImmutable.sol":93:620  contract C {... */
+  jump(tag_7)
+    /* "#utility.yul":14:385   */
+tag_3:
+    /* "#utility.yul":93:99   */
+  0x00
+    /* "#utility.yul":101:107   */
+  dup1
+    /* "#utility.yul":154:156   */
+  0x40
+    /* "#utility.yul":142:151   */
+  dup4
+    /* "#utility.yul":133:140   */
+  dup6
+    /* "#utility.yul":129:152   */
+  sub
+    /* "#utility.yul":125:157   */
+  slt
+    /* "#utility.yul":122:124   */
+  iszero
+  tag_9
+  jumpi
+    /* "#utility.yul":175:181   */
+  dup2
+    /* "#utility.yul":167:173   */
+  dup3
+    /* "#utility.yul":160:182   */
+  revert
+    /* "#utility.yul":122:124   */
+tag_9:
+    /* "#utility.yul":203:219   */
+  dup3
+  mload
+    /* "#utility.yul":262:264   */
+  0x20
+    /* "#utility.yul":247:265   */
+  dup5
+  add
+    /* "#utility.yul":241:266   */
+  mload
+    /* "#utility.yul":203:219   */
+  swap1
+  swap3
+  pop
+  sub(shl(0xa0, 0x01), 0x01)
+    /* "#utility.yul":295:326   */
+  dup2
+  and
+    /* "#utility.yul":285:327   */
+  dup2
+  eq
+    /* "#utility.yul":275:277   */
+  tag_10
+  jumpi
+    /* "#utility.yul":346:352   */
+  dup2
+    /* "#utility.yul":338:344   */
+  dup3
+    /* "#utility.yul":331:353   */
+  revert
+    /* "#utility.yul":275:277   */
+tag_10:
+    /* "#utility.yul":374:379   */
+  dup1
+    /* "#utility.yul":364:379   */
+  swap2
+  pop
+  pop
+    /* "#utility.yul":112:385   */
+  swap3
+  pop
+  swap3
+  swap1
+  pop
+  jump	// out
+tag_7:
+    /* "examples/ConstAndImmutable.sol":93:620  contract C {... */
+  mload(0x80)
+  mload(0xa0)
+  shr(0x60, mload(0xc0))
+  codecopy(0x00, dataOffset(sub_0), dataSize(sub_0))
+  0x00
+  assignImmutable("0x6585423cb6456b1d4957f6454d2f004f0c4f58d53a00082412d5c2ef4b1b31fd")
+  0x00
+  assignImmutable("0x731dc163f73d31d8c68f9917ce4ff967753939f70432973c04fd2c2a48148607")
+  0x00
+  assignImmutable("0x8fef2229291b68be841adf029e58b87f39ba144b2d3b0af1760243d0a9bc6a1c")
+  return(0x00, dataSize(sub_0))
+stop
+
+sub_0: assembly {
+        /* "examples/ConstAndImmutable.sol":93:620  contract C {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0xfb499085
+      eq
+      tag_3
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "examples/ConstAndImmutable.sol":498:618  function isBalanceTooHigh(address _other) public view returns (bool) {... */
+    tag_3:
+      tag_4
+      tag_5
+      calldatasize
+      0x04
+      tag_6
+      jump	// in
+    tag_5:
+        /* "examples/ConstAndImmutable.sol":601:611  maxBalance */
+      immutable("0x731dc163f73d31d8c68f9917ce4ff967753939f70432973c04fd2c2a48148607")
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "examples/ConstAndImmutable.sol":584:598  _other.balance */
+      swap1
+      swap2
+      and
+      balance
+        /* "examples/ConstAndImmutable.sol":584:611  _other.balance > maxBalance */
+      gt
+      swap1
+        /* "examples/ConstAndImmutable.sol":498:618  function isBalanceTooHigh(address _other) public view returns (bool) {... */
+      jump
+    tag_4:
+      mload(0x40)
+        /* "#utility.yul":490:504   */
+      swap1
+      iszero
+        /* "#utility.yul":483:505   */
+      iszero
+        /* "#utility.yul":465:506   */
+      dup2
+      mstore
+        /* "#utility.yul":453:455   */
+      0x20
+        /* "#utility.yul":438:456   */
+      add
+        /* "examples/ConstAndImmutable.sol":498:618  function isBalanceTooHigh(address _other) public view returns (bool) {... */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "#utility.yul":14:320   */
+    tag_6:
+        /* "#utility.yul":73:79   */
+      0x00
+        /* "#utility.yul":126:128   */
+      0x20
+        /* "#utility.yul":114:123   */
+      dup3
+        /* "#utility.yul":105:112   */
+      dup5
+        /* "#utility.yul":101:124   */
+      sub
+        /* "#utility.yul":97:129   */
+      slt
+        /* "#utility.yul":94:96   */
+      iszero
+      tag_13
+      jumpi
+        /* "#utility.yul":147:153   */
+      dup1
+        /* "#utility.yul":139:145   */
+      dup2
+        /* "#utility.yul":132:154   */
+      revert
+        /* "#utility.yul":94:96   */
+    tag_13:
+        /* "#utility.yul":178:201   */
+      dup2
+      calldataload
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "#utility.yul":230:261   */
+      dup2
+      and
+        /* "#utility.yul":220:262   */
+      dup2
+      eq
+        /* "#utility.yul":210:212   */
+      tag_14
+      jumpi
+        /* "#utility.yul":281:287   */
+      dup2
+        /* "#utility.yul":273:279   */
+      dup3
+        /* "#utility.yul":266:288   */
+      revert
+        /* "#utility.yul":210:212   */
+    tag_14:
+        /* "#utility.yul":309:314   */
+      swap4
+        /* "#utility.yul":84:320   */
+      swap3
+      pop
+      pop
+      pop
+      jump	// out
+
+    auxdata: 0xa2646970667358221220f2dae84c391acc1d99d660160b69a9d20367e8bc35e516ddfa54cac283138ca364736f6c63430008040033
+}

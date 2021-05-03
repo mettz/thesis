@@ -1,0 +1,754 @@
+    /* "examples/TryCatch.sol":148:1234  contract FeedConsumer {... */
+  mstore(0x40, 0x80)
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "examples/TryCatch.sol":148:1234  contract FeedConsumer {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0ba9d8ca
+      eq
+      tag_3
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "examples/TryCatch.sol":216:1232  function rate(address token) public returns (uint value, bool success) {... */
+    tag_3:
+      tag_4
+      tag_5
+      calldatasize
+      0x04
+      tag_6
+      jump	// in
+    tag_5:
+      tag_7
+      jump	// in
+    tag_4:
+      0x40
+      dup1
+      mload
+        /* "#utility.yul":900:925   */
+      swap3
+      dup4
+      mstore
+        /* "#utility.yul":968:982   */
+      swap1
+      iszero
+        /* "#utility.yul":961:983   */
+      iszero
+        /* "#utility.yul":956:958   */
+      0x20
+        /* "#utility.yul":941:959   */
+      dup4
+      add
+        /* "#utility.yul":934:984   */
+      mstore
+        /* "#utility.yul":873:891   */
+      add
+        /* "examples/TryCatch.sol":216:1232  function rate(address token) public returns (uint value, bool success) {... */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+    tag_7:
+        /* "examples/TryCatch.sol":261:271  uint value */
+      0x00
+        /* "examples/TryCatch.sol":273:285  bool success */
+      dup1
+        /* "examples/TryCatch.sol":408:410  10 */
+      0x0a
+        /* "examples/TryCatch.sol":395:405  errorCount */
+      sload(0x01)
+        /* "examples/TryCatch.sol":395:410  errorCount < 10 */
+      lt
+        /* "examples/TryCatch.sol":387:411  require(errorCount < 10) */
+      tag_11
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_11:
+        /* "examples/TryCatch.sol":425:429  feed */
+      sload(0x00)
+        /* "examples/TryCatch.sol":425:444  feed.getData(token) */
+      mload(0x40)
+      shl(0xe1, 0x1c133591)
+      dup2
+      mstore
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "#utility.yul":688:720   */
+      dup6
+      dup2
+      and
+        /* "examples/TryCatch.sol":425:444  feed.getData(token) */
+      0x04
+      dup4
+      add
+        /* "#utility.yul":670:721   */
+      mstore
+        /* "examples/TryCatch.sol":425:429  feed */
+      swap1
+      swap2
+      and
+      swap1
+        /* "examples/TryCatch.sol":425:437  feed.getData */
+      0x38266b22
+      swap1
+        /* "#utility.yul":643:661   */
+      0x24
+      add
+        /* "examples/TryCatch.sol":425:444  feed.getData(token) */
+      0x20
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      0x00
+      dup8
+      dup1
+      extcodesize
+      iszero
+      dup1
+      iszero
+      tag_14
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_14:
+      pop
+      gas
+      call
+      swap3
+      pop
+      pop
+      pop
+      dup1
+      iszero
+      tag_15
+      jumpi
+      pop
+      0x40
+      dup1
+      mload
+      0x1f
+      returndatasize
+      swap1
+      dup2
+      add
+      not(0x1f)
+      and
+      dup3
+      add
+      swap1
+      swap3
+      mstore
+      tag_16
+      swap2
+      dup2
+      add
+      swap1
+      tag_17
+      jump	// in
+    tag_16:
+      0x01
+    tag_15:
+        /* "examples/TryCatch.sol":421:1226  try feed.getData(token) returns (uint v) {... */
+      tag_18
+      jumpi
+      tag_22
+      tag_23
+      jump	// in
+    tag_22:
+      dup1
+      0x08c379a0
+      eq
+      iszero
+      tag_21
+      jumpi
+      pop
+      tag_24
+      tag_25
+      jump	// in
+    tag_24:
+      dup1
+      tag_26
+      jumpi
+      pop
+      jump(tag_20)
+    tag_26:
+        /* "examples/TryCatch.sol":693:703  errorCount */
+      0x01
+        /* "examples/TryCatch.sol":693:705  errorCount++ */
+      dup1
+      sload
+      swap1
+        /* "examples/TryCatch.sol":693:703  errorCount */
+      0x00
+        /* "examples/TryCatch.sol":693:705  errorCount++ */
+      tag_27
+      dup4
+      tag_28
+      jump	// in
+    tag_27:
+      swap1
+      swap2
+      sstore
+      pop
+        /* "examples/TryCatch.sol":727:728  0 */
+      0x00
+      swap6
+      dup7
+      swap6
+      pop
+        /* "examples/TryCatch.sol":216:1232  function rate(address token) public returns (uint value, bool success) {... */
+      swap4
+      pop
+      pop
+      pop
+      pop
+      jump	// out
+        /* "examples/TryCatch.sol":421:1226  try feed.getData(token) returns (uint v) {... */
+    tag_21:
+      0x4e487b71
+      eq
+      iszero
+      tag_20
+      jumpi
+      tag_29
+      tag_30
+      jump	// in
+    tag_29:
+      swap1
+      tag_26
+      jumpi
+      pop
+    tag_20:
+      returndatasize
+      dup1
+      dup1
+      iszero
+      tag_34
+      jumpi
+      mload(0x40)
+      swap2
+      pop
+      and(add(returndatasize, 0x3f), not(0x1f))
+      dup3
+      add
+      0x40
+      mstore
+      returndatasize
+      dup3
+      mstore
+      returndatasize
+      0x00
+      0x20
+      dup5
+      add
+      returndatacopy
+      jump(tag_33)
+    tag_34:
+      0x60
+      swap2
+      pop
+    tag_33:
+      pop
+        /* "examples/TryCatch.sol":1172:1182  errorCount */
+      0x01
+        /* "examples/TryCatch.sol":1172:1184  errorCount++ */
+      dup1
+      sload
+      swap1
+        /* "examples/TryCatch.sol":1172:1182  errorCount */
+      0x00
+        /* "examples/TryCatch.sol":1172:1184  errorCount++ */
+      tag_27
+      dup4
+      tag_28
+      jump	// in
+        /* "examples/TryCatch.sol":421:1226  try feed.getData(token) returns (uint v) {... */
+    tag_18:
+        /* "examples/TryCatch.sol":484:485  v */
+      swap4
+        /* "examples/TryCatch.sol":487:491  true */
+      0x01
+      swap4
+      pop
+        /* "examples/TryCatch.sol":216:1232  function rate(address token) public returns (uint value, bool success) {... */
+      swap2
+      pop
+      pop
+      jump	// out
+        /* "#utility.yul":14:320   */
+    tag_6:
+        /* "#utility.yul":73:79   */
+      0x00
+        /* "#utility.yul":126:128   */
+      0x20
+        /* "#utility.yul":114:123   */
+      dup3
+        /* "#utility.yul":105:112   */
+      dup5
+        /* "#utility.yul":101:124   */
+      sub
+        /* "#utility.yul":97:129   */
+      slt
+        /* "#utility.yul":94:96   */
+      iszero
+      tag_39
+      jumpi
+        /* "#utility.yul":147:153   */
+      dup1
+        /* "#utility.yul":139:145   */
+      dup2
+        /* "#utility.yul":132:154   */
+      revert
+        /* "#utility.yul":94:96   */
+    tag_39:
+        /* "#utility.yul":178:201   */
+      dup2
+      calldataload
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "#utility.yul":230:261   */
+      dup2
+      and
+        /* "#utility.yul":220:262   */
+      dup2
+      eq
+        /* "#utility.yul":210:212   */
+      tag_40
+      jumpi
+        /* "#utility.yul":281:287   */
+      dup2
+        /* "#utility.yul":273:279   */
+      dup3
+        /* "#utility.yul":266:288   */
+      revert
+        /* "#utility.yul":210:212   */
+    tag_40:
+        /* "#utility.yul":309:314   */
+      swap4
+        /* "#utility.yul":84:320   */
+      swap3
+      pop
+      pop
+      pop
+      jump	// out
+        /* "#utility.yul":325:519   */
+    tag_17:
+        /* "#utility.yul":395:401   */
+      0x00
+        /* "#utility.yul":448:450   */
+      0x20
+        /* "#utility.yul":436:445   */
+      dup3
+        /* "#utility.yul":427:434   */
+      dup5
+        /* "#utility.yul":423:446   */
+      sub
+        /* "#utility.yul":419:451   */
+      slt
+        /* "#utility.yul":416:418   */
+      iszero
+      tag_42
+      jumpi
+        /* "#utility.yul":469:475   */
+      dup1
+        /* "#utility.yul":461:467   */
+      dup2
+        /* "#utility.yul":454:476   */
+      revert
+        /* "#utility.yul":416:418   */
+    tag_42:
+      pop
+        /* "#utility.yul":497:513   */
+      mload
+      swap2
+        /* "#utility.yul":406:519   */
+      swap1
+      pop
+      jump	// out
+        /* "#utility.yul":995:1341   */
+    tag_45:
+        /* "#utility.yul":1105:1107   */
+      0x1f
+        /* "#utility.yul":1086:1099   */
+      dup3
+      add
+      not(0x1f)
+        /* "#utility.yul":1082:1109   */
+      and
+        /* "#utility.yul":1070:1110   */
+      dup2
+      add
+        /* "#utility.yul":1140:1158   */
+      0xffffffffffffffff
+        /* "#utility.yul":1125:1159   */
+      dup2
+      gt
+        /* "#utility.yul":1161:1183   */
+      dup3
+      dup3
+      lt
+        /* "#utility.yul":1122:1184   */
+      or
+        /* "#utility.yul":1119:1121   */
+      iszero
+      tag_47
+      jumpi
+        /* "#utility.yul":1226:1236   */
+      0x4e487b71
+        /* "#utility.yul":1221:1224   */
+      0xe0
+        /* "#utility.yul":1217:1237   */
+      shl
+        /* "#utility.yul":1214:1215   */
+      0x00
+        /* "#utility.yul":1207:1238   */
+      mstore
+        /* "#utility.yul":1261:1265   */
+      0x41
+        /* "#utility.yul":1258:1259   */
+      0x04
+        /* "#utility.yul":1251:1266   */
+      mstore
+        /* "#utility.yul":1289:1293   */
+      0x24
+        /* "#utility.yul":1286:1287   */
+      0x00
+        /* "#utility.yul":1279:1294   */
+      revert
+        /* "#utility.yul":1119:1121   */
+    tag_47:
+        /* "#utility.yul":1320:1322   */
+      0x40
+        /* "#utility.yul":1313:1335   */
+      mstore
+      pop
+      pop
+        /* "#utility.yul":1042:1341   */
+      jump	// out
+        /* "#utility.yul":1346:1582   */
+    tag_28:
+        /* "#utility.yul":1385:1388   */
+      0x00
+      not(0x00)
+        /* "#utility.yul":1406:1423   */
+      dup3
+      eq
+        /* "#utility.yul":1403:1405   */
+      iszero
+      tag_49
+      jumpi
+      shl(0xe0, 0x4e487b71)
+        /* "#utility.yul":1446:1479   */
+      dup2
+      mstore
+        /* "#utility.yul":1502:1506   */
+      0x11
+        /* "#utility.yul":1499:1500   */
+      0x04
+        /* "#utility.yul":1492:1507   */
+      mstore
+        /* "#utility.yul":1532:1536   */
+      0x24
+        /* "#utility.yul":1453:1456   */
+      dup2
+        /* "#utility.yul":1520:1537   */
+      revert
+        /* "#utility.yul":1403:1405   */
+    tag_49:
+      pop
+        /* "#utility.yul":1574:1575   */
+      0x01
+        /* "#utility.yul":1563:1576   */
+      add
+      swap1
+        /* "#utility.yul":1393:1582   */
+      jump	// out
+        /* "#utility.yul":1587:1772   */
+    tag_23:
+        /* "#utility.yul":1622:1625   */
+      0x00
+        /* "#utility.yul":1664:1665   */
+      0x03
+        /* "#utility.yul":1646:1662   */
+      returndatasize
+        /* "#utility.yul":1643:1666   */
+      gt
+        /* "#utility.yul":1640:1642   */
+      iszero
+      tag_51
+      jumpi
+        /* "#utility.yul":1714:1715   */
+      0x04
+        /* "#utility.yul":1709:1712   */
+      dup2
+        /* "#utility.yul":1704:1707   */
+      dup3
+        /* "#utility.yul":1689:1716   */
+      returndatacopy
+        /* "#utility.yul":1745:1755   */
+      mload
+        /* "#utility.yul":1740:1743   */
+      0xe0
+        /* "#utility.yul":1736:1756   */
+      shr
+        /* "#utility.yul":1640:1642   */
+    tag_51:
+        /* "#utility.yul":1630:1772   */
+      swap1
+      jump	// out
+        /* "#utility.yul":1777:2448   */
+    tag_25:
+        /* "#utility.yul":1816:1819   */
+      0x00
+        /* "#utility.yul":1858:1862   */
+      0x44
+        /* "#utility.yul":1840:1856   */
+      returndatasize
+        /* "#utility.yul":1837:1863   */
+      lt
+        /* "#utility.yul":1834:1836   */
+      iszero
+      tag_53
+      jumpi
+        /* "#utility.yul":1824:2448   */
+      swap1
+      jump	// out
+        /* "#utility.yul":1834:1836   */
+    tag_53:
+        /* "#utility.yul":1900:1902   */
+      0x40
+        /* "#utility.yul":1894:1903   */
+      mload
+      not(0x03)
+        /* "#utility.yul":1965:1981   */
+      returndatasize
+        /* "#utility.yul":1961:1986   */
+      dup2
+      add
+        /* "#utility.yul":1958:1959   */
+      0x04
+        /* "#utility.yul":1894:1903   */
+      dup4
+        /* "#utility.yul":1937:1987   */
+      returndatacopy
+        /* "#utility.yul":2016:2020   */
+      dup2
+        /* "#utility.yul":2010:2021   */
+      mload
+        /* "#utility.yul":2040:2056   */
+      returndatasize
+        /* "#utility.yul":2075:2093   */
+      0xffffffffffffffff
+        /* "#utility.yul":2146:2148   */
+      dup2
+        /* "#utility.yul":2139:2143   */
+      0x24
+        /* "#utility.yul":2131:2137   */
+      dup5
+        /* "#utility.yul":2127:2144   */
+      add
+        /* "#utility.yul":2124:2149   */
+      gt
+        /* "#utility.yul":2119:2121   */
+      dup2
+        /* "#utility.yul":2111:2117   */
+      dup5
+        /* "#utility.yul":2108:2122   */
+      gt
+        /* "#utility.yul":2105:2150   */
+      or
+        /* "#utility.yul":2102:2104   */
+      iszero
+      tag_54
+      jumpi
+        /* "#utility.yul":2153:2158   */
+      pop
+      pop
+      pop
+      pop
+      pop
+        /* "#utility.yul":1824:2448   */
+      swap1
+      jump	// out
+        /* "#utility.yul":2102:2104   */
+    tag_54:
+        /* "#utility.yul":2190:2196   */
+      dup3
+        /* "#utility.yul":2184:2188   */
+      dup6
+        /* "#utility.yul":2180:2197   */
+      add
+        /* "#utility.yul":2169:2197   */
+      swap2
+      pop
+        /* "#utility.yul":2226:2229   */
+      dup2
+        /* "#utility.yul":2220:2230   */
+      mload
+        /* "#utility.yul":2253:2255   */
+      dup2
+        /* "#utility.yul":2245:2251   */
+      dup2
+        /* "#utility.yul":2242:2256   */
+      gt
+        /* "#utility.yul":2239:2241   */
+      iszero
+      tag_55
+      jumpi
+        /* "#utility.yul":2259:2264   */
+      pop
+      pop
+      pop
+      pop
+      pop
+      pop
+        /* "#utility.yul":1824:2448   */
+      swap1
+      jump	// out
+        /* "#utility.yul":2239:2241   */
+    tag_55:
+        /* "#utility.yul":2343:2345   */
+      dup5
+        /* "#utility.yul":2324:2340   */
+      returndatasize
+        /* "#utility.yul":2318:2322   */
+      dup8
+        /* "#utility.yul":2314:2341   */
+      add
+        /* "#utility.yul":2310:2346   */
+      add
+        /* "#utility.yul":2303:2307   */
+      0x20
+        /* "#utility.yul":2294:2300   */
+      dup3
+        /* "#utility.yul":2289:2292   */
+      dup6
+        /* "#utility.yul":2285:2301   */
+      add
+        /* "#utility.yul":2281:2308   */
+      add
+        /* "#utility.yul":2278:2347   */
+      gt
+        /* "#utility.yul":2275:2277   */
+      iszero
+      tag_56
+      jumpi
+        /* "#utility.yul":2350:2355   */
+      pop
+      pop
+      pop
+      pop
+      pop
+      pop
+        /* "#utility.yul":1824:2448   */
+      swap1
+      jump	// out
+        /* "#utility.yul":2275:2277   */
+    tag_56:
+        /* "#utility.yul":2366:2423   */
+      tag_57
+        /* "#utility.yul":2417:2421   */
+      0x20
+        /* "#utility.yul":2408:2414   */
+      dup3
+        /* "#utility.yul":2400:2406   */
+      dup7
+        /* "#utility.yul":2396:2415   */
+      add
+        /* "#utility.yul":2392:2422   */
+      add
+        /* "#utility.yul":2386:2390   */
+      dup8
+        /* "#utility.yul":2366:2423   */
+      tag_45
+      jump	// in
+    tag_57:
+      pop
+        /* "#utility.yul":2439:2442   */
+      swap1
+      swap6
+        /* "#utility.yul":1824:2448   */
+      swap5
+      pop
+      pop
+      pop
+      pop
+      pop
+      jump	// out
+        /* "#utility.yul":2453:2671   */
+    tag_30:
+        /* "#utility.yul":2489:2496   */
+      0x00
+        /* "#utility.yul":2498:2502   */
+      dup1
+        /* "#utility.yul":2541:2545   */
+      0x23
+        /* "#utility.yul":2523:2539   */
+      returndatasize
+        /* "#utility.yul":2520:2546   */
+      gt
+        /* "#utility.yul":2517:2519   */
+      iszero
+      tag_59
+      jumpi
+        /* "#utility.yul":2593:2597   */
+      0x20
+        /* "#utility.yul":2590:2591   */
+      0x04
+        /* "#utility.yul":2584:2588   */
+      dup3
+        /* "#utility.yul":2569:2598   */
+      returndatacopy
+        /* "#utility.yul":2644:2655   */
+      mload
+        /* "#utility.yul":2622:2623   */
+      0x01
+      swap2
+      pop
+        /* "#utility.yul":2517:2519   */
+    tag_59:
+        /* "#utility.yul":2507:2671   */
+      swap1
+      swap2
+      jump	// out
+
+    auxdata: 0xa26469706673582212205730f50d254701144da2db05ed4314fe72614f9f8aaef9de29f325ba63094caa64736f6c63430008040033
+}

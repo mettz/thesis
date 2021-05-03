@@ -1,0 +1,129 @@
+    /* "examples/Modifiers.sol":680:1017  contract destructible is owned {... */
+  mstore(0x40, 0x80)
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+    /* "examples/Modifiers.sol":105:110  owner */
+  0x00
+    /* "examples/Modifiers.sol":105:132  owner = payable(msg.sender) */
+  dup1
+  sload
+  not(sub(shl(0xa0, 0x01), 0x01))
+  and
+    /* "examples/Modifiers.sol":121:131  msg.sender */
+  caller
+    /* "examples/Modifiers.sol":105:132  owner = payable(msg.sender) */
+  or
+  swap1
+  sstore
+    /* "examples/Modifiers.sol":680:1017  contract destructible is owned {... */
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "examples/Modifiers.sol":680:1017  contract destructible is owned {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x83197ef0
+      eq
+      tag_3
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "examples/Modifiers.sol":943:1015  function destroy() public onlyOwner {... */
+    tag_3:
+      tag_4
+      tag_5
+      jump	// in
+    tag_4:
+      stop
+    tag_5:
+        /* "examples/Modifiers.sol":593:598  owner */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x00))
+        /* "examples/Modifiers.sol":579:589  msg.sender */
+      caller
+        /* "examples/Modifiers.sol":579:598  msg.sender == owner */
+      eq
+        /* "examples/Modifiers.sol":558:658  require(... */
+      tag_7
+      jumpi
+      mload(0x40)
+      shl(0xe5, 0x461bcd)
+      dup2
+      mstore
+        /* "#utility.yul":216:218   */
+      0x20
+        /* "examples/Modifiers.sol":558:658  require(... */
+      0x04
+      dup3
+      add
+        /* "#utility.yul":198:219   */
+      mstore
+        /* "#utility.yul":255:257   */
+      0x22
+        /* "#utility.yul":235:253   */
+      0x24
+      dup3
+      add
+        /* "#utility.yul":228:258   */
+      mstore
+        /* "#utility.yul":294:328   */
+      0x4f6e6c79206f776e65722063616e2063616c6c20746869732066756e6374696f
+        /* "#utility.yul":274:292   */
+      0x44
+      dup3
+      add
+        /* "#utility.yul":267:329   */
+      mstore
+      shl(0xf1, 0x3717)
+        /* "#utility.yul":345:363   */
+      0x64
+      dup3
+      add
+        /* "#utility.yul":338:370   */
+      mstore
+        /* "#utility.yul":387:406   */
+      0x84
+      add
+        /* "examples/Modifiers.sol":558:658  require(... */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+    tag_7:
+        /* "examples/Modifiers.sol":1002:1007  owner */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x00))
+        /* "examples/Modifiers.sol":989:1008  selfdestruct(owner) */
+      selfdestruct
+
+    auxdata: 0xa26469706673582212202aabca2983d4a122a0d58feae280a4076f34dddaf5cfa688bf8774bb76ad006264736f6c63430008040033
+}

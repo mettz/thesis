@@ -1,0 +1,295 @@
+    /* "examples/Visibility.sol":70:620  contract C {... */
+  mstore(0x40, 0x80)
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "examples/Visibility.sol":70:620  contract C {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0c55699c
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x3bc5de30
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x5b4b73a9
+      eq
+      tag_5
+      jumpi
+      dup1
+      0x73d4a13a
+      eq
+      tag_6
+      jumpi
+      dup1
+      0xd112200e
+      eq
+      tag_7
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "examples/Visibility.sol":489:618  function x() public returns (uint256) {... */
+    tag_3:
+      tag_8
+      tag_9
+      jump	// in
+    tag_8:
+      mload(0x40)
+        /* "#utility.yul":554:579   */
+      swap1
+      dup2
+      mstore
+        /* "#utility.yul":542:544   */
+      0x20
+        /* "#utility.yul":527:545   */
+      add
+        /* "examples/Visibility.sol":489:618  function x() public returns (uint256) {... */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "examples/Visibility.sol":300:377  function getData() public view returns (uint256) {... */
+    tag_4:
+        /* "examples/Visibility.sol":366:370  data */
+      sload(0x01)
+        /* "examples/Visibility.sol":300:377  function getData() public view returns (uint256) {... */
+      jump(tag_8)
+        /* "examples/Visibility.sol":234:294  function setData(uint256 a) public {... */
+    tag_5:
+      tag_15
+      tag_16
+      calldatasize
+      0x04
+      tag_17
+      jump	// in
+    tag_16:
+        /* "examples/Visibility.sol":279:283  data */
+      0x01
+        /* "examples/Visibility.sol":279:287  data = a */
+      sstore
+        /* "examples/Visibility.sol":234:294  function setData(uint256 a) public {... */
+      jump
+    tag_15:
+      stop
+        /* "examples/Visibility.sol":118:137  uint256 public data */
+    tag_6:
+      tag_8
+      sload(0x01)
+      dup2
+      jump
+        /* "examples/Visibility.sol":87:112  uint256 public withGetter */
+    tag_7:
+      tag_8
+      sload(0x00)
+      dup2
+      jump
+        /* "examples/Visibility.sol":489:618  function x() public returns (uint256) {... */
+    tag_9:
+        /* "examples/Visibility.sol":544:545  3 */
+      0x03
+        /* "examples/Visibility.sol":537:541  data */
+      0x01
+        /* "examples/Visibility.sol":537:545  data = 3 */
+      sstore
+        /* "examples/Visibility.sol":581:592  this.data() */
+      0x40
+      dup1
+      mload
+      shl(0xe1, 0x39ea509d)
+      dup2
+      mstore
+      swap1
+      mload
+        /* "examples/Visibility.sol":518:525  uint256 */
+      0x00
+      swap2
+        /* "examples/Visibility.sol":581:585  this */
+      address
+      swap2
+        /* "examples/Visibility.sol":581:590  this.data */
+      0x73d4a13a
+      swap2
+        /* "examples/Visibility.sol":581:592  this.data() */
+      0x04
+      dup1
+      dup3
+      add
+      swap3
+      0x20
+      swap3
+      swap1
+      swap2
+      swap1
+      dup3
+      swap1
+      sub
+      add
+      dup2
+        /* "examples/Visibility.sol":581:585  this */
+      dup7
+        /* "examples/Visibility.sol":581:592  this.data() */
+      dup1
+      extcodesize
+      iszero
+      dup1
+      iszero
+      tag_26
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_26:
+      pop
+      gas
+      staticcall
+      iszero
+      dup1
+      iszero
+      tag_28
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_28:
+      pop
+      pop
+      pop
+      pop
+      mload(0x40)
+      returndatasize
+      not(0x1f)
+      0x1f
+      dup3
+      add
+      and
+      dup3
+      add
+      dup1
+      0x40
+      mstore
+      pop
+      dup2
+      add
+      swap1
+      tag_29
+      swap2
+      swap1
+      tag_30
+      jump	// in
+    tag_29:
+        /* "examples/Visibility.sol":574:592  return this.data() */
+      swap1
+      pop
+        /* "examples/Visibility.sol":489:618  function x() public returns (uint256) {... */
+      swap1
+      jump	// out
+        /* "#utility.yul":14:204   */
+    tag_17:
+        /* "#utility.yul":73:79   */
+      0x00
+        /* "#utility.yul":126:128   */
+      0x20
+        /* "#utility.yul":114:123   */
+      dup3
+        /* "#utility.yul":105:112   */
+      dup5
+        /* "#utility.yul":101:124   */
+      sub
+        /* "#utility.yul":97:129   */
+      slt
+        /* "#utility.yul":94:96   */
+      iszero
+      tag_35
+      jumpi
+        /* "#utility.yul":147:153   */
+      dup1
+        /* "#utility.yul":139:145   */
+      dup2
+        /* "#utility.yul":132:154   */
+      revert
+        /* "#utility.yul":94:96   */
+    tag_35:
+      pop
+        /* "#utility.yul":175:198   */
+      calldataload
+      swap2
+        /* "#utility.yul":84:204   */
+      swap1
+      pop
+      jump	// out
+        /* "#utility.yul":209:403   */
+    tag_30:
+        /* "#utility.yul":279:285   */
+      0x00
+        /* "#utility.yul":332:334   */
+      0x20
+        /* "#utility.yul":320:329   */
+      dup3
+        /* "#utility.yul":311:318   */
+      dup5
+        /* "#utility.yul":307:330   */
+      sub
+        /* "#utility.yul":303:335   */
+      slt
+        /* "#utility.yul":300:302   */
+      iszero
+      tag_37
+      jumpi
+        /* "#utility.yul":353:359   */
+      dup1
+        /* "#utility.yul":345:351   */
+      dup2
+        /* "#utility.yul":338:360   */
+      revert
+        /* "#utility.yul":300:302   */
+    tag_37:
+      pop
+        /* "#utility.yul":381:397   */
+      mload
+      swap2
+        /* "#utility.yul":290:403   */
+      swap1
+      pop
+      jump	// out
+
+    auxdata: 0xa26469706673582212205a8482e0ab8324ccd095309e5689c4fe6f3d9d2815d771be8db27ee472bfe1f964736f6c63430008040033
+}

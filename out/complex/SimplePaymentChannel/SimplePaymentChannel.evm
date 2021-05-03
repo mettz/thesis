@@ -1,0 +1,1092 @@
+    /* "examples/complex/SimplePaymentChannel.sol":69:2965  contract SimplePaymentChannel {... */
+  mstore(0x40, 0x80)
+    /* "examples/complex/SimplePaymentChannel.sol":329:521  constructor(address payable _recipient, uint256 duration) payable {... */
+  mload(0x40)
+  sub(codesize, bytecodeSize)
+  dup1
+  bytecodeSize
+  dup4
+  codecopy
+  dup2
+  add
+  0x40
+  dup2
+  swap1
+  mstore
+  tag_1
+  swap2
+  tag_2
+  jump	// in
+tag_1:
+    /* "examples/complex/SimplePaymentChannel.sol":405:411  sender */
+  0x00
+    /* "examples/complex/SimplePaymentChannel.sol":405:433  sender = payable(msg.sender) */
+  dup1
+  sload
+    /* "examples/complex/SimplePaymentChannel.sol":422:432  msg.sender */
+  caller
+  not(sub(shl(0xa0, 0x01), 0x01))
+    /* "examples/complex/SimplePaymentChannel.sol":405:433  sender = payable(msg.sender) */
+  swap2
+  dup3
+  and
+  or
+  swap1
+  swap2
+  sstore
+  0x01
+    /* "examples/complex/SimplePaymentChannel.sol":443:465  recipient = _recipient */
+  dup1
+  sload
+  swap1
+  swap2
+  and
+  sub(shl(0xa0, 0x01), 0x01)
+  dup5
+  and
+  or
+  swap1
+  sstore
+    /* "examples/complex/SimplePaymentChannel.sol":488:514  block.timestamp + duration */
+  tag_5
+    /* "examples/complex/SimplePaymentChannel.sol":506:514  duration */
+  dup2
+    /* "examples/complex/SimplePaymentChannel.sol":488:503  block.timestamp */
+  timestamp
+    /* "examples/complex/SimplePaymentChannel.sol":488:514  block.timestamp + duration */
+  tag_6
+  jump	// in
+tag_5:
+    /* "examples/complex/SimplePaymentChannel.sol":475:485  expiration */
+  0x02
+    /* "examples/complex/SimplePaymentChannel.sol":475:514  expiration = block.timestamp + duration */
+  sstore
+  pop
+    /* "examples/complex/SimplePaymentChannel.sol":69:2965  contract SimplePaymentChannel {... */
+  tag_8
+  swap1
+  pop
+  jump
+    /* "#utility.yul":14:393   */
+tag_2:
+    /* "#utility.yul":101:107   */
+  0x00
+    /* "#utility.yul":109:115   */
+  dup1
+    /* "#utility.yul":162:164   */
+  0x40
+    /* "#utility.yul":150:159   */
+  dup4
+    /* "#utility.yul":141:148   */
+  dup6
+    /* "#utility.yul":137:160   */
+  sub
+    /* "#utility.yul":133:165   */
+  slt
+    /* "#utility.yul":130:132   */
+  iszero
+  tag_10
+  jumpi
+    /* "#utility.yul":183:189   */
+  dup2
+    /* "#utility.yul":175:181   */
+  dup3
+    /* "#utility.yul":168:190   */
+  revert
+    /* "#utility.yul":130:132   */
+tag_10:
+    /* "#utility.yul":214:230   */
+  dup3
+  mload
+  sub(shl(0xa0, 0x01), 0x01)
+    /* "#utility.yul":259:290   */
+  dup2
+  and
+    /* "#utility.yul":249:291   */
+  dup2
+  eq
+    /* "#utility.yul":239:241   */
+  tag_11
+  jumpi
+    /* "#utility.yul":310:316   */
+  dup3
+    /* "#utility.yul":302:308   */
+  dup4
+    /* "#utility.yul":295:317   */
+  revert
+    /* "#utility.yul":239:241   */
+tag_11:
+    /* "#utility.yul":383:385   */
+  0x20
+    /* "#utility.yul":368:386   */
+  swap4
+  swap1
+  swap4
+  add
+    /* "#utility.yul":362:387   */
+  mload
+    /* "#utility.yul":338:343   */
+  swap3
+  swap5
+    /* "#utility.yul":362:387   */
+  swap3
+  swap4
+  pop
+  pop
+  pop
+    /* "#utility.yul":120:393   */
+  jump	// out
+    /* "#utility.yul":398:627   */
+tag_6:
+    /* "#utility.yul":438:441   */
+  0x00
+    /* "#utility.yul":469:470   */
+  dup3
+    /* "#utility.yul":465:471   */
+  not
+    /* "#utility.yul":462:463   */
+  dup3
+    /* "#utility.yul":459:472   */
+  gt
+    /* "#utility.yul":456:458   */
+  iszero
+  tag_13
+  jumpi
+  shl(0xe0, 0x4e487b71)
+    /* "#utility.yul":495:528   */
+  dup2
+  mstore
+    /* "#utility.yul":551:555   */
+  0x11
+    /* "#utility.yul":548:549   */
+  0x04
+    /* "#utility.yul":541:556   */
+  mstore
+    /* "#utility.yul":581:585   */
+  0x24
+    /* "#utility.yul":502:505   */
+  dup2
+    /* "#utility.yul":569:586   */
+  revert
+    /* "#utility.yul":456:458   */
+tag_13:
+  pop
+    /* "#utility.yul":612:621   */
+  add
+  swap1
+    /* "#utility.yul":446:627   */
+  jump	// out
+tag_8:
+    /* "examples/complex/SimplePaymentChannel.sol":69:2965  contract SimplePaymentChannel {... */
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "examples/complex/SimplePaymentChannel.sol":69:2965  contract SimplePaymentChannel {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x0e1da6c3
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x415ffba7
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x4665096d
+      eq
+      tag_5
+      jumpi
+      dup1
+      0x66d003ac
+      eq
+      tag_6
+      jumpi
+      dup1
+      0x67e404ce
+      eq
+      tag_7
+      jumpi
+      dup1
+      0x9714378c
+      eq
+      tag_8
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "examples/complex/SimplePaymentChannel.sol":1338:1454  function claimTimeout() public {... */
+    tag_3:
+      tag_9
+      tag_10
+      jump	// in
+    tag_9:
+      stop
+        /* "examples/complex/SimplePaymentChannel.sol":731:963  function close(uint256 amount, bytes memory signature) public {... */
+    tag_4:
+      tag_9
+      tag_12
+      calldatasize
+      0x04
+      tag_13
+      jump	// in
+    tag_12:
+      tag_14
+      jump	// in
+        /* "examples/complex/SimplePaymentChannel.sol":250:275  uint256 public expiration */
+    tag_5:
+      tag_15
+      sload(0x02)
+      dup2
+      jump
+    tag_15:
+      mload(0x40)
+        /* "#utility.yul":2733:2758   */
+      swap1
+      dup2
+      mstore
+        /* "#utility.yul":2721:2723   */
+      0x20
+        /* "#utility.yul":2706:2724   */
+      add
+        /* "examples/complex/SimplePaymentChannel.sol":250:275  uint256 public expiration */
+    tag_17:
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "examples/complex/SimplePaymentChannel.sol":173:205  address payable public recipient */
+    tag_6:
+      sload(0x01)
+      tag_19
+      swap1
+      sub(shl(0xa0, 0x01), 0x01)
+      and
+      dup2
+      jump
+    tag_19:
+      mload(0x40)
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "#utility.yul":2140:2172   */
+      swap1
+      swap2
+      and
+        /* "#utility.yul":2122:2173   */
+      dup2
+      mstore
+        /* "#utility.yul":2110:2112   */
+      0x20
+        /* "#utility.yul":2095:2113   */
+      add
+        /* "examples/complex/SimplePaymentChannel.sol":173:205  address payable public recipient */
+      tag_17
+        /* "#utility.yul":2077:2179   */
+      jump
+        /* "examples/complex/SimplePaymentChannel.sol":105:134  address payable public sender */
+    tag_7:
+      sload(0x00)
+      tag_19
+      swap1
+      sub(shl(0xa0, 0x01), 0x01)
+      and
+      dup2
+      jump
+        /* "examples/complex/SimplePaymentChannel.sol":1026:1200  function extend(uint256 newExpiration) public {... */
+    tag_8:
+      tag_9
+      tag_27
+      calldatasize
+      0x04
+      tag_28
+      jump	// in
+    tag_27:
+      tag_29
+      jump	// in
+        /* "examples/complex/SimplePaymentChannel.sol":1338:1454  function claimTimeout() public {... */
+    tag_10:
+        /* "examples/complex/SimplePaymentChannel.sol":1406:1416  expiration */
+      sload(0x02)
+        /* "examples/complex/SimplePaymentChannel.sol":1387:1402  block.timestamp */
+      timestamp
+        /* "examples/complex/SimplePaymentChannel.sol":1387:1416  block.timestamp >= expiration */
+      lt
+      iszero
+        /* "examples/complex/SimplePaymentChannel.sol":1379:1417  require(block.timestamp >= expiration) */
+      tag_31
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_31:
+        /* "examples/complex/SimplePaymentChannel.sol":1440:1446  sender */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x00))
+        /* "examples/complex/SimplePaymentChannel.sol":1427:1447  selfdestruct(sender) */
+      selfdestruct
+        /* "examples/complex/SimplePaymentChannel.sol":731:963  function close(uint256 amount, bytes memory signature) public {... */
+    tag_14:
+        /* "examples/complex/SimplePaymentChannel.sol":825:834  recipient */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x01))
+        /* "examples/complex/SimplePaymentChannel.sol":811:821  msg.sender */
+      caller
+        /* "examples/complex/SimplePaymentChannel.sol":811:834  msg.sender == recipient */
+      eq
+        /* "examples/complex/SimplePaymentChannel.sol":803:835  require(msg.sender == recipient) */
+      tag_33
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_33:
+        /* "examples/complex/SimplePaymentChannel.sol":853:888  isValidSignature(amount, signature) */
+      tag_34
+        /* "examples/complex/SimplePaymentChannel.sol":870:876  amount */
+      dup3
+        /* "examples/complex/SimplePaymentChannel.sol":878:887  signature */
+      dup3
+        /* "examples/complex/SimplePaymentChannel.sol":853:869  isValidSignature */
+      tag_35
+        /* "examples/complex/SimplePaymentChannel.sol":853:888  isValidSignature(amount, signature) */
+      jump	// in
+    tag_34:
+        /* "examples/complex/SimplePaymentChannel.sol":845:889  require(isValidSignature(amount, signature)) */
+      tag_36
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_36:
+        /* "examples/complex/SimplePaymentChannel.sol":900:909  recipient */
+      sload(0x01)
+        /* "examples/complex/SimplePaymentChannel.sol":900:926  recipient.transfer(amount) */
+      mload(0x40)
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "examples/complex/SimplePaymentChannel.sol":900:909  recipient */
+      swap1
+      swap2
+      and
+      swap1
+        /* "examples/complex/SimplePaymentChannel.sol":900:926  recipient.transfer(amount) */
+      dup4
+      iszero
+      0x08fc
+      mul
+      swap1
+        /* "examples/complex/SimplePaymentChannel.sol":919:925  amount */
+      dup5
+      swap1
+        /* "examples/complex/SimplePaymentChannel.sol":900:909  recipient */
+      0x00
+        /* "examples/complex/SimplePaymentChannel.sol":900:926  recipient.transfer(amount) */
+      dup2
+        /* "examples/complex/SimplePaymentChannel.sol":900:909  recipient */
+      dup2
+        /* "examples/complex/SimplePaymentChannel.sol":900:926  recipient.transfer(amount) */
+      dup2
+        /* "examples/complex/SimplePaymentChannel.sol":919:925  amount */
+      dup6
+        /* "examples/complex/SimplePaymentChannel.sol":900:909  recipient */
+      dup9
+        /* "examples/complex/SimplePaymentChannel.sol":900:926  recipient.transfer(amount) */
+      dup9
+      call
+      swap4
+      pop
+      pop
+      pop
+      pop
+      iszero
+      dup1
+      iszero
+      tag_38
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_38:
+      pop
+        /* "examples/complex/SimplePaymentChannel.sol":949:955  sender */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x00))
+        /* "examples/complex/SimplePaymentChannel.sol":936:956  selfdestruct(sender) */
+      selfdestruct
+        /* "examples/complex/SimplePaymentChannel.sol":1026:1200  function extend(uint256 newExpiration) public {... */
+    tag_29:
+        /* "examples/complex/SimplePaymentChannel.sol":1104:1110  sender */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x00))
+        /* "examples/complex/SimplePaymentChannel.sol":1090:1100  msg.sender */
+      caller
+        /* "examples/complex/SimplePaymentChannel.sol":1090:1110  msg.sender == sender */
+      eq
+        /* "examples/complex/SimplePaymentChannel.sol":1082:1111  require(msg.sender == sender) */
+      tag_40
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_40:
+        /* "examples/complex/SimplePaymentChannel.sol":1145:1155  expiration */
+      sload(0x02)
+        /* "examples/complex/SimplePaymentChannel.sol":1129:1142  newExpiration */
+      dup2
+        /* "examples/complex/SimplePaymentChannel.sol":1129:1155  newExpiration > expiration */
+      gt
+        /* "examples/complex/SimplePaymentChannel.sol":1121:1156  require(newExpiration > expiration) */
+      tag_41
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_41:
+        /* "examples/complex/SimplePaymentChannel.sol":1167:1177  expiration */
+      0x02
+        /* "examples/complex/SimplePaymentChannel.sol":1167:1193  expiration = newExpiration */
+      sstore
+        /* "examples/complex/SimplePaymentChannel.sol":1026:1200  function extend(uint256 newExpiration) public {... */
+      jump	// out
+        /* "examples/complex/SimplePaymentChannel.sol":1460:1793  function isValidSignature(uint256 amount, bytes memory signature)... */
+    tag_35:
+        /* "examples/complex/SimplePaymentChannel.sol":1630:1660  abi.encodePacked(this, amount) */
+      mload(0x40)
+      not(0xffffffffffffffffffffffff)
+        /* "examples/complex/SimplePaymentChannel.sol":1647:1651  this */
+      address
+        /* "#utility.yul":1453:1455   */
+      0x60
+        /* "#utility.yul":1449:1464   */
+      shl
+        /* "#utility.yul":1445:1498   */
+      and
+        /* "examples/complex/SimplePaymentChannel.sol":1630:1660  abi.encodePacked(this, amount) */
+      0x20
+      dup3
+      add
+        /* "#utility.yul":1433:1499   */
+      mstore
+        /* "#utility.yul":1515:1527   */
+      0x34
+      dup2
+      add
+        /* "#utility.yul":1508:1536   */
+      dup4
+      swap1
+      mstore
+        /* "examples/complex/SimplePaymentChannel.sol":1573:1577  bool */
+      0x00
+      swap1
+      dup2
+      swap1
+        /* "examples/complex/SimplePaymentChannel.sol":1611:1662  prefixed(keccak256(abi.encodePacked(this, amount))) */
+      tag_43
+      swap1
+        /* "#utility.yul":1552:1564   */
+      0x54
+      add
+        /* "examples/complex/SimplePaymentChannel.sol":1630:1660  abi.encodePacked(this, amount) */
+      mload(0x40)
+      0x20
+      dup2
+      dup4
+      sub
+      sub
+      dup2
+      mstore
+      swap1
+      0x40
+      mstore
+        /* "examples/complex/SimplePaymentChannel.sol":1620:1661  keccak256(abi.encodePacked(this, amount)) */
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      keccak256
+        /* "examples/complex/SimplePaymentChannel.sol":2884:2942  abi.encodePacked("\x19Ethereum Signed Message:\n32", hash) */
+      mload(0x40)
+        /* "#utility.yul":1817:1883   */
+      0x19457468657265756d205369676e6564204d6573736167653a0a333200000000
+        /* "examples/complex/SimplePaymentChannel.sol":2884:2942  abi.encodePacked("\x19Ethereum Signed Message:\n32", hash) */
+      0x20
+      dup3
+      add
+        /* "#utility.yul":1805:1884   */
+      mstore
+        /* "#utility.yul":1900:1912   */
+      0x3c
+      dup2
+      add
+        /* "#utility.yul":1893:1921   */
+      dup3
+      swap1
+      mstore
+        /* "examples/complex/SimplePaymentChannel.sol":2819:2826  bytes32 */
+      0x00
+      swap1
+        /* "#utility.yul":1937:1949   */
+      0x5c
+      add
+        /* "examples/complex/SimplePaymentChannel.sol":2884:2942  abi.encodePacked("\x19Ethereum Signed Message:\n32", hash) */
+      mload(0x40)
+      0x20
+      dup2
+      dup4
+      sub
+      sub
+      dup2
+      mstore
+      swap1
+      0x40
+      mstore
+        /* "examples/complex/SimplePaymentChannel.sol":2857:2956  keccak256(... */
+      dup1
+      mload
+      swap1
+      0x20
+      add
+      keccak256
+        /* "examples/complex/SimplePaymentChannel.sol":2838:2956  return... */
+      swap1
+      pop
+        /* "examples/complex/SimplePaymentChannel.sol":2764:2963  function prefixed(bytes32 hash) internal pure returns (bytes32) {... */
+      swap2
+      swap1
+      pop
+      jump
+        /* "examples/complex/SimplePaymentChannel.sol":1611:1662  prefixed(keccak256(abi.encodePacked(this, amount))) */
+    tag_43:
+        /* "examples/complex/SimplePaymentChannel.sol":1780:1786  sender */
+      sload(0x00)
+        /* "examples/complex/SimplePaymentChannel.sol":1593:1662  bytes32 message = prefixed(keccak256(abi.encodePacked(this, amount))) */
+      swap1
+      swap2
+      pop
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "examples/complex/SimplePaymentChannel.sol":1780:1786  sender */
+      and
+        /* "examples/complex/SimplePaymentChannel.sol":1743:1776  recoverSigner(message, signature) */
+      tag_47
+        /* "examples/complex/SimplePaymentChannel.sol":1593:1662  bytes32 message = prefixed(keccak256(abi.encodePacked(this, amount))) */
+      dup3
+        /* "examples/complex/SimplePaymentChannel.sol":1766:1775  signature */
+      dup6
+        /* "examples/complex/SimplePaymentChannel.sol":1743:1756  recoverSigner */
+      tag_48
+        /* "examples/complex/SimplePaymentChannel.sol":1743:1776  recoverSigner(message, signature) */
+      jump	// in
+    tag_47:
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "examples/complex/SimplePaymentChannel.sol":1743:1786  recoverSigner(message, signature) == sender */
+      and
+      eq
+      swap5
+        /* "examples/complex/SimplePaymentChannel.sol":1460:1793  function isValidSignature(uint256 amount, bytes memory signature)... */
+      swap4
+      pop
+      pop
+      pop
+      pop
+      jump	// out
+        /* "examples/complex/SimplePaymentChannel.sol":2459:2692  function recoverSigner(bytes32 message, bytes memory sig)... */
+    tag_48:
+        /* "examples/complex/SimplePaymentChannel.sol":2564:2571  address */
+      0x00
+        /* "examples/complex/SimplePaymentChannel.sol":2588:2595  uint8 v */
+      dup1
+        /* "examples/complex/SimplePaymentChannel.sol":2597:2606  bytes32 r */
+      0x00
+        /* "examples/complex/SimplePaymentChannel.sol":2608:2617  bytes32 s */
+      dup1
+        /* "examples/complex/SimplePaymentChannel.sol":2621:2640  splitSignature(sig) */
+      tag_53
+        /* "examples/complex/SimplePaymentChannel.sol":2636:2639  sig */
+      dup6
+        /* "examples/complex/SimplePaymentChannel.sol":2621:2635  splitSignature */
+      tag_54
+        /* "examples/complex/SimplePaymentChannel.sol":2621:2640  splitSignature(sig) */
+      jump	// in
+    tag_53:
+        /* "examples/complex/SimplePaymentChannel.sol":2658:2685  ecrecover(message, v, r, s) */
+      0x40
+      dup1
+      mload
+      0x00
+      dup2
+      mstore
+      0x20
+      dup2
+      add
+      dup1
+      dup4
+      mstore
+        /* "#utility.yul":2411:2436   */
+      dup12
+      swap1
+      mstore
+        /* "#utility.yul":2484:2488   */
+      0xff
+        /* "#utility.yul":2472:2489   */
+      dup6
+      and
+        /* "#utility.yul":2452:2470   */
+      swap2
+      dup2
+      add
+        /* "#utility.yul":2445:2490   */
+      swap2
+      swap1
+      swap2
+      mstore
+        /* "#utility.yul":2506:2524   */
+      0x60
+      dup2
+      add
+        /* "#utility.yul":2499:2533   */
+      dup4
+      swap1
+      mstore
+        /* "#utility.yul":2549:2567   */
+      0x80
+      dup2
+      add
+        /* "#utility.yul":2542:2576   */
+      dup3
+      swap1
+      mstore
+        /* "examples/complex/SimplePaymentChannel.sol":2587:2640  (uint8 v, bytes32 r, bytes32 s) = splitSignature(sig) */
+      swap3
+      swap6
+      pop
+      swap1
+      swap4
+      pop
+      swap2
+      pop
+        /* "examples/complex/SimplePaymentChannel.sol":2658:2685  ecrecover(message, v, r, s) */
+      0x01
+      swap1
+        /* "#utility.yul":2383:2402   */
+      0xa0
+      add
+        /* "examples/complex/SimplePaymentChannel.sol":2658:2685  ecrecover(message, v, r, s) */
+      0x20
+      mload(0x40)
+      0x20
+      dup2
+      sub
+      swap1
+      dup1
+      dup5
+      sub
+      swap1
+      dup6
+      gas
+      staticcall
+      iszero
+      dup1
+      iszero
+      tag_58
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_58:
+      pop
+      pop
+      mload(add(not(0x1f), mload(0x40)))
+      swap8
+        /* "examples/complex/SimplePaymentChannel.sol":2459:2692  function recoverSigner(bytes32 message, bytes memory sig)... */
+      swap7
+      pop
+      pop
+      pop
+      pop
+      pop
+      pop
+      pop
+      jump	// out
+        /* "examples/complex/SimplePaymentChannel.sol":1918:2453  function splitSignature(bytes memory sig)... */
+    tag_54:
+        /* "examples/complex/SimplePaymentChannel.sol":2020:2027  uint8 v */
+      0x00
+        /* "examples/complex/SimplePaymentChannel.sol":2041:2050  bytes32 r */
+      dup1
+        /* "examples/complex/SimplePaymentChannel.sol":2064:2073  bytes32 s */
+      0x00
+        /* "examples/complex/SimplePaymentChannel.sol":2106:2109  sig */
+      dup4
+        /* "examples/complex/SimplePaymentChannel.sol":2106:2116  sig.length */
+      mload
+        /* "examples/complex/SimplePaymentChannel.sol":2120:2122  65 */
+      0x41
+        /* "examples/complex/SimplePaymentChannel.sol":2106:2122  sig.length == 65 */
+      eq
+        /* "examples/complex/SimplePaymentChannel.sol":2098:2123  require(sig.length == 65) */
+      tag_60
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_60:
+      pop
+      pop
+      pop
+        /* "examples/complex/SimplePaymentChannel.sol":2232:2234  32 */
+      0x20
+        /* "examples/complex/SimplePaymentChannel.sol":2223:2235  add(sig, 32) */
+      dup2
+      add
+        /* "examples/complex/SimplePaymentChannel.sol":2217:2236  mload(add(sig, 32)) */
+      mload
+        /* "examples/complex/SimplePaymentChannel.sol":2300:2302  64 */
+      0x40
+        /* "examples/complex/SimplePaymentChannel.sol":2291:2303  add(sig, 64) */
+      dup3
+      add
+        /* "examples/complex/SimplePaymentChannel.sol":2285:2304  mload(add(sig, 64)) */
+      mload
+        /* "examples/complex/SimplePaymentChannel.sol":2405:2407  96 */
+      0x60
+        /* "examples/complex/SimplePaymentChannel.sol":2396:2408  add(sig, 96) */
+      swap1
+      swap3
+      add
+        /* "examples/complex/SimplePaymentChannel.sol":2390:2409  mload(add(sig, 96)) */
+      mload
+        /* "examples/complex/SimplePaymentChannel.sol":2387:2388  0 */
+      0x00
+        /* "examples/complex/SimplePaymentChannel.sol":2382:2410  byte(0, mload(add(sig, 96))) */
+      byte
+      swap3
+        /* "examples/complex/SimplePaymentChannel.sol":2217:2236  mload(add(sig, 32)) */
+      swap1
+      swap2
+        /* "examples/complex/SimplePaymentChannel.sol":2285:2304  mload(add(sig, 64)) */
+      swap1
+        /* "examples/complex/SimplePaymentChannel.sol":1918:2453  function splitSignature(bytes memory sig)... */
+      jump	// out
+        /* "#utility.yul":14:204   */
+    tag_28:
+        /* "#utility.yul":73:79   */
+      0x00
+        /* "#utility.yul":126:128   */
+      0x20
+        /* "#utility.yul":114:123   */
+      dup3
+        /* "#utility.yul":105:112   */
+      dup5
+        /* "#utility.yul":101:124   */
+      sub
+        /* "#utility.yul":97:129   */
+      slt
+        /* "#utility.yul":94:96   */
+      iszero
+      tag_63
+      jumpi
+        /* "#utility.yul":147:153   */
+      dup1
+        /* "#utility.yul":139:145   */
+      dup2
+        /* "#utility.yul":132:154   */
+      revert
+        /* "#utility.yul":94:96   */
+    tag_63:
+      pop
+        /* "#utility.yul":175:198   */
+      calldataload
+      swap2
+        /* "#utility.yul":84:204   */
+      swap1
+      pop
+      jump	// out
+        /* "#utility.yul":209:1243   */
+    tag_13:
+        /* "#utility.yul":286:292   */
+      0x00
+        /* "#utility.yul":294:300   */
+      dup1
+        /* "#utility.yul":347:349   */
+      0x40
+        /* "#utility.yul":335:344   */
+      dup4
+        /* "#utility.yul":326:333   */
+      dup6
+        /* "#utility.yul":322:345   */
+      sub
+        /* "#utility.yul":318:350   */
+      slt
+        /* "#utility.yul":315:317   */
+      iszero
+      tag_65
+      jumpi
+        /* "#utility.yul":368:374   */
+      dup1
+        /* "#utility.yul":360:366   */
+      dup2
+        /* "#utility.yul":353:375   */
+      revert
+        /* "#utility.yul":315:317   */
+    tag_65:
+        /* "#utility.yul":409:418   */
+      dup3
+        /* "#utility.yul":396:419   */
+      calldataload
+        /* "#utility.yul":386:419   */
+      swap2
+      pop
+        /* "#utility.yul":470:472   */
+      0x20
+        /* "#utility.yul":459:468   */
+      dup4
+        /* "#utility.yul":455:473   */
+      add
+        /* "#utility.yul":442:474   */
+      calldataload
+        /* "#utility.yul":493:511   */
+      0xffffffffffffffff
+        /* "#utility.yul":534:536   */
+      dup1
+        /* "#utility.yul":526:532   */
+      dup3
+        /* "#utility.yul":523:537   */
+      gt
+        /* "#utility.yul":520:522   */
+      iszero
+      tag_66
+      jumpi
+        /* "#utility.yul":555:561   */
+      dup3
+        /* "#utility.yul":547:553   */
+      dup4
+        /* "#utility.yul":540:562   */
+      revert
+        /* "#utility.yul":520:522   */
+    tag_66:
+        /* "#utility.yul":598:604   */
+      dup2
+        /* "#utility.yul":587:596   */
+      dup6
+        /* "#utility.yul":583:605   */
+      add
+        /* "#utility.yul":573:605   */
+      swap2
+      pop
+        /* "#utility.yul":643:650   */
+      dup6
+        /* "#utility.yul":636:640   */
+      0x1f
+        /* "#utility.yul":632:634   */
+      dup4
+        /* "#utility.yul":628:641   */
+      add
+        /* "#utility.yul":624:651   */
+      slt
+        /* "#utility.yul":614:616   */
+      tag_67
+      jumpi
+        /* "#utility.yul":670:676   */
+      dup3
+        /* "#utility.yul":662:668   */
+      dup4
+        /* "#utility.yul":655:677   */
+      revert
+        /* "#utility.yul":614:616   */
+    tag_67:
+        /* "#utility.yul":711:713   */
+      dup2
+        /* "#utility.yul":698:714   */
+      calldataload
+        /* "#utility.yul":733:735   */
+      dup2
+        /* "#utility.yul":729:731   */
+      dup2
+        /* "#utility.yul":726:736   */
+      gt
+        /* "#utility.yul":723:725   */
+      iszero
+      tag_69
+      jumpi
+        /* "#utility.yul":739:757   */
+      tag_69
+      tag_70
+      jump	// in
+    tag_69:
+        /* "#utility.yul":814:816   */
+      0x40
+        /* "#utility.yul":808:817   */
+      mload
+        /* "#utility.yul":782:784   */
+      0x1f
+        /* "#utility.yul":868:881   */
+      dup3
+      add
+      not(0x1f)
+        /* "#utility.yul":864:886   */
+      swap1
+      dup2
+      and
+        /* "#utility.yul":888:890   */
+      0x3f
+        /* "#utility.yul":860:891   */
+      add
+        /* "#utility.yul":856:896   */
+      and
+        /* "#utility.yul":844:897   */
+      dup2
+      add
+      swap1
+        /* "#utility.yul":912:930   */
+      dup4
+      dup3
+      gt
+        /* "#utility.yul":932:954   */
+      dup2
+      dup4
+      lt
+        /* "#utility.yul":909:955   */
+      or
+        /* "#utility.yul":906:908   */
+      iszero
+      tag_72
+      jumpi
+        /* "#utility.yul":958:976   */
+      tag_72
+      tag_70
+      jump	// in
+    tag_72:
+        /* "#utility.yul":998:1008   */
+      dup2
+        /* "#utility.yul":994:996   */
+      0x40
+        /* "#utility.yul":987:1009   */
+      mstore
+        /* "#utility.yul":1033:1035   */
+      dup3
+        /* "#utility.yul":1025:1031   */
+      dup2
+        /* "#utility.yul":1018:1036   */
+      mstore
+        /* "#utility.yul":1073:1080   */
+      dup9
+        /* "#utility.yul":1068:1070   */
+      0x20
+        /* "#utility.yul":1063:1065   */
+      dup5
+        /* "#utility.yul":1059:1061   */
+      dup8
+        /* "#utility.yul":1055:1066   */
+      add
+        /* "#utility.yul":1051:1071   */
+      add
+        /* "#utility.yul":1048:1081   */
+      gt
+        /* "#utility.yul":1045:1047   */
+      iszero
+      tag_73
+      jumpi
+        /* "#utility.yul":1099:1105   */
+      dup6
+        /* "#utility.yul":1091:1097   */
+      dup7
+        /* "#utility.yul":1084:1106   */
+      revert
+        /* "#utility.yul":1045:1047   */
+    tag_73:
+        /* "#utility.yul":1160:1162   */
+      dup3
+        /* "#utility.yul":1155:1157   */
+      0x20
+        /* "#utility.yul":1151:1153   */
+      dup7
+        /* "#utility.yul":1147:1158   */
+      add
+        /* "#utility.yul":1142:1144   */
+      0x20
+        /* "#utility.yul":1134:1140   */
+      dup4
+        /* "#utility.yul":1130:1145   */
+      add
+        /* "#utility.yul":1117:1163   */
+      calldatacopy
+        /* "#utility.yul":1205:1211   */
+      dup6
+        /* "#utility.yul":1200:1202   */
+      0x20
+        /* "#utility.yul":1195:1197   */
+      dup5
+        /* "#utility.yul":1187:1193   */
+      dup4
+        /* "#utility.yul":1183:1198   */
+      add
+        /* "#utility.yul":1179:1203   */
+      add
+        /* "#utility.yul":1172:1212   */
+      mstore
+        /* "#utility.yul":1231:1237   */
+      dup1
+        /* "#utility.yul":1221:1237   */
+      swap6
+      pop
+      pop
+      pop
+      pop
+      pop
+      pop
+        /* "#utility.yul":305:1243   */
+      swap3
+      pop
+      swap3
+      swap1
+      pop
+      jump	// out
+        /* "#utility.yul":2769:2896   */
+    tag_70:
+        /* "#utility.yul":2830:2840   */
+      0x4e487b71
+        /* "#utility.yul":2825:2828   */
+      0xe0
+        /* "#utility.yul":2821:2841   */
+      shl
+        /* "#utility.yul":2818:2819   */
+      0x00
+        /* "#utility.yul":2811:2842   */
+      mstore
+        /* "#utility.yul":2861:2865   */
+      0x41
+        /* "#utility.yul":2858:2859   */
+      0x04
+        /* "#utility.yul":2851:2866   */
+      mstore
+        /* "#utility.yul":2885:2889   */
+      0x24
+        /* "#utility.yul":2882:2883   */
+      0x00
+        /* "#utility.yul":2875:2890   */
+      revert
+
+    auxdata: 0xa2646970667358221220e2757bc0cbc08a44903406fcfd773b5fee6ac53af072698d73d65788ed742f4064736f6c63430008040033
+}

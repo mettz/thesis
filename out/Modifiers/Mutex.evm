@@ -1,0 +1,217 @@
+    /* "examples/Modifiers.sol":1703:2342  contract Mutex {... */
+  mstore(0x40, 0x80)
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "examples/Modifiers.sol":1703:2342  contract Mutex {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x26121ff0
+      eq
+      tag_3
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "examples/Modifiers.sol":2194:2340  function f() public noReentrancy returns (uint) {... */
+    tag_3:
+      tag_4
+      tag_5
+      jump	// in
+    tag_4:
+      mload(0x40)
+        /* "#utility.yul":714:739   */
+      swap1
+      dup2
+      mstore
+        /* "#utility.yul":702:704   */
+      0x20
+        /* "#utility.yul":687:705   */
+      add
+        /* "examples/Modifiers.sol":2194:2340  function f() public noReentrancy returns (uint) {... */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+    tag_5:
+        /* "examples/Modifiers.sol":2236:2240  uint */
+      0x00
+        /* "examples/Modifiers.sol":1797:1803  locked */
+      dup1
+      sload
+      0xff
+      and
+        /* "examples/Modifiers.sol":1796:1803  !locked */
+      iszero
+        /* "examples/Modifiers.sol":1775:1844  require(... */
+      tag_9
+      jumpi
+      mload(0x40)
+      shl(0xe5, 0x461bcd)
+      dup2
+      mstore
+        /* "#utility.yul":426:428   */
+      0x20
+        /* "examples/Modifiers.sol":1775:1844  require(... */
+      0x04
+      dup3
+      add
+        /* "#utility.yul":408:429   */
+      mstore
+        /* "#utility.yul":465:467   */
+      0x0f
+        /* "#utility.yul":445:463   */
+      0x24
+      dup3
+      add
+        /* "#utility.yul":438:468   */
+      mstore
+      shl(0x89, 0x2932b2b73a3930b73a1031b0b63617)
+        /* "#utility.yul":484:502   */
+      0x44
+      dup3
+      add
+        /* "#utility.yul":477:522   */
+      mstore
+        /* "#utility.yul":539:557   */
+      0x64
+      add
+        /* "examples/Modifiers.sol":1775:1844  require(... */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+    tag_9:
+        /* "examples/Modifiers.sol":1854:1860  locked */
+      0x00
+        /* "examples/Modifiers.sol":1854:1867  locked = true */
+      dup1
+      sload
+      not(0xff)
+      and
+        /* "examples/Modifiers.sol":1863:1867  true */
+      0x01
+        /* "examples/Modifiers.sol":1854:1867  locked = true */
+      or
+      dup2
+      sstore
+        /* "examples/Modifiers.sol":2270:2289  msg.sender.call("") */
+      mload(0x40)
+        /* "examples/Modifiers.sol":2270:2280  msg.sender */
+      caller
+      swap1
+        /* "examples/Modifiers.sol":1854:1860  locked */
+      dup3
+        /* "examples/Modifiers.sol":2270:2289  msg.sender.call("") */
+      dup2
+        /* "examples/Modifiers.sol":1854:1860  locked */
+      dup2
+        /* "examples/Modifiers.sol":2270:2289  msg.sender.call("") */
+      dup2
+        /* "examples/Modifiers.sol":1854:1860  locked */
+      dup2
+        /* "examples/Modifiers.sol":2270:2280  msg.sender */
+      dup7
+        /* "examples/Modifiers.sol":2270:2289  msg.sender.call("") */
+      gas
+      call
+      swap2
+      pop
+      pop
+      returndatasize
+      dup1
+      0x00
+      dup2
+      eq
+      tag_17
+      jumpi
+      mload(0x40)
+      swap2
+      pop
+      and(add(returndatasize, 0x3f), not(0x1f))
+      dup3
+      add
+      0x40
+      mstore
+      returndatasize
+      dup3
+      mstore
+      returndatasize
+      0x00
+      0x20
+      dup5
+      add
+      returndatacopy
+      jump(tag_16)
+    tag_17:
+      0x60
+      swap2
+      pop
+    tag_16:
+      pop
+        /* "examples/Modifiers.sol":2252:2289  (bool success,) = msg.sender.call("") */
+      pop
+      swap1
+      pop
+        /* "examples/Modifiers.sol":2307:2314  success */
+      dup1
+        /* "examples/Modifiers.sol":2299:2315  require(success) */
+      tag_18
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_18:
+      pop
+      pop
+        /* "examples/Modifiers.sol":1897:1902  false */
+      0x00
+        /* "examples/Modifiers.sol":1888:1902  locked = false */
+      dup1
+      sload
+      not(0xff)
+      and
+      swap1
+      sstore
+        /* "examples/Modifiers.sol":2332:2333  7 */
+      0x07
+      swap1
+        /* "examples/Modifiers.sol":2194:2340  function f() public noReentrancy returns (uint) {... */
+      jump	// out
+
+    auxdata: 0xa264697066735822122016b2e22e3123cbe42d7f6b665708d24a303e982da7cea3668dc4ac42dd205b4b64736f6c63430008040033
+}

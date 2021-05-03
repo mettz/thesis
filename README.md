@@ -2,30 +2,28 @@
 
 This repo contains all work related to my undergraduate thesis.
 
-## TODO
-
-- [ ] Create solidity examples with their corresponding Yul compilation
-  - [ ] Example 1
-  - [ ] Example 2
-  - [ ] Example 3
-
 # Examples
 
 ### Included features
 
-- Functions:
+- State Variables: present in multiple examples
+- Functions: present in multiple examples
   - [Internal function calls](https://docs.soliditylang.org/en/latest/control-structures.html#internal-function-calls)
   - [External function calls](https://docs.soliditylang.org/en/latest/control-structures.html#external-function-calls)
   - [View functions](https://docs.soliditylang.org/en/latest/contracts.html#view-functions)
   - [Pure functions](https://docs.soliditylang.org/en/latest/contracts.html#pure-functions)
   - [Constructors](https://docs.soliditylang.org/en/latest/contracts.html#constructors)
-- [Control Structures](https://docs.soliditylang.org/en/latest/control-structures.html#control-structures): missing `do`, `break`, `continue`, `try/catch`
-- State Variables
-- Structs
-- [Visibility & Getters](https://docs.soliditylang.org/en/latest/contracts.html#visibility-and-getters)
-- [Constants and Immutables variables](https://docs.soliditylang.org/en/latest/contracts.html#constant-and-immutable-state-variables)
-- [Libraries](https://docs.soliditylang.org/en/latest/contracts.html#libraries)
-- [Block and Transaction Properties](https://docs.soliditylang.org/en/latest/units-and-global-variables.html#block-and-transaction-properties): they map directly to Yul functions (see table [here](https://docs.soliditylang.org/en/latest/yul.html#evm-dialect))
+- [Control Structures](https://docs.soliditylang.org/en/latest/control-structures.html#control-structures): missing `do`, `break`, `continue`
+- Structs: present in multiple examples
+- [Visibility & Getters](https://docs.soliditylang.org/en/latest/contracts.html#visibility-and-getters): `Visibility.sol`
+- [Constants and Immutables variables](https://docs.soliditylang.org/en/latest/contracts.html#constant-and-immutable-state-variables): `ConstAndImmutable.sol`
+- [Libraries](https://docs.soliditylang.org/en/latest/contracts.html#libraries): `Libraries.sol`
+- [Block and Transaction Properties](https://docs.soliditylang.org/en/latest/units-and-global-variables.html#block-and-transaction-properties): they map directly to Yul functions (see table [here](https://docs.soliditylang.org/en/latest/yul.html#evm-dialect)): present in multiple examples
+- Error handling: present in multiple examples
+  - [Errors](https://docs.soliditylang.org/en/latest/structure-of-a-contract.html#errors)
+  - [Functions](https://docs.soliditylang.org/en/latest/control-structures.html#error-handling-assert-require-revert-and-exceptions)
+  - [try/catch](https://docs.soliditylang.org/en/latest/control-structures.html#try-catch): `TryCatch.sol`
+  - [Errors and the Revert statement](https://docs.soliditylang.org/en/latest/contracts.html#errors-and-the-revert-statement)
 
 ### Features that should be included
 
@@ -49,11 +47,6 @@ This repo contains all work related to my undergraduate thesis.
   - [Function Modifiers](https://docs.soliditylang.org/en/latest/contracts.html#function-modifiers)
   - [receive](https://docs.soliditylang.org/en/latest/contracts.html#receive-ether-function) and [fallback](https://docs.soliditylang.org/en/latest/contracts.html#fallback-function) functions
 - [Events](https://docs.soliditylang.org/en/latest/contracts.html#events): events represent a Solidity-specific (in the sense of a language designed for writing Smart Contracts) feature, though an advanced one, so it is probably worth to cover them
-- Error handling: (tocheck)
-  - [Errors](https://docs.soliditylang.org/en/latest/structure-of-a-contract.html#errors)
-  - [Functions](https://docs.soliditylang.org/en/latest/control-structures.html#error-handling-assert-require-revert-and-exceptions)
-  - [try/catch](https://docs.soliditylang.org/en/latest/control-structures.html#try-catch)
-  - [Errors and the Revert statement](https://docs.soliditylang.org/en/latest/contracts.html#errors-and-the-revert-statement)
 - Contracts Creation:
   - [Creating contracts with `new`](https://docs.soliditylang.org/en/latest/control-structures.html#creating-contracts-via-new)
   - [Salted contract creations / create2](https://docs.soliditylang.org/en/latest/control-structures.html#salted-contract-creations-create2): this is an addition to the above feature

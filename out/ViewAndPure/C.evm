@@ -1,0 +1,290 @@
+    /* "examples/ViewAndPure.sol":69:292  contract C {... */
+  mstore(0x40, 0x80)
+  callvalue
+  dup1
+  iszero
+  tag_1
+  jumpi
+  0x00
+  dup1
+  revert
+tag_1:
+  pop
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "examples/ViewAndPure.sol":69:292  contract C {... */
+      mstore(0x40, 0x80)
+      callvalue
+      dup1
+      iszero
+      tag_1
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_1:
+      pop
+      jumpi(tag_2, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x13d1aa2e
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x1cd65ae4
+      eq
+      tag_4
+      jumpi
+    tag_2:
+      0x00
+      dup1
+      revert
+        /* "examples/ViewAndPure.sol":86:194  function f(uint a, uint b) public view returns (uint) {... */
+    tag_3:
+      tag_5
+      tag_6
+      calldatasize
+      0x04
+      tag_7
+      jump	// in
+    tag_6:
+      tag_8
+      jump	// in
+    tag_5:
+      mload(0x40)
+        /* "#utility.yul":423:448   */
+      swap1
+      dup2
+      mstore
+        /* "#utility.yul":411:413   */
+      0x20
+        /* "#utility.yul":396:414   */
+      add
+        /* "examples/ViewAndPure.sol":86:194  function f(uint a, uint b) public view returns (uint) {... */
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "examples/ViewAndPure.sol":200:290  function g(uint a, uint b) public pure returns (uint) {... */
+    tag_4:
+      tag_5
+      tag_12
+      calldatasize
+      0x04
+      tag_7
+      jump	// in
+    tag_12:
+      tag_13
+      jump	// in
+        /* "examples/ViewAndPure.sol":86:194  function f(uint a, uint b) public view returns (uint) {... */
+    tag_8:
+        /* "examples/ViewAndPure.sol":134:138  uint */
+      0x00
+        /* "examples/ViewAndPure.sol":172:187  block.timestamp */
+      timestamp
+        /* "examples/ViewAndPure.sol":162:168  b + 42 */
+      tag_16
+        /* "examples/ViewAndPure.sol":162:163  b */
+      dup4
+        /* "examples/ViewAndPure.sol":166:168  42 */
+      0x2a
+        /* "examples/ViewAndPure.sol":162:168  b + 42 */
+      tag_17
+      jump	// in
+    tag_16:
+        /* "examples/ViewAndPure.sol":157:169  a * (b + 42) */
+      tag_18
+      swap1
+        /* "examples/ViewAndPure.sol":157:158  a */
+      dup6
+        /* "examples/ViewAndPure.sol":157:169  a * (b + 42) */
+      tag_19
+      jump	// in
+    tag_18:
+        /* "examples/ViewAndPure.sol":157:187  a * (b + 42) + block.timestamp */
+      tag_20
+      swap2
+      swap1
+      tag_17
+      jump	// in
+    tag_20:
+        /* "examples/ViewAndPure.sol":150:187  return a * (b + 42) + block.timestamp */
+      swap4
+        /* "examples/ViewAndPure.sol":86:194  function f(uint a, uint b) public view returns (uint) {... */
+      swap3
+      pop
+      pop
+      pop
+      jump	// out
+        /* "examples/ViewAndPure.sol":200:290  function g(uint a, uint b) public pure returns (uint) {... */
+    tag_13:
+        /* "examples/ViewAndPure.sol":248:252  uint */
+      0x00
+        /* "examples/ViewAndPure.sol":276:282  b + 42 */
+      tag_22
+        /* "examples/ViewAndPure.sol":276:277  b */
+      dup3
+        /* "examples/ViewAndPure.sol":280:282  42 */
+      0x2a
+        /* "examples/ViewAndPure.sol":276:282  b + 42 */
+      tag_17
+      jump	// in
+    tag_22:
+        /* "examples/ViewAndPure.sol":271:283  a * (b + 42) */
+      tag_20
+      swap1
+        /* "examples/ViewAndPure.sol":271:272  a */
+      dup5
+        /* "examples/ViewAndPure.sol":271:283  a * (b + 42) */
+      tag_19
+      jump	// in
+        /* "#utility.yul":14:272   */
+    tag_7:
+        /* "#utility.yul":82:88   */
+      0x00
+        /* "#utility.yul":90:96   */
+      dup1
+        /* "#utility.yul":143:145   */
+      0x40
+        /* "#utility.yul":131:140   */
+      dup4
+        /* "#utility.yul":122:129   */
+      dup6
+        /* "#utility.yul":118:141   */
+      sub
+        /* "#utility.yul":114:146   */
+      slt
+        /* "#utility.yul":111:113   */
+      iszero
+      tag_26
+      jumpi
+        /* "#utility.yul":164:170   */
+      dup2
+        /* "#utility.yul":156:162   */
+      dup3
+        /* "#utility.yul":149:171   */
+      revert
+        /* "#utility.yul":111:113   */
+    tag_26:
+      pop
+      pop
+        /* "#utility.yul":192:215   */
+      dup1
+      calldataload
+      swap3
+        /* "#utility.yul":262:264   */
+      0x20
+        /* "#utility.yul":247:265   */
+      swap1
+      swap2
+      add
+        /* "#utility.yul":234:266   */
+      calldataload
+      swap2
+      pop
+        /* "#utility.yul":101:272   */
+      jump	// out
+        /* "#utility.yul":459:587   */
+    tag_17:
+        /* "#utility.yul":499:502   */
+      0x00
+        /* "#utility.yul":530:531   */
+      dup3
+        /* "#utility.yul":526:532   */
+      not
+        /* "#utility.yul":523:524   */
+      dup3
+        /* "#utility.yul":520:533   */
+      gt
+        /* "#utility.yul":517:519   */
+      iszero
+      tag_30
+      jumpi
+        /* "#utility.yul":536:554   */
+      tag_30
+      tag_31
+      jump	// in
+    tag_30:
+      pop
+        /* "#utility.yul":572:581   */
+      add
+      swap1
+        /* "#utility.yul":507:587   */
+      jump	// out
+        /* "#utility.yul":592:760   */
+    tag_19:
+        /* "#utility.yul":632:639   */
+      0x00
+        /* "#utility.yul":698:699   */
+      dup2
+        /* "#utility.yul":694:695   */
+      0x00
+        /* "#utility.yul":690:696   */
+      not
+        /* "#utility.yul":686:700   */
+      div
+        /* "#utility.yul":683:684   */
+      dup4
+        /* "#utility.yul":680:701   */
+      gt
+        /* "#utility.yul":675:676   */
+      dup3
+        /* "#utility.yul":668:677   */
+      iszero
+        /* "#utility.yul":661:678   */
+      iszero
+        /* "#utility.yul":657:702   */
+      and
+        /* "#utility.yul":654:656   */
+      iszero
+      tag_34
+      jumpi
+        /* "#utility.yul":705:723   */
+      tag_34
+      tag_31
+      jump	// in
+    tag_34:
+      pop
+        /* "#utility.yul":745:754   */
+      mul
+      swap1
+        /* "#utility.yul":644:760   */
+      jump	// out
+        /* "#utility.yul":765:892   */
+    tag_31:
+        /* "#utility.yul":826:836   */
+      0x4e487b71
+        /* "#utility.yul":821:824   */
+      0xe0
+        /* "#utility.yul":817:837   */
+      shl
+        /* "#utility.yul":814:815   */
+      0x00
+        /* "#utility.yul":807:838   */
+      mstore
+        /* "#utility.yul":857:861   */
+      0x11
+        /* "#utility.yul":854:855   */
+      0x04
+        /* "#utility.yul":847:862   */
+      mstore
+        /* "#utility.yul":881:885   */
+      0x24
+        /* "#utility.yul":878:879   */
+      0x00
+        /* "#utility.yul":871:886   */
+      revert
+
+    auxdata: 0xa2646970667358221220728c0b6babbcf6080cf6d377aa804809b425ea247d5984df996904812fb49de364736f6c63430008040033
+}

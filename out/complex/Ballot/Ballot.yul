@@ -22,12 +22,19 @@ object "Ballot_314" {
         function abi_decode_available_length_t_array$_t_bytes32_$dyn_memory_ptr_fromMemory(offset, length, end) -> array {
             array := allocate_memory(array_allocation_size_t_array$_t_bytes32_$dyn_memory_ptr(length))
             let dst := array
-            mstore(array, length) dst := add(array, 0x20)
+
+            mstore(array, length)
+            dst := add(array, 0x20)
+
             let src := offset
-            if gt(add(src, mul(length, 0x20)), end) { revert(0, 0) }
+            if gt(add(src, mul(length, 0x20)), end) {
+                revert(0, 0)
+            }
             for { let i := 0 } lt(i, length) { i := add(i, 1) }
             {
+
                 let elementPos := src
+
                 mstore(dst, abi_decode_t_bytes32_fromMemory(elementPos, end))
                 dst := add(dst, 0x20)
                 src := add(src, 0x20)
@@ -84,6 +91,14 @@ object "Ballot_314" {
         }
 
         function array_dataslot_t_array$_t_struct$_Proposal_$16_storage_$dyn_storage_ptr(ptr) -> data {
+            data := ptr
+
+            mstore(0, ptr)
+            data := keccak256(0, 0x20)
+
+        }
+
+        function array_dataslot_t_bytes_storage_ptr(ptr) -> data {
             data := ptr
 
             mstore(0, ptr)
@@ -267,6 +282,14 @@ object "Ballot_314" {
             ret := add(value, 1)
         }
 
+        function long_byte_array_index_access_no_checks(array, index) -> slot, offset {
+
+            offset := sub(31, mod(index, 0x20))
+            let dataArea := array_dataslot_t_bytes_storage_ptr(array)
+            slot := add(dataArea, div(index, 0x20))
+
+        }
+
         function mapping_index_access_t_mapping$_t_address_$_t_struct$_Voter_$11_storage_$_of_t_address(slot , key) -> dataSlot {
             mstore(0, convert_t_address_to_t_address(key))
             mstore(0x20, slot)
@@ -444,7 +467,7 @@ object "Ballot_314" {
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
                     fun_vote_256(param_0)
-                    let memPos := allocate_memory(0)
+                    let memPos := allocate_unbounded()
                     let memEnd := abi_encode_tuple__to__fromStack(memPos  )
                     return(memPos, sub(memEnd, memPos))
                 }
@@ -456,7 +479,7 @@ object "Ballot_314" {
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_uint256(4, calldatasize())
                     let ret_0, ret_1 :=  getter_fun_proposals_27(param_0)
-                    let memPos := allocate_memory(0)
+                    let memPos := allocate_unbounded()
                     let memEnd := abi_encode_tuple_t_bytes32_t_uint256__to_t_bytes32_t_uint256__fromStack(memPos , ret_0, ret_1)
                     return(memPos, sub(memEnd, memPos))
                 }
@@ -468,7 +491,7 @@ object "Ballot_314" {
                     if callvalue() { revert(0, 0) }
                     abi_decode_tuple_(4, calldatasize())
                     let ret_0 :=  getter_fun_chairperson_18()
-                    let memPos := allocate_memory(0)
+                    let memPos := allocate_unbounded()
                     let memEnd := abi_encode_tuple_t_address__to_t_address__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
                 }
@@ -480,7 +503,7 @@ object "Ballot_314" {
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_address(4, calldatasize())
                     fun_delegate_206(param_0)
-                    let memPos := allocate_memory(0)
+                    let memPos := allocate_unbounded()
                     let memEnd := abi_encode_tuple__to__fromStack(memPos  )
                     return(memPos, sub(memEnd, memPos))
                 }
@@ -492,7 +515,7 @@ object "Ballot_314" {
                     if callvalue() { revert(0, 0) }
                     abi_decode_tuple_(4, calldatasize())
                     let ret_0 :=  fun_winningProposal_299()
-                    let memPos := allocate_memory(0)
+                    let memPos := allocate_unbounded()
                     let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
                 }
@@ -504,7 +527,7 @@ object "Ballot_314" {
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_address(4, calldatasize())
                     fun_giveRightToVote_110(param_0)
-                    let memPos := allocate_memory(0)
+                    let memPos := allocate_unbounded()
                     let memEnd := abi_encode_tuple__to__fromStack(memPos  )
                     return(memPos, sub(memEnd, memPos))
                 }
@@ -516,7 +539,7 @@ object "Ballot_314" {
                     if callvalue() { revert(0, 0) }
                     let param_0 :=  abi_decode_tuple_t_address(4, calldatasize())
                     let ret_0, ret_1, ret_2, ret_3 :=  getter_fun_voters_23(param_0)
-                    let memPos := allocate_memory(0)
+                    let memPos := allocate_unbounded()
                     let memEnd := abi_encode_tuple_t_uint256_t_bool_t_address_t_uint256__to_t_uint256_t_bool_t_address_t_uint256__fromStack(memPos , ret_0, ret_1, ret_2, ret_3)
                     return(memPos, sub(memEnd, memPos))
                 }
@@ -528,7 +551,7 @@ object "Ballot_314" {
                     if callvalue() { revert(0, 0) }
                     abi_decode_tuple_(4, calldatasize())
                     let ret_0 :=  fun_winnerName_313()
-                    let memPos := allocate_memory(0)
+                    let memPos := allocate_unbounded()
                     let memEnd := abi_encode_tuple_t_bytes32__to_t_bytes32__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
                 }
@@ -739,16 +762,19 @@ object "Ballot_314" {
 
             }
 
-            function allocate_memory(size) -> memPtr {
-                memPtr := allocate_unbounded()
-                finalize_allocation(memPtr, size)
-            }
-
             function allocate_unbounded() -> memPtr {
                 memPtr := mload(64)
             }
 
             function array_dataslot_t_array$_t_struct$_Proposal_$16_storage_$dyn_storage(ptr) -> data {
+                data := ptr
+
+                mstore(0, ptr)
+                data := keccak256(0, 0x20)
+
+            }
+
+            function array_dataslot_t_bytes_storage_ptr(ptr) -> data {
                 data := ptr
 
                 mstore(0, ptr)
@@ -875,13 +901,6 @@ object "Ballot_314" {
 
             function extract_from_storage_value_offset_1t_address(slot_value) -> value {
                 value := cleanup_from_storage_t_address(shift_right_8_unsigned(slot_value))
-            }
-
-            function finalize_allocation(memPtr, size) {
-                let newFreePtr := add(memPtr, round_up_to_mul_of_32(size))
-                // protect against overflow
-                if or(gt(newFreePtr, 0xffffffffffffffff), lt(newFreePtr, memPtr)) { panic_error_0x41() }
-                mstore(64, newFreePtr)
             }
 
             function fun_delegate_206(var_to_113) {
@@ -1240,6 +1259,14 @@ object "Ballot_314" {
                 ret := add(value, 1)
             }
 
+            function long_byte_array_index_access_no_checks(array, index) -> slot, offset {
+
+                offset := sub(31, mod(index, 0x20))
+                let dataArea := array_dataslot_t_bytes_storage_ptr(array)
+                slot := add(dataArea, div(index, 0x20))
+
+            }
+
             function mapping_index_access_t_mapping$_t_address_$_t_struct$_Voter_$11_storage_$_of_t_address(slot , key) -> dataSlot {
                 mstore(0, convert_t_address_to_t_address(key))
                 mstore(0x20, slot)
@@ -1255,12 +1282,6 @@ object "Ballot_314" {
             function panic_error_0x32() {
                 mstore(0, 35408467139433450592217433187231851964531694900788300625387963629091585785856)
                 mstore(4, 0x32)
-                revert(0, 0x24)
-            }
-
-            function panic_error_0x41() {
-                mstore(0, 35408467139433450592217433187231851964531694900788300625387963629091585785856)
-                mstore(4, 0x41)
                 revert(0, 0x24)
             }
 
@@ -1371,10 +1392,6 @@ object "Ballot_314" {
                     let end := abi_encode_tuple_t_stringliteral_f37bf1aca80f8fa291a40f639db6aeaa1425ceb0e8c61c8648f0e2efa282a947__to_t_string_memory_ptr__fromStack(add(memPtr, 4) )
                     revert(memPtr, sub(end, memPtr))
                 }
-            }
-
-            function round_up_to_mul_of_32(value) -> result {
-                result := and(add(value, 31), not(31))
             }
 
             function shift_left_0(value) -> newValue {

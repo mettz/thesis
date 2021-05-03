@@ -1,0 +1,989 @@
+    /* "examples/complex/Purchase.sol":61:3361  contract Purchase {... */
+  mstore(0x40, 0x80)
+    /* "examples/complex/Purchase.sol":1374:1380  seller */
+  0x01
+    /* "examples/complex/Purchase.sol":1374:1402  seller = payable(msg.sender) */
+  dup1
+  sload
+  not(sub(shl(0xa0, 0x01), 0x01))
+  and
+    /* "examples/complex/Purchase.sol":1391:1401  msg.sender */
+  caller
+    /* "examples/complex/Purchase.sol":1374:1402  seller = payable(msg.sender) */
+  or
+  swap1
+  sstore
+    /* "examples/complex/Purchase.sol":1420:1433  msg.value / 2 */
+  tag_3
+    /* "examples/complex/Purchase.sol":1432:1433  2 */
+  0x02
+    /* "examples/complex/Purchase.sol":1420:1429  msg.value */
+  callvalue
+    /* "examples/complex/Purchase.sol":1420:1433  msg.value / 2 */
+  tag_4
+  jump	// in
+tag_3:
+    /* "examples/complex/Purchase.sol":1412:1417  value */
+  0x00
+    /* "examples/complex/Purchase.sol":1412:1433  value = msg.value / 2 */
+  dup2
+  swap1
+  sstore
+    /* "examples/complex/Purchase.sol":1462:1471  msg.value */
+  callvalue
+  swap1
+    /* "examples/complex/Purchase.sol":1448:1457  2 * value */
+  tag_5
+  swap1
+    /* "examples/complex/Purchase.sol":1448:1449  2 */
+  0x02
+    /* "examples/complex/Purchase.sol":1448:1457  2 * value */
+  tag_6
+  jump	// in
+tag_5:
+    /* "examples/complex/Purchase.sol":1447:1471  (2 * value) != msg.value */
+  eq
+    /* "examples/complex/Purchase.sol":1443:1506  if ((2 * value) != msg.value)... */
+  tag_7
+  jumpi
+    /* "examples/complex/Purchase.sol":1492:1506  ValueNotEven() */
+  mload(0x40)
+  shl(0xe1, 0x5f1f2621)
+  dup2
+  mstore
+  0x04
+  add
+  mload(0x40)
+  dup1
+  swap2
+  sub
+  swap1
+  revert
+    /* "examples/complex/Purchase.sol":1443:1506  if ((2 * value) != msg.value)... */
+tag_7:
+    /* "examples/complex/Purchase.sol":61:3361  contract Purchase {... */
+  jump(tag_9)
+    /* "#utility.yul":14:231   */
+tag_4:
+    /* "#utility.yul":54:55   */
+  0x00
+    /* "#utility.yul":80:81   */
+  dup3
+    /* "#utility.yul":70:72   */
+  tag_11
+  jumpi
+  shl(0xe0, 0x4e487b71)
+    /* "#utility.yul":105:136   */
+  dup2
+  mstore
+    /* "#utility.yul":159:163   */
+  0x12
+    /* "#utility.yul":156:157   */
+  0x04
+    /* "#utility.yul":149:164   */
+  mstore
+    /* "#utility.yul":187:191   */
+  0x24
+    /* "#utility.yul":112:113   */
+  dup2
+    /* "#utility.yul":177:192   */
+  revert
+    /* "#utility.yul":70:72   */
+tag_11:
+  pop
+    /* "#utility.yul":216:225   */
+  div
+  swap1
+    /* "#utility.yul":60:231   */
+  jump	// out
+    /* "#utility.yul":236:513   */
+tag_6:
+    /* "#utility.yul":276:283   */
+  0x00
+    /* "#utility.yul":342:343   */
+  dup2
+    /* "#utility.yul":338:339   */
+  0x00
+    /* "#utility.yul":334:340   */
+  not
+    /* "#utility.yul":330:344   */
+  div
+    /* "#utility.yul":327:328   */
+  dup4
+    /* "#utility.yul":324:345   */
+  gt
+    /* "#utility.yul":319:320   */
+  dup3
+    /* "#utility.yul":312:321   */
+  iszero
+    /* "#utility.yul":305:322   */
+  iszero
+    /* "#utility.yul":301:346   */
+  and
+    /* "#utility.yul":298:300   */
+  iszero
+  tag_13
+  jumpi
+  shl(0xe0, 0x4e487b71)
+    /* "#utility.yul":369:406   */
+  dup2
+  mstore
+    /* "#utility.yul":429:433   */
+  0x11
+    /* "#utility.yul":426:427   */
+  0x04
+    /* "#utility.yul":419:434   */
+  mstore
+    /* "#utility.yul":463:467   */
+  0x24
+    /* "#utility.yul":376:383   */
+  dup2
+    /* "#utility.yul":447:468   */
+  revert
+    /* "#utility.yul":298:300   */
+tag_13:
+  pop
+    /* "#utility.yul":498:507   */
+  mul
+  swap1
+    /* "#utility.yul":288:513   */
+  jump	// out
+tag_9:
+    /* "examples/complex/Purchase.sol":61:3361  contract Purchase {... */
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "examples/complex/Purchase.sol":61:3361  contract Purchase {... */
+      mstore(0x40, 0x80)
+      jumpi(tag_1, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x73fac6f0
+      gt
+      tag_10
+      jumpi
+      dup1
+      0x73fac6f0
+      eq
+      tag_6
+      jumpi
+      dup1
+      0xc19d93fb
+      eq
+      tag_7
+      jumpi
+      dup1
+      0xc7981b1b
+      eq
+      tag_8
+      jumpi
+      dup1
+      0xd6960697
+      eq
+      tag_9
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_10:
+      dup1
+      0x08551a53
+      eq
+      tag_2
+      jumpi
+      dup1
+      0x35a063b4
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x3fa4f245
+      eq
+      tag_4
+      jumpi
+      dup1
+      0x7150d8ae
+      eq
+      tag_5
+      jumpi
+    tag_1:
+      0x00
+      dup1
+      revert
+        /* "examples/complex/Purchase.sol":108:137  address payable public seller */
+    tag_2:
+      callvalue
+      dup1
+      iszero
+      tag_11
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_11:
+      pop
+      sload(0x01)
+      tag_12
+      swap1
+      sub(shl(0xa0, 0x01), 0x01)
+      and
+      dup2
+      jump
+    tag_12:
+      mload(0x40)
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "#utility.yul":194:226   */
+      swap1
+      swap2
+      and
+        /* "#utility.yul":176:227   */
+      dup2
+      mstore
+        /* "#utility.yul":164:166   */
+      0x20
+        /* "#utility.yul":149:167   */
+      add
+        /* "examples/complex/Purchase.sol":108:137  address payable public seller */
+    tag_14:
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "examples/complex/Purchase.sol":1649:2023  function abort()... */
+    tag_3:
+      callvalue
+      dup1
+      iszero
+      tag_16
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_16:
+      pop
+      tag_17
+      tag_18
+      jump	// in
+    tag_17:
+      stop
+        /* "examples/complex/Purchase.sol":85:102  uint public value */
+    tag_4:
+      callvalue
+      dup1
+      iszero
+      tag_19
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_19:
+      pop
+      tag_20
+      sload(0x00)
+      dup2
+      jump
+    tag_20:
+      mload(0x40)
+        /* "#utility.yul":725:750   */
+      swap1
+      dup2
+      mstore
+        /* "#utility.yul":713:715   */
+      0x20
+        /* "#utility.yul":698:716   */
+      add
+        /* "examples/complex/Purchase.sol":85:102  uint public value */
+      tag_14
+        /* "#utility.yul":680:756   */
+      jump
+        /* "examples/complex/Purchase.sol":143:171  address payable public buyer */
+    tag_5:
+      callvalue
+      dup1
+      iszero
+      tag_24
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_24:
+      pop
+      sload(0x02)
+      tag_12
+      swap1
+      sub(shl(0xa0, 0x01), 0x01)
+      and
+      dup2
+      jump
+        /* "examples/complex/Purchase.sol":2547:2898  function confirmReceived()... */
+    tag_6:
+      callvalue
+      dup1
+      iszero
+      tag_28
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_28:
+      pop
+      tag_17
+      tag_30
+      jump	// in
+        /* "examples/complex/Purchase.sol":315:333  State public state */
+    tag_7:
+      callvalue
+      dup1
+      iszero
+      tag_31
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_31:
+      pop
+      sload(0x02)
+      tag_32
+      swap1
+      shl(0xa0, 0x01)
+      swap1
+      div
+      0xff
+      and
+      dup2
+      jump
+    tag_32:
+      mload(0x40)
+      tag_14
+      swap2
+      swap1
+      tag_35
+      jump	// in
+        /* "examples/complex/Purchase.sol":3001:3359  function refundSeller()... */
+    tag_8:
+      callvalue
+      dup1
+      iszero
+      tag_36
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_36:
+      pop
+      tag_17
+      tag_38
+      jump	// in
+        /* "examples/complex/Purchase.sol":2196:2441  function confirmPurchase()... */
+    tag_9:
+      tag_17
+      tag_40
+      jump	// in
+        /* "examples/complex/Purchase.sol":1649:2023  function abort()... */
+    tag_18:
+        /* "examples/complex/Purchase.sol":887:893  seller */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x01))
+        /* "examples/complex/Purchase.sol":873:883  msg.sender */
+      caller
+        /* "examples/complex/Purchase.sol":873:893  msg.sender != seller */
+      eq
+        /* "examples/complex/Purchase.sol":869:926  if (msg.sender != seller)... */
+      tag_42
+      jumpi
+        /* "examples/complex/Purchase.sol":914:926  OnlySeller() */
+      mload(0x40)
+      shl(0xe1, 0x42e8fb93)
+      dup2
+      mstore
+      0x04
+      add
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+        /* "examples/complex/Purchase.sol":869:926  if (msg.sender != seller)... */
+    tag_42:
+        /* "examples/complex/Purchase.sol":1716:1729  State.Created */
+      0x00
+      dup1
+        /* "examples/complex/Purchase.sol":995:1000  state */
+      sload(0x02)
+      shl(0xa0, 0x01)
+      swap1
+      div
+      0xff
+      and
+        /* "examples/complex/Purchase.sol":995:1010  state != _state */
+      0x03
+      dup2
+      gt
+      iszero
+      tag_45
+      jumpi
+      mstore(0x00, shl(0xe0, 0x4e487b71))
+      mstore(0x04, 0x21)
+      revert(0x00, 0x24)
+    tag_45:
+      eq
+        /* "examples/complex/Purchase.sol":991:1045  if (state != _state)... */
+      tag_46
+      jumpi
+        /* "examples/complex/Purchase.sol":1031:1045  InvalidState() */
+      mload(0x40)
+      shl(0xe0, 0xbaf3f0f7)
+      dup2
+      mstore
+      0x04
+      add
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+        /* "examples/complex/Purchase.sol":991:1045  if (state != _state)... */
+    tag_46:
+        /* "examples/complex/Purchase.sol":1750:1759  Aborted() */
+      mload(0x40)
+      0x72c874aeff0b183a56e2b79c71b46e1aed4dee5e09862134b8821ba2fddbf8bf
+      swap1
+      0x00
+      swap1
+      log1
+        /* "examples/complex/Purchase.sol":1769:1774  state */
+      0x02
+        /* "examples/complex/Purchase.sol":1769:1791  state = State.Inactive */
+      dup1
+      sload
+      not(shl(0xa0, 0xff))
+      and
+      shl(0xa0, 0x03)
+      or
+      swap1
+      sstore
+      0x01
+        /* "examples/complex/Purchase.sol":1978:1984  seller */
+      sload
+        /* "examples/complex/Purchase.sol":1978:2016  seller.transfer(address(this).balance) */
+      mload(0x40)
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "examples/complex/Purchase.sol":1978:1984  seller */
+      swap1
+      swap2
+      and
+      swap1
+        /* "examples/complex/Purchase.sol":1994:2015  address(this).balance */
+      selfbalance
+        /* "examples/complex/Purchase.sol":1978:2016  seller.transfer(address(this).balance) */
+      dup1
+      iszero
+      0x08fc
+      mul
+      swap2
+      0x00
+      dup2
+      dup2
+      dup2
+        /* "examples/complex/Purchase.sol":1994:2015  address(this).balance */
+      dup6
+        /* "examples/complex/Purchase.sol":1978:1984  seller */
+      dup9
+        /* "examples/complex/Purchase.sol":1978:2016  seller.transfer(address(this).balance) */
+      dup9
+      call
+      swap4
+      pop
+      pop
+      pop
+      pop
+      iszero
+      dup1
+      iszero
+      tag_50
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+    tag_50:
+      pop
+        /* "examples/complex/Purchase.sol":936:937  _ */
+      pop
+        /* "examples/complex/Purchase.sol":1649:2023  function abort()... */
+      jump	// out
+        /* "examples/complex/Purchase.sol":2547:2898  function confirmReceived()... */
+    tag_30:
+        /* "examples/complex/Purchase.sol":776:781  buyer */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x02))
+        /* "examples/complex/Purchase.sol":762:772  msg.sender */
+      caller
+        /* "examples/complex/Purchase.sol":762:781  msg.sender != buyer */
+      eq
+        /* "examples/complex/Purchase.sol":758:813  if (msg.sender != buyer)... */
+      tag_52
+      jumpi
+        /* "examples/complex/Purchase.sol":802:813  OnlyBuyer() */
+      mload(0x40)
+      shl(0xe0, 0x86efbb55)
+      dup2
+      mstore
+      0x04
+      add
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+        /* "examples/complex/Purchase.sol":758:813  if (msg.sender != buyer)... */
+    tag_52:
+        /* "examples/complex/Purchase.sol":2623:2635  State.Locked */
+      0x01
+      dup1
+        /* "examples/complex/Purchase.sol":995:1000  state */
+      sload(0x02)
+      shl(0xa0, 0x01)
+      swap1
+      div
+      0xff
+      and
+        /* "examples/complex/Purchase.sol":995:1010  state != _state */
+      0x03
+      dup2
+      gt
+      iszero
+      tag_55
+      jumpi
+      mstore(0x00, shl(0xe0, 0x4e487b71))
+      mstore(0x04, 0x21)
+      revert(0x00, 0x24)
+    tag_55:
+      eq
+        /* "examples/complex/Purchase.sol":991:1045  if (state != _state)... */
+      tag_56
+      jumpi
+        /* "examples/complex/Purchase.sol":1031:1045  InvalidState() */
+      mload(0x40)
+      shl(0xe0, 0xbaf3f0f7)
+      dup2
+      mstore
+      0x04
+      add
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+        /* "examples/complex/Purchase.sol":991:1045  if (state != _state)... */
+    tag_56:
+        /* "examples/complex/Purchase.sol":2656:2670  ItemReceived() */
+      mload(0x40)
+      0xe89152acd703c9d8c7d28829d443260b411454d45394e7995815140c8cbcbcf7
+      swap1
+      0x00
+      swap1
+      log1
+        /* "examples/complex/Purchase.sol":2846:2859  State.Release */
+      0x02
+        /* "examples/complex/Purchase.sol":2838:2859  state = State.Release */
+      dup1
+      sload
+      shl(0xa1, 0x01)
+      not(shl(0xa0, 0xff))
+      dup3
+      and
+      or
+      swap1
+      swap2
+      sstore
+      0x00
+        /* "examples/complex/Purchase.sol":2885:2890  value */
+      dup1
+      sload
+        /* "examples/complex/Purchase.sol":2870:2891  buyer.transfer(value) */
+      mload(0x40)
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "examples/complex/Purchase.sol":2870:2875  buyer */
+      swap1
+      swap4
+      and
+      swap3
+        /* "examples/complex/Purchase.sol":2870:2891  buyer.transfer(value) */
+      0x08fc
+      dup3
+      iszero
+      mul
+      swap3
+      dup2
+      dup2
+      dup2
+        /* "examples/complex/Purchase.sol":2885:2890  value */
+      dup6
+        /* "examples/complex/Purchase.sol":2870:2875  buyer */
+      dup9
+        /* "examples/complex/Purchase.sol":2870:2891  buyer.transfer(value) */
+      dup9
+      call
+      swap4
+      pop
+      pop
+      pop
+      pop
+      iszero
+      dup1
+      iszero
+      tag_50
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+        /* "examples/complex/Purchase.sol":3001:3359  function refundSeller()... */
+    tag_38:
+        /* "examples/complex/Purchase.sol":887:893  seller */
+      and(sub(shl(0xa0, 0x01), 0x01), sload(0x01))
+        /* "examples/complex/Purchase.sol":873:883  msg.sender */
+      caller
+        /* "examples/complex/Purchase.sol":873:893  msg.sender != seller */
+      eq
+        /* "examples/complex/Purchase.sol":869:926  if (msg.sender != seller)... */
+      tag_62
+      jumpi
+        /* "examples/complex/Purchase.sol":914:926  OnlySeller() */
+      mload(0x40)
+      shl(0xe1, 0x42e8fb93)
+      dup2
+      mstore
+      0x04
+      add
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+        /* "examples/complex/Purchase.sol":869:926  if (msg.sender != seller)... */
+    tag_62:
+        /* "examples/complex/Purchase.sol":3075:3088  State.Release */
+      0x02
+      dup1
+        /* "examples/complex/Purchase.sol":995:1000  state */
+      sload(0x02)
+      shl(0xa0, 0x01)
+      swap1
+      div
+      0xff
+      and
+        /* "examples/complex/Purchase.sol":995:1010  state != _state */
+      0x03
+      dup2
+      gt
+      iszero
+      tag_65
+      jumpi
+      mstore(0x00, shl(0xe0, 0x4e487b71))
+      mstore(0x04, 0x21)
+      revert(0x00, 0x24)
+    tag_65:
+      eq
+        /* "examples/complex/Purchase.sol":991:1045  if (state != _state)... */
+      tag_66
+      jumpi
+        /* "examples/complex/Purchase.sol":1031:1045  InvalidState() */
+      mload(0x40)
+      shl(0xe0, 0xbaf3f0f7)
+      dup2
+      mstore
+      0x04
+      add
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+        /* "examples/complex/Purchase.sol":991:1045  if (state != _state)... */
+    tag_66:
+        /* "examples/complex/Purchase.sol":3109:3125  SellerRefunded() */
+      mload(0x40)
+      0xfda69c32bcfdba840a167777906b173b607eb8b4d8853b97a80d26e613d858db
+      swap1
+      0x00
+      swap1
+      log1
+        /* "examples/complex/Purchase.sol":3293:3298  state */
+      0x02
+        /* "examples/complex/Purchase.sol":3293:3315  state = State.Inactive */
+      dup1
+      sload
+      not(shl(0xa0, 0xff))
+      and
+      shl(0xa0, 0x03)
+      or
+      swap1
+      sstore
+      0x01
+        /* "examples/complex/Purchase.sol":3326:3332  seller */
+      sload
+      0x00
+        /* "examples/complex/Purchase.sol":3346:3351  value */
+      sload
+      sub(shl(0xa0, 0x01), 0x01)
+        /* "examples/complex/Purchase.sol":3326:3332  seller */
+      swap1
+      swap2
+      and
+      swap1
+        /* "examples/complex/Purchase.sol":3326:3352  seller.transfer(3 * value) */
+      0x08fc
+      swap1
+        /* "examples/complex/Purchase.sol":3342:3351  3 * value */
+      tag_69
+      swap1
+        /* "examples/complex/Purchase.sol":3301:3315  State.Inactive */
+      0x03
+        /* "examples/complex/Purchase.sol":3342:3351  3 * value */
+      tag_70
+      jump	// in
+    tag_69:
+        /* "examples/complex/Purchase.sol":3326:3352  seller.transfer(3 * value) */
+      mload(0x40)
+      dup2
+      iszero
+      swap1
+      swap3
+      mul
+      swap2
+      0x00
+      dup2
+      dup2
+      dup2
+      dup6
+      dup9
+      dup9
+      call
+      swap4
+      pop
+      pop
+      pop
+      pop
+      iszero
+      dup1
+      iszero
+      tag_50
+      jumpi
+      returndatasize
+      0x00
+      dup1
+      returndatacopy
+      revert(0x00, returndatasize)
+        /* "examples/complex/Purchase.sol":2196:2441  function confirmPurchase()... */
+    tag_40:
+        /* "examples/complex/Purchase.sol":2254:2267  State.Created */
+      0x00
+      dup1
+        /* "examples/complex/Purchase.sol":995:1000  state */
+      sload(0x02)
+      shl(0xa0, 0x01)
+      swap1
+      div
+      0xff
+      and
+        /* "examples/complex/Purchase.sol":995:1010  state != _state */
+      0x03
+      dup2
+      gt
+      iszero
+      tag_75
+      jumpi
+      mstore(0x00, shl(0xe0, 0x4e487b71))
+      mstore(0x04, 0x21)
+      revert(0x00, 0x24)
+    tag_75:
+      eq
+        /* "examples/complex/Purchase.sol":991:1045  if (state != _state)... */
+      tag_76
+      jumpi
+        /* "examples/complex/Purchase.sol":1031:1045  InvalidState() */
+      mload(0x40)
+      shl(0xe0, 0xbaf3f0f7)
+      dup2
+      mstore
+      0x04
+      add
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+        /* "examples/complex/Purchase.sol":991:1045  if (state != _state)... */
+    tag_76:
+        /* "examples/complex/Purchase.sol":2305:2310  value */
+      sload(0x00)
+        /* "examples/complex/Purchase.sol":2301:2310  2 * value */
+      tag_77
+      swap1
+        /* "examples/complex/Purchase.sol":2301:2302  2 */
+      0x02
+        /* "examples/complex/Purchase.sol":2301:2310  2 * value */
+      tag_70
+      jump	// in
+    tag_77:
+        /* "examples/complex/Purchase.sol":2287:2296  msg.value */
+      callvalue
+        /* "examples/complex/Purchase.sol":2287:2311  msg.value == (2 * value) */
+      eq
+        /* "examples/complex/Purchase.sol":394:404  _condition */
+      dup1
+        /* "examples/complex/Purchase.sol":386:405  require(_condition) */
+      tag_79
+      jumpi
+      0x00
+      dup1
+      revert
+    tag_79:
+        /* "examples/complex/Purchase.sol":2348:2367  PurchaseConfirmed() */
+      mload(0x40)
+      0xd5d55c8a68912e9a110618df8d5e2e83b8d83211c57a8ddd1203df92885dc881
+      swap1
+      0x00
+      swap1
+      log1
+      pop
+      pop
+        /* "examples/complex/Purchase.sol":2377:2382  buyer */
+      0x02
+        /* "examples/complex/Purchase.sol":2377:2404  buyer = payable(msg.sender) */
+      dup1
+      sload
+      not(sub(shl(0xa8, 0x01), 0x01))
+        /* "examples/complex/Purchase.sol":2414:2434  state = State.Locked */
+      and
+        /* "examples/complex/Purchase.sol":2393:2403  msg.sender */
+      caller
+      not(shl(0xa0, 0xff))
+        /* "examples/complex/Purchase.sol":2414:2434  state = State.Locked */
+      and
+      or
+      shl(0xa0, 0x01)
+      or
+      swap1
+      sstore
+        /* "examples/complex/Purchase.sol":2196:2441  function confirmPurchase()... */
+      jump	// out
+        /* "#utility.yul":238:574   */
+    tag_35:
+        /* "#utility.yul":378:380   */
+      0x20
+        /* "#utility.yul":363:381   */
+      dup2
+      add
+        /* "#utility.yul":411:412   */
+      0x04
+        /* "#utility.yul":400:413   */
+      dup4
+      lt
+        /* "#utility.yul":390:392   */
+      tag_85
+      jumpi
+        /* "#utility.yul":456:466   */
+      0x4e487b71
+        /* "#utility.yul":451:454   */
+      0xe0
+        /* "#utility.yul":447:467   */
+      shl
+        /* "#utility.yul":444:445   */
+      0x00
+        /* "#utility.yul":437:468   */
+      mstore
+        /* "#utility.yul":491:495   */
+      0x21
+        /* "#utility.yul":488:489   */
+      0x04
+        /* "#utility.yul":481:496   */
+      mstore
+        /* "#utility.yul":519:523   */
+      0x24
+        /* "#utility.yul":516:517   */
+      0x00
+        /* "#utility.yul":509:524   */
+      revert
+        /* "#utility.yul":390:392   */
+    tag_85:
+        /* "#utility.yul":543:568   */
+      swap2
+      swap1
+      mstore
+        /* "#utility.yul":345:574   */
+      swap1
+      jump	// out
+        /* "#utility.yul":761:1038   */
+    tag_70:
+        /* "#utility.yul":801:808   */
+      0x00
+        /* "#utility.yul":867:868   */
+      dup2
+        /* "#utility.yul":863:864   */
+      0x00
+        /* "#utility.yul":859:865   */
+      not
+        /* "#utility.yul":855:869   */
+      div
+        /* "#utility.yul":852:853   */
+      dup4
+        /* "#utility.yul":849:870   */
+      gt
+        /* "#utility.yul":844:845   */
+      dup3
+        /* "#utility.yul":837:846   */
+      iszero
+        /* "#utility.yul":830:847   */
+      iszero
+        /* "#utility.yul":826:871   */
+      and
+        /* "#utility.yul":823:825   */
+      iszero
+      tag_88
+      jumpi
+      shl(0xe0, 0x4e487b71)
+        /* "#utility.yul":894:931   */
+      dup2
+      mstore
+        /* "#utility.yul":954:958   */
+      0x11
+        /* "#utility.yul":951:952   */
+      0x04
+        /* "#utility.yul":944:959   */
+      mstore
+        /* "#utility.yul":988:992   */
+      0x24
+        /* "#utility.yul":901:908   */
+      dup2
+        /* "#utility.yul":972:993   */
+      revert
+        /* "#utility.yul":823:825   */
+    tag_88:
+      pop
+        /* "#utility.yul":1023:1032   */
+      mul
+      swap1
+        /* "#utility.yul":813:1038   */
+      jump	// out
+
+    auxdata: 0xa2646970667358221220318fbf09c40a9b328ad988547a2b4c9721035ac330b3909b2335a9967867cd6464736f6c63430008040033
+}

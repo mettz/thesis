@@ -1,11 +1,12 @@
-EXAMPLES=Tries
+EXAMPLES=$(shell find examples -name *.sol)
+OUTPUTS=$(patsubst examples/%.sol,out/%,$(EXAMPLES))
 
-all: $(EXAMPLES)
+all: $(OUTPUTS)
 
-$(EXAMPLES):
-	solc --ir --ir-optimized --asm --bin --overwrite --optimize -o out/$@ examples/$@.sol
+out/%: examples/%.sol
+	solc --ir --ir-optimized --asm --bin --overwrite --optimize -o $@ $^
 
 clean:
 	rm -rf out
 	
-.PHONY: $(EXAMPLES) clean
+.PHONY: clean echo
