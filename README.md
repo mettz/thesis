@@ -2,6 +2,17 @@
 
 This repo contains all work related to my undergraduate thesis.
 
+# TODO
+
+- [ ] Aggiungere esempi con ricorsione e funzioni `fallback` e `receive`
+- [ ] Verificare se sono presenti esempi con chiamate di funzioni internal più complesse
+- [ ] Iniziare a guardare il compilatore
+  - [ ] provare a modificarlo aggiungendo un'istruzione emit per emettere una label
+  - [ ] vedere dove finisce la label emessa in particolare controllare se:
+    - viene duplicata
+    - viene preceduta da altro codice
+  - [ ] iniziare a pensare come gestire le funzioni che vengono generate e non hanno costo O(1)
+
 # Examples
 
 ### Included features
@@ -40,12 +51,12 @@ This repo contains all work related to my undergraduate thesis.
     - Arrays: all the operations available are implemented through custom generated functions (see members usage example [here](https://docs.soliditylang.org/en/latest/types.html#array-members))
   - Mappings: very similar to other storage types except they can be stored only inside storage and cannot be used as functions parameters or return values (see [here](https://docs.soliditylang.org/en/latest/types.html#mapping-types) for a detailed explanation)
   - [Conversions](https://docs.soliditylang.org/en/latest/types.html#conversions-between-elementary-types): they are really complex so they generate a lot of code but, from a superficial point of view, it's just a bunch of one line functions that often boil down to a single line in optimized code
+  - Recursion and Tail Recursion: tocheck
+  - [Function Modifiers](https://docs.soliditylang.org/en/latest/contracts.html#function-modifiers): tocheck
+  - [receive](https://docs.soliditylang.org/en/latest/contracts.html#receive-ether-function) and [fallback](https://docs.soliditylang.org/en/latest/contracts.html#fallback-function) functions: tocheck
 
 ### Features in doubt
 
-- Functions:
-  - [Function Modifiers](https://docs.soliditylang.org/en/latest/contracts.html#function-modifiers)
-  - [receive](https://docs.soliditylang.org/en/latest/contracts.html#receive-ether-function) and [fallback](https://docs.soliditylang.org/en/latest/contracts.html#fallback-function) functions
 - [Events](https://docs.soliditylang.org/en/latest/contracts.html#events): events represent a Solidity-specific (in the sense of a language designed for writing Smart Contracts) feature, though an advanced one, so it is probably worth to cover them
 - Contracts Creation:
   - [Creating contracts with `new`](https://docs.soliditylang.org/en/latest/control-structures.html#creating-contracts-via-new)
