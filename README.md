@@ -2,16 +2,26 @@
 
 This repo contains all work related to my undergraduate thesis.
 
+possibile titolo: calcolo del cost model esatto di un programma in Solidity
+
+# TODO NEXT
+
+- Se esiste la rappresentazione del bytecode EVM in Yul
+  - Scrivere parte che prende in input bytecode (ASM o bytecode diretto), fa visita:
+    1. controlla che tutto il codice sia coperto da label
+    2. associare ad ogni label il costo
+- Gestione label interne: identificarle in modo particolare
+
 # TODO
 
-- [ ] Aggiungere esempi con ricorsione e funzioni `fallback` e `receive`
-- [ ] Verificare se sono presenti esempi con chiamate di funzioni internal più complesse
-- [ ] Iniziare a guardare il compilatore
-  - [ ] provare a modificarlo aggiungendo un'istruzione emit per emettere una label
-  - [ ] vedere dove finisce la label emessa in particolare controllare se:
-    - viene duplicata
-    - viene preceduta da altro codice
-  - [ ] iniziare a pensare come gestire le funzioni che vengono generate e non hanno costo O(1)
+- [x] Aggiungere esempi con ricorsione e funzioni `fallback` e `receive`
+- [x] Verificare se sono presenti esempi con chiamate di funzioni internal più complesse
+- [x] Iniziare a guardare il compilatore
+  - [x] provare a modificarlo aggiungendo un'istruzione emit per emettere una label
+  - [x] vedere dove finisce la label emessa in particolare controllare se:
+    - [x] viene duplicata -> quando nel codice si fa uso dei modifier sì (e.g. BlindAuction) altrimenti no, ma potrebbe essere dovuto al fatto che Yul ha i loop e quindi non li unrolla
+    - [x] viene preceduta da altro codice -> sì in praticamente tutti gli esempi
+  - [x] iniziare a pensare come gestire le funzioni che vengono generate e non hanno costo O(1)
 
 # Examples
 

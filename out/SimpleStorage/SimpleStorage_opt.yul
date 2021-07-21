@@ -5,17 +5,17 @@
  *                !USE AT YOUR OWN RISK!               *
  *******************************************************/
 
-object "SimpleStorage_26" {
+object "SimpleStorage_28" {
     code {
         {
             mstore(64, 128)
             if callvalue() { revert(0, 0) }
-            let _1 := datasize("SimpleStorage_26_deployed")
-            codecopy(0, dataoffset("SimpleStorage_26_deployed"), _1)
-            return(0, _1)
+            let _1 := datasize("SimpleStorage_28_deployed")
+            codecopy(128, dataoffset("SimpleStorage_28_deployed"), _1)
+            return(128, _1)
         }
     }
-    object "SimpleStorage_26_deployed" {
+    object "SimpleStorage_28_deployed" {
         code {
             {
                 mstore(64, 128)
@@ -26,6 +26,8 @@ object "SimpleStorage_26" {
                     {
                         if callvalue() { revert(_1, _1) }
                         if slt(add(calldatasize(), not(3)), _1) { revert(_1, _1) }
+                        emit __cost1
+                        emit __cost0
                         sstore(_1, 0xfe)
                         mstore(128, 0xfe)
                         return(128, 32)

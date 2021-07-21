@@ -6,23 +6,32 @@
  *******************************************************/
 
 
-object "SimpleStorage_26" {
+object "SimpleStorage_28" {
     code {
         mstore(64, 128)
-        if callvalue() { revert(0, 0) }
+        if callvalue() { revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb() }
 
-        constructor_SimpleStorage_26()
+        constructor_SimpleStorage_28()
 
-        codecopy(0, dataoffset("SimpleStorage_26_deployed"), datasize("SimpleStorage_26_deployed"))
+        let _1 := allocate_unbounded()
+        codecopy(_1, dataoffset("SimpleStorage_28_deployed"), datasize("SimpleStorage_28_deployed"))
 
-        return(0, datasize("SimpleStorage_26_deployed"))
+        return(_1, datasize("SimpleStorage_28_deployed"))
 
-        function constructor_SimpleStorage_26() {
+        function allocate_unbounded() -> memPtr {
+            memPtr := mload(64)
+        }
+
+        function constructor_SimpleStorage_28() {
 
         }
 
+        function revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb() {
+            revert(0, 0)
+        }
+
     }
-    object "SimpleStorage_26_deployed" {
+    object "SimpleStorage_28_deployed" {
         code {
             mstore(64, 128)
 
@@ -35,9 +44,9 @@ object "SimpleStorage_26" {
                 {
                     // get()
 
-                    if callvalue() { revert(0, 0) }
+                    if callvalue() { revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb() }
                     abi_decode_tuple_(4, calldatasize())
-                    let ret_0 :=  fun_get_25()
+                    let ret_0 :=  fun_get_27()
                     let memPos := allocate_unbounded()
                     let memEnd := abi_encode_tuple_t_uint256__to_t_uint256__fromStack(memPos , ret_0)
                     return(memPos, sub(memEnd, memPos))
@@ -46,10 +55,10 @@ object "SimpleStorage_26" {
                 default {}
             }
             if iszero(calldatasize()) {  }
-            revert(0, 0)
+            revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74()
 
             function abi_decode_tuple_(headStart, dataEnd)   {
-                if slt(sub(dataEnd, headStart), 0) { revert(0, 0) }
+                if slt(sub(dataEnd, headStart), 0) { revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() }
 
             }
 
@@ -88,27 +97,29 @@ object "SimpleStorage_26" {
                 value := cleanup_from_storage_t_uint256(shift_right_0_unsigned(slot_value))
             }
 
-            function fun_get_25() -> var__16 {
+            function fun_get_27() -> var__17 {
                 let zero_t_uint256_1 := zero_value_for_split_t_uint256()
-                var__16 := zero_t_uint256_1
+                var__17 := zero_t_uint256_1
 
-                let expr_18_functionIdentifier := 13
-                let expr_19 := 0xfe
-                let _2 := convert_t_rational_254_by_1_to_t_uint256(expr_19)
-                fun_set_13(_2)
+                emit __cost1
+                let expr_20_functionIdentifier := 14
+                let expr_21 := 0xfe
+                let _2 := convert_t_rational_254_by_1_to_t_uint256(expr_21)
+                fun_set_14(_2)
                 let _3 := read_from_storage_split_offset_0_t_uint256(0x00)
-                let expr_22 := _3
-                var__16 := expr_22
+                let expr_24 := _3
+                var__17 := expr_24
                 leave
 
             }
 
-            function fun_set_13(var_x_5) {
+            function fun_set_14(var_x_5) {
 
+                emit __cost0
                 let _4 := var_x_5
-                let expr_9 := _4
-                update_storage_value_offset_0t_uint256_to_t_uint256(0x00, expr_9)
-                let expr_10 := expr_9
+                let expr_10 := _4
+                update_storage_value_offset_0t_uint256_to_t_uint256(0x00, expr_10)
+                let expr_11 := expr_10
 
             }
 
@@ -119,6 +130,18 @@ object "SimpleStorage_26" {
             function read_from_storage_split_offset_0_t_uint256(slot) -> value {
                 value := extract_from_storage_value_offset_0t_uint256(sload(slot))
 
+            }
+
+            function revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74() {
+                revert(0, 0)
+            }
+
+            function revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb() {
+                revert(0, 0)
+            }
+
+            function revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b() {
+                revert(0, 0)
             }
 
             function shift_left_0(value) -> newValue {
