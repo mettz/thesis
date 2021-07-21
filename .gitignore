@@ -1,3 +1,4 @@
 .DS_Store
 out/
-cerco_out/
+cerco_out/*
+!cerco_out/.keep
