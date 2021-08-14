@@ -23,6 +23,17 @@ contract SimplePaymentChannel {
         selfdestruct(sender);
     }
 
+    function isValidSignature_public(uint256 amount, bytes memory signature)
+        public
+        view
+        returns (bool)
+    {
+        bytes32 message = prefixed(keccak256(abi.encodePacked(this, amount)));
+
+        // check that the signature is from the payment sender
+        return recoverSigner(message, signature) == sender;
+    }
+
     /// the sender can extend the expiration at any time
     function extend(uint256 newExpiration) public {
         require(msg.sender == sender);

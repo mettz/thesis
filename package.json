@@ -1,0 +1,13 @@
+{
+  "name": "thesis",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mettz/thesis.git",
+  "author": "Mattia Guazzaloca <mattia.guazzaloca@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "evm": "^0.2.0",
+    "nanoid": "^3.1.25"
+  }
+}

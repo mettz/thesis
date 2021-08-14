@@ -27,19 +27,6 @@ contract C {
     }
 }
 
-// This will not compile
-/*
-contract D {
-    function readData() public {
-        C c = new C();
-        uint256 local = c.f(7); // error: member `f` is not visible
-        c.setData(3);
-        local = c.getData();
-        local = c.compute(3, 5); // error: member `compute` is not visible
-    }
-}
-*/
-
 contract E is C {
     function g() public {
         C c = new C();

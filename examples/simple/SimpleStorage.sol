@@ -9,7 +9,7 @@ contract SimpleStorage {
     }
 
     function get() public returns (uint256) {
-        set(254);
+        set(5);
         return storedData;
     }
 }

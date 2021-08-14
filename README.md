@@ -6,11 +6,11 @@ possibile titolo: calcolo del cost model esatto di un programma in Solidity
 
 # TODO NEXT
 
-- Se esiste la rappresentazione del bytecode EVM in Yul
-  - Scrivere parte che prende in input bytecode (ASM o bytecode diretto), fa visita:
+- [x] Se esiste la rappresentazione del bytecode EVM in Yul
+  - Scrivere parte che prende in input ASM (si può lavorare direttamente lì sopra perché l'asm è mappato direttamente sul bytecode), fa visita:
     1. controlla che tutto il codice sia coperto da label
     2. associare ad ogni label il costo
-- Gestione label interne: identificarle in modo particolare
+- [x] Gestione label interne: identificarle in modo particolare
 
 # TODO
 

@@ -1,17 +1,19 @@
-EXAMPLES=$(shell find examples -name *.sol)
-OUTPUTS=$(patsubst examples/%.sol,out/%,$(EXAMPLES))
+SIMPLE=$(patsubst examples/%.sol,out/%,$(shell find examples/simple -name *.sol))
+COMPLEX=$(patsubst examples/%.sol,out/%,$(shell find examples/complex -name *.sol))
 
-all: $(OUTPUTS)
+all: simple complex
 
-examples: out/BlindAuction out/ReceiveAndFallback out/Recursion
+simple: $(filter-out out/simple/New out/simple/Visibility,$(SIMPLE))
+
+complex: $(filter-out out/complex/Token,$(COMPLEX))
 
 cerco:
 	./cerco -o cerco_out/fibonacci -d -asm-pretty fibonacci.c
 
 out/%: examples/%.sol
-	../solidity/build/solc/solc --lb --ir --ir-optimized --asm --bin --overwrite --optimize -o $@ $^
+	../solidity/cmake-build-debug/solc/solc --lb --ir --ir-optimized --experimental-via-ir --asm --bin --overwrite --optimize -o $@ $^ && node ./parse-evm.js $@
 
 clean:
 	rm -rf out cerco_out/*
 	
-.PHONY: clean echo cerco examples
+.PHONY: clean echo cerco simple complex

@@ -2,3 +2,4 @@
 out/
 cerco_out/*
 !cerco_out/.keep
+node_modules/

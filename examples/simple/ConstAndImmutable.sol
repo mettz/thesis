@@ -3,7 +3,7 @@ pragma solidity >=0.7.4;
 
 uint constant X = 32**22 + 8;
 
-contract C {
+contract ConstAndImmutable {
     string constant TEXT = "abc";
     bytes32 constant MY_HASH = keccak256("abc");
     uint immutable decimals;
