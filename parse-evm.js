@@ -48,9 +48,17 @@ const buildExecTree = (ops, cursor = 0, tagStack = [], visited = []) => {
 
         if (!jumpArgs.includes('in') || !visited.find(op => op.id === tag.id)) {
           thread[thread.length - 1].tag = lastTagName;
+          if (cursor + 1 < ops.length && ops[cursor + 1].type === 'EMITLABEL') {
+            // We have to add the label that follows jump, if there is one
+            thread.push({ ...ops[cursor + 1], tagStack: [...tagStack] });
+          }
           cursor = ops.findIndex(op => op.id === tag.id);
           assert.notEqual(cursor, -1);
           break;
+        } else {
+          // This tag has been already visited, so its jump in is useless
+          // but we have to inform checkLabels of this
+          thread[thread.length - 1].skipped = true;
         }
 
         cursor = null;
@@ -77,6 +85,14 @@ const buildExecTree = (ops, cursor = 0, tagStack = [], visited = []) => {
       ops[cursor].type === 'SELFDESTRUCT' ||
       ops[cursor].type === 'STOP'
     ) {
+      // There may be some labels after this operation that we need to add to this thread
+      while (cursor < ops.length && ops[cursor].type !== 'TAG') {
+        if (ops[cursor].type === 'EMITLABEL' && ops[cursor].data.type === 'end') {
+          thread.push({ ...ops[cursor], tagStack: [...tagStack] });
+        }
+
+        cursor++;
+      }
       return thread;
     }
 
@@ -120,7 +136,7 @@ const checkLabels = (execTree, fnStacks = [], labelStack = []) => {
 
       if (op.type === 'JUMP') {
         const { args } = op.data;
-        if (args.includes('in')) {
+        if (args.includes('in') && !op.skipped) {
           fnStacks.push([...labelStack]);
           labelStack = [];
         } else if (args.includes('out')) {
@@ -153,6 +169,33 @@ const checkLabels = (execTree, fnStacks = [], labelStack = []) => {
   return coveredTree;
 }
 
+const checkMatchingLabels = (thread, labels = []) => {
+  thread.forEach(op => {
+    if (op.type === 'EMITLABEL') {
+      const { data: { type, short: shortLabel } } = op;
+      if (type === 'start')
+        labels.push(shortLabel);
+
+      if (type === 'end') {
+        const labelIndex = labels.findIndex(startLabel => startLabel === shortLabel);
+        if (labelIndex !== -1) {
+          labels.splice(labelIndex, 1);
+        }
+      }
+    }
+  });
+
+  const lastOp = thread[thread.length - 1];
+  if (lastOp.true) {
+    labels = checkMatchingLabels(lastOp.true, labels);
+  }
+  if (lastOp.false) {
+    labels = checkMatchingLabels(lastOp.false, labels);
+  }
+
+  return labels;
+}
+
 const main = async () => {
   const contractOutDir = process.argv[2];
   const files = await fs.readdir(contractOutDir).then(files => {
@@ -164,7 +207,7 @@ const main = async () => {
     const asm = await fs.readFile(filePath).then(content => content.toString());
     if (!asm) return;
     asm
-      .split('stop')
+      .split(/sub_\d+:\sassembly \{/)
       .map(asm => {
         let lineNumber = 1;
         return asm
@@ -180,12 +223,15 @@ const main = async () => {
           })
       })
       .forEach(async (code, index) => {
-        const codeKind = index === 0 ? 'creation' : 'deployed';
+        const codeKind = index >= 2 ? index : (index === 0 ? 'creation' : 'deployed');
         const outputPath = `${filePath.replace('.evm', '')}.${codeKind}${path.extname(filePath)}`;
         await fs.writeFile(outputPath, code.map(op => `${op.lineNumber ? op.lineNumber + ': ' : ''}${op.line}`).join('\n'));
         let reachable = true;
         const reachableCode = code.filter((op, index) => {
-          if (['RETURN', 'REVERT', 'SELFDESTRUCT', 'STOP'].includes(op.type)) {
+          if (op.type === 'EMITLABEL')
+            return true; // Labels are comments, so they're always reachable
+
+          if (['RETURN', 'REVERT', 'SELFDESTRUCT'].includes(op.type)) {
             reachable = false;
             return true;
           }
@@ -211,46 +257,165 @@ const main = async () => {
         //   return `${op.lineNumber ? op.lineNumber + ': ' : ''}${reachable ? reachable.line : ''}`;
         // }).join('\n'));
         const execTree = buildExecTree(reachableCode);
-        const missed = reachableCode.filter(op => !op.visited);
+        // const unmatchedLabels = checkMatchingLabels(execTree);
+        // if (unmatchedLabels.length > 0)
+        //   await fs.writeFile(`${outDir}/unmatchedLabels.${outFile}`, unmatchedLabels.join('\n'));
+        const missed = reachableCode.filter(op => !op.visited && op.type !== 'EMITLABEL');
         if (missed.length > 0) {
           await fs.writeFile(
             `${outDir}/missed.${outFile}`,
             missed
-              .map(op => `Operation not visited: \n${JSON.stringify(op, null, 2)}`)
+              .map(op => `${JSON.stringify(op, null, 2)}`)
               .join('\n')
           );
         }
         await fs.writeFile(`${outDir}/execution.${outFile}`, treeString(execTree));
-        let coveredTree;
         try {
-          coveredTree = checkLabels(execTree);
+          checkLabels(execTree);
         } catch (e) {
-          console.log(e.message);
+          console.log(`${path.basename(outDir)}: ${e.message}`);
           if (e instanceof UncoveredError) {
-            coveredTree = e.coveredTree;
+            const dir = `uncovered/${path.basename(outDir)}`;
+            await fs.mkdir(dir, { recursive: true });
+            await fs.writeFile(`${dir}/${outFile}`, treeString(e.coveredTree));
+            return;
           }
         }
-        await fs.writeFile(`${outDir}/covered.${outFile}`, treeString(coveredTree));
+        try {
+          const logs = computeCosts(execTree, true);
+          if (logs) {
+            await fs.writeFile(`${outDir}/logs.${outFile}`, logs);
+          }
+          await fs.writeFile(`${outDir}/costs.${outFile}`, treeString(execTree));
+        } catch (e) {
+          if (e instanceof WithLogsError) {
+            await fs.writeFile(`${outDir}/logs.${outFile}`, e.logs);
+          } else {
+            throw e;
+          }
+        }
       });
   }));
 };
 
+class WithLogsError extends Error {
+  constructor(logs) {
+    super('');
+    this.logs = logs;
+  }
+}
+
+const computeCosts = (thread, enableLogging = false) => {
+  return computeCostsInner(thread, enableLogging);
+
+  function computeCostsInner(thread, enableLogging, labelStack = [], allLabels = [], prefix = '', logs = '') {
+    let skip = '';
+    for (const op of thread) {
+      if (op.type === 'EMITLABEL') {
+        const { id, data: { short: label, type } } = op;
+        if (enableLogging)
+          logs += `${prefix}${op.line}\n`;
+        if (type === 'start') {
+          const duplicate = allLabels.find(label => label.id === id);
+          if (duplicate) {
+            op.cost = duplicate.cost;
+            skip = label;
+          } else {
+            op.cost = 0;
+            allLabels.push(op);
+            labelStack.unshift({ id, label });
+          }
+          if (enableLogging)
+            logs += logStack(labelStack, allLabels, prefix);
+        } else if (type === 'end') {
+          if (skip === label) {
+            skip = ''
+          } else {
+            const removed = labelStack.shift();
+            assert(removed, 'End label has no matching start label');
+            try {
+              assert.equal(removed.label, label);
+            } catch (e) {
+              if (e instanceof assert.AssertionError) {
+                logs += prefix + e + '\n';
+                e = new WithLogsError(logs);
+              }
+              throw e;
+            }
+          }
+          if (enableLogging)
+            logs += logStack(labelStack, allLabels, prefix);
+        }
+      } else if (op.type !== 'TAG') {
+        if (!skip) {
+          assert(labelStack.length > 0, `Operation not covered by any label: ${JSON.stringify(op, null, 2)}`);
+          const { id, label } = labelStack[0];
+          const labelOp = allLabels.find(op => op.id === id);
+          labelOp.cost++;
+          if (enableLogging)
+            logs += logOp(op, label, labelOp.cost, prefix);
+        } else {
+          if (enableLogging)
+            logs += `${prefix}${op.lineNumber}: ${op.line} skipped\n`;
+        }
+      }
+    }
+
+    const lastOp = thread[thread.length - 1];
+    if (lastOp.type === 'JUMPI') {
+      prefix += '  ';
+      ['true', 'false'].forEach(branch => {
+        if (enableLogging)
+          logs += logBranch(branch, labelStack, allLabels, prefix);
+
+        try {
+          const branchLogs = computeCostsInner(lastOp[branch], enableLogging, JSON.parse(JSON.stringify(labelStack)), allLabels, prefix + '  ');
+          if (enableLogging && branchLogs)
+            logs += branchLogs;
+        } catch (e) {
+          if (e instanceof WithLogsError) {
+            throw new WithLogsError(logs + e.logs);
+          }
+        }
+      });
+    }
+
+    return logs;
+
+    function logStack(labelStack, allLabels, prefix) {
+      const stackStr = labelStack.map(({ id, label }) => {
+        const op = allLabels.find(op => op.id === id);
+        return `${label.slice(0, label.indexOf('.'))}(${op.cost})`;
+      }).join(',');
+      return `${prefix}labelStack = [${stackStr}]\n`;
+    }
+    function logOp(op, label, cost, prefix) {
+      return `${prefix}${op.lineNumber}: ${op.line} ${label}.cost = ${cost}\n`;
+    }
+    function logBranch(branch, labelStack, allLabels, prefix) {
+      return `${prefix}${branch[0].toUpperCase()}${branch.slice(1)} Branch\n` + logStack(labelStack, allLabels, prefix + '  ');
+    }
+  };
+}
 
 main();
 
-const treeString = (tree, prefix = '') => {
+const treeString = (tree, labelCosts = {}, prefix = '') => {
   return tree.reduce((str, node) => {
-    str += `${prefix}${node.lineNumber ? node.lineNumber + ': ' : ''}${node.line} ${node.label || ''}\n`// [${node.labelStack.reverse().map(label => label.replace('.internal.start', '')).join(',')}]`;
-    // str += `${prefix}${node.lineNumber ? node.lineNumber + ': ' : ''}${node.line} ${node.tagStack.length > 0 ? 'tagStack = [' + node.tagStack.reverse().map(tag => tag.replace('tag_', '')).join(',') + ']' : ''}`;
+    str += `${prefix}${node.lineNumber ? node.lineNumber + ': ' : ''}${node.line} ${node.label || ''}`;
+    if (node.type === 'EMITLABEL' && node.cost != null) {
+      str += `(cost: ${node.cost})`;
+    }
+    str += '\n';
 
     if (node.false) {
       str += `${prefix}  False Branch\n`;
-      str += treeString(node.false, prefix + '       ');
+      str += treeString(node.false, labelCosts, prefix + '       ');
     }
 
     if (node.true) {
       str += `${prefix}  True Branch\n`;
-      str += treeString(node.true, prefix + '       ');
+      str += treeString(node.true, labelCosts, prefix + '       ');
     }
 
     return str;
