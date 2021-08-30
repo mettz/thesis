@@ -1,6 +1,5 @@
 const fs = require('fs').promises;
 const path = require('path');
-const util = require('util');
 const assert = require('assert');
 const { nanoid } = require('nanoid');
 
@@ -132,10 +131,12 @@ const main = async () => {
           await fs.writeFile(`${outDir}/logs.${outFile}`, logs);
         }
         if (args.outputs.includes('c')) {
+          const costDir = path.join('costs', `${outDir.slice(outDir.indexOf('/') + 1)}`);
+          await fs.mkdir(costDir, { recursive: true });
           const costsFmt = Object.entries(costs).map(([label, cost]) => `${label} = ${cost}`).join('\n');
           // Output costs
           await fs.writeFile(
-            `${outDir}/costs.${outFile}`,
+            `${costDir}/${outFile}`,
             COSTS_OUTPUT_TEMPLATE
               .replace('{costs}', costsFmt)
               .replace('{execution}', treeString(execTree))
@@ -467,12 +468,12 @@ const treeString = (tree, labelCosts = {}, prefix = '') => {
 
     if (node.false) {
       str += `${prefix}  False Branch\n`;
-      str += treeString(node.false, labelCosts, prefix + '       ');
+      str += treeString(node.false, labelCosts, prefix + '    ');
     }
 
     if (node.true) {
       str += `${prefix}  True Branch\n`;
-      str += treeString(node.true, labelCosts, prefix + '       ');
+      str += treeString(node.true, labelCosts, prefix + '    ');
     }
 
     return str;

@@ -6,17 +6,17 @@ contract Recursion {
 
     function fib(uint256 x) private pure returns (uint256) {
         if (x < 2) {
-          return 1;
+            return 1;
         } else {
-          return fib(x - 1) + fib(x - 2);
+            return fib(x - 1) + fib(x - 2);
         }
     }
 
     function fact_tail(uint256 n, uint256 a) private pure returns (uint256) {
         if (n <= 1) {
-          return a;
+            return a;
         } else {
-          return fact_tail(n - 1, n * a);
+            return fact_tail(n - 1, n * a);
         }
     }
 

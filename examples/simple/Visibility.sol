@@ -22,14 +22,14 @@ contract C {
     }
 
     function x() public returns (uint256) {
-        data = 3; // internal access
-        return this.data(); // external access
+        data = 3;
+        return this.data();
     }
 }
 
 contract E is C {
     function g() public {
         C c = new C();
-        uint256 val = compute(3, 5); // access to internal member (from derived to parent contract)
+        uint256 val = compute(3, 5);
     }
 }

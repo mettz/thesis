@@ -1,0 +1,1285 @@
+--------------------------------
+  LABEL COSTS
+--------------------------------
+__deployed_code.internal = 10
+__revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn16.bc8840500f228100d6ae.internal = 3
+__dispatch_routine.internal = 30
+__shift_right_224_unsigned_fn3.0d1ed1f71e594da45a79.internal = 10
+case0x7ff58107.__fun_get_fact1_114.internal = 35
+__abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal = 11
+__fun_get_fact1_114_fn29.0a5ad1c9853a22638bf5.internal = 18
+__fun_fact_tail_64_fn27.82c9105db03453c86f7e.internal = 41
+__checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal = 6
+__checked_mul_t_uint256_fn28.5a61f3ece57f0c1c7a76.internal = 14
+__allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal = 7
+__abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal = 11
+__abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal = 3
+__checked_mul_t_uint256_fn28.5a61f3ece57f0c1c7a76.internal.panic4 = 3
+__panic_error_0x11_fn23.389faa9662e1ee337c2f.internal = 11
+__checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.panic2 = 3
+__abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.revert = 0
+__revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal = 3
+__revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal = 3
+case0x9899e555.__fun_get_fib_77.internal = 35
+__abi_decode_tuple_t_uint256_fn11.08a687af836c575d7efc.internal = 18
+__fun_get_fib_77_fn17.58b48d7ecaf9f16bbf46.internal = 21
+__fun_fib_34_fn19.99a8a5a93933f01cc6f5.internal = 47
+__checked_add_t_uint256_fn24.37074329397a7a32d04b.internal = 7
+__checked_add_t_uint256_fn24.37074329397a7a32d04b.internal.panic2 = 3
+__abi_decode_tuple_t_uint256_fn11.08a687af836c575d7efc.internal.revert = 0
+case0xdb134185.__fun_get_fact_102.internal = 35
+__fun_get_fact_102_fn26.735857a21c939c698c8c.internal = 22
+case0xf17b85cd.__fun_get_fib1_88.internal = 35
+__fun_get_fib1_88_fn25.bbf7a82f411aba4bc61c.internal = 17
+
+--------------------------------
+  EXECUTION
+--------------------------------
+/* emit __deployed_code.internal.start */ (cost: 10)
+1: PUSH 0x80 
+2: PUSH 0x40 
+3: MSTORE 
+4: PUSH 0x04 
+5: CALLDATASIZE 
+6: LT 
+7: ISZERO 
+8: ISZERO 
+9: PUSH [tag] 1 
+10: JUMPI 
+  False Branch
+    /* emit __dispatch_routine.internal.start */ (cost: 30)
+    11: PUSH 0x00 
+    12: PUSH [tag] 2 
+    13: DUP2 
+    14: CALLDATALOAD 
+    15: PUSH [tag] 3 
+    16: JUMP	// in 
+    482: tag_3: 
+    /* emit __shift_right_224_unsigned_fn3.0d1ed1f71e594da45a79.internal.start */ (cost: 10)
+    483: PUSH 0x00 
+    484: DUP2 
+    485: PUSH 0xe0 
+    486: SHR 
+    487: SWAP1 
+    488: POP 
+    489: tag_73: 
+    490: SWAP2 
+    491: SWAP1 
+    492: POP 
+    493: JUMP	// out 
+    /* emit __shift_right_224_unsigned_fn3.0d1ed1f71e594da45a79.internal.end */ 
+    17: tag_2: 
+    18: PUSH 0x7ff58107 
+    19: DUP2 
+    20: EQ 
+    21: PUSH [tag] 5 
+    22: JUMPI 
+      False Branch
+        23: PUSH 0x9899e555 
+        24: DUP2 
+        25: EQ 
+        26: PUSH [tag] 6 
+        27: JUMPI 
+          False Branch
+            28: PUSH 0xdb134185 
+            29: DUP2 
+            30: EQ 
+            31: PUSH [tag] 7 
+            32: JUMPI 
+              False Branch
+                33: PUSH 0xf17b85cd 
+                34: DUP2 
+                35: EQ 
+                36: PUSH [tag] 8 
+                37: JUMPI 
+                  False Branch
+                    38: PUSH [tag] 4 
+                    39: JUMP 
+                    182: tag_4: 
+                    183: POP 
+                    184: POP 
+                    /* emit __dispatch_routine.internal.end */ 
+                    185: tag_1: 
+                    /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn16.bc8840500f228100d6ae.internal.start */ (cost: 3)
+                    186: PUSH 0x00 
+                    187: PUSH 0x00 
+                    188: REVERT 
+                    /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn16.bc8840500f228100d6ae.internal.end */ 
+                    /* emit __deployed_code.internal.end */ 
+                  True Branch
+                    148: tag_8: 
+                    /* emit case0xf17b85cd.__fun_get_fib1_88.internal.start */ (cost: 35)
+                    149: CALLVALUE 
+                    150: ISZERO 
+                    151: PUSH [tag] 31 
+                    152: JUMPI 
+                      False Branch
+                        /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal.start */ (cost: 3)
+                        153: DUP2 
+                        154: DUP3 
+                        155: REVERT 
+                        /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal.end */ 
+                      True Branch
+                        156: tag_31: 
+                        157: PUSH [tag] 32 
+                        158: CALLDATASIZE 
+                        159: PUSH [tag] 11 
+                        160: JUMP	// in 
+                        191: tag_11: 
+                        /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.start */ (cost: 11)
+                        192: PUSH 0x00 
+                        193: PUSH 0x03 
+                        194: NOT 
+                        195: DUP3 
+                        196: ADD 
+                        197: SLT 
+                        198: ISZERO 
+                        199: PUSH [tag] 39 
+                        200: JUMPI 
+                          False Branch
+                            /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.revert.start */ (cost: 0)
+                            /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.start */ (cost: 3)
+                            201: PUSH 0x00 
+                            202: PUSH 0x00 
+                            203: REVERT 
+                            /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.end */ 
+                            /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.revert.end */ 
+                          True Branch
+                            204: tag_39: 
+                            205: POP 
+                            206: tag_38: 
+                            207: JUMP	// out 
+                            /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.end */ 
+                            161: tag_32: 
+                            162: PUSH [tag] 33 
+                            163: PUSH [tag] 34 
+                            164: JUMP	// in 
+                            438: tag_34: 
+                            /* emit __fun_get_fib1_88_fn25.bbf7a82f411aba4bc61c.internal.start */ (cost: 17)
+                            439: PUSH 0x00 
+                            /* emit __cost7 */ 
+                            440: PUSH [tag] 69 
+                            441: PUSH 0x01 
+                            442: PUSH [tag] 54 
+                            443: JUMP	// in 
+                            331: tag_54: 
+                            /* emit __fun_fib_34_fn19.99a8a5a93933f01cc6f5.internal.start */ (cost: 47)
+                            332: PUSH 0x00 
+                            /* emit __cost0 */ 
+                            333: PUSH 0x02 
+                            334: DUP3 
+                            335: LT 
+                            336: PUSH 0x00 
+                            337: DUP2 
+                            338: EQ 
+                            339: PUSH [tag] 57 
+                            340: JUMPI 
+                              False Branch
+                                /* emit __cost1 */ 
+                                341: PUSH 0x01 
+                                342: SWAP2 
+                                343: POP 
+                                344: POP 
+                                345: PUSH [tag] 55 
+                                346: JUMP 
+                                401: tag_55: 
+                                402: SWAP2 
+                                403: SWAP1 
+                                404: POP 
+                                405: JUMP	// out 
+                                /* emit __fun_fib_34_fn19.99a8a5a93933f01cc6f5.internal.end */ 
+                                444: tag_69: 
+                                445: SWAP1 
+                                446: POP 
+                                447: PUSH [tag] 68 
+                                448: JUMP 
+                                449: tag_68: 
+                                450: SWAP1 
+                                451: JUMP	// out 
+                                /* emit __fun_get_fib1_88_fn25.bbf7a82f411aba4bc61c.internal.end */ 
+                                165: tag_33: 
+                                166: PUSH [tag] 35 
+                                167: PUSH [tag] 15 
+                                168: JUMP	// in 
+                                248: tag_15: 
+                                /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.start */ (cost: 7)
+                                249: PUSH 0x00 
+                                250: PUSH 0x40 
+                                251: MLOAD 
+                                252: SWAP1 
+                                253: POP 
+                                254: tag_43: 
+                                255: SWAP1 
+                                256: JUMP	// out 
+                                /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.end */ 
+                                169: tag_35: 
+                                170: DUP1 
+                                171: PUSH [tag] 36 
+                                172: DUP4 
+                                173: DUP4 
+                                174: PUSH [tag] 17 
+                                175: JUMP	// in 
+                                232: tag_17: 
+                                /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.start */ (cost: 11)
+                                233: PUSH 0x00 
+                                234: PUSH 0x20 
+                                235: DUP3 
+                                236: ADD 
+                                237: SWAP1 
+                                238: POP 
+                                /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.start */ (cost: 3)
+                                239: DUP3 
+                                240: DUP3 
+                                241: MSTORE 
+                                /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.end */ 
+                                242: tag_42: 
+                                243: SWAP3 
+                                244: SWAP2 
+                                245: POP 
+                                246: POP 
+                                247: JUMP	// out 
+                                /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.end */ 
+                                176: tag_36: 
+                                177: SUB 
+                                178: DUP2 
+                                179: RETURN 
+                                /* emit case0xf17b85cd.__fun_get_fib1_88.internal.end */ 
+                              True Branch
+                                349: tag_57: 
+                                /* emit __cost2 */ 
+                                /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.start */ (cost: 6)
+                                350: PUSH 0x01 
+                                351: DUP4 
+                                352: LT 
+                                353: ISZERO 
+                                354: PUSH [tag] 58 
+                                355: JUMPI 
+                                  False Branch
+                                    /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.panic2.start */ (cost: 3)
+                                    356: PUSH [tag] 59 
+                                    357: PUSH [tag] 50 
+                                    358: JUMP	// in 
+                                    468: tag_50: 
+                                    /* emit __panic_error_0x11_fn23.389faa9662e1ee337c2f.internal.start */ (cost: 11)
+                                    469: PUSH 0x4e487b71 
+                                    470: PUSH 0xe0 
+                                    471: SHL 
+                                    472: PUSH 0x00 
+                                    473: MSTORE 
+                                    474: PUSH 0x11 
+                                    475: PUSH 0x04 
+                                    476: MSTORE 
+                                    477: PUSH 0x24 
+                                    478: PUSH 0x00 
+                                    479: REVERT 
+                                  True Branch
+                                    360: tag_58: 
+                                    /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.end */ 
+                                    361: PUSH [tag] 60 
+                                    362: PUSH 0x00 
+                                    363: NOT 
+                                    364: DUP5 
+                                    365: ADD 
+                                    366: PUSH [tag] 54 
+                                    367: JUMP	// in 
+                                    368: tag_60: 
+                                    369: PUSH [tag] 61 
+                                    370: PUSH 0x01 
+                                    371: NOT 
+                                    372: DUP6 
+                                    373: ADD 
+                                    374: PUSH [tag] 54 
+                                    375: JUMP	// in 
+                                    376: tag_61: 
+                                    /* emit __checked_add_t_uint256_fn24.37074329397a7a32d04b.internal.start */ (cost: 7)
+                                    377: DUP1 
+                                    378: NOT 
+                                    379: DUP3 
+                                    380: GT 
+                                    381: ISZERO 
+                                    382: PUSH [tag] 62 
+                                    383: JUMPI 
+                                      False Branch
+                                        /* emit __checked_add_t_uint256_fn24.37074329397a7a32d04b.internal.panic2.start */ (cost: 3)
+                                        384: PUSH [tag] 63 
+                                        385: PUSH [tag] 50 
+                                        386: JUMP	// in 
+                                        468: tag_50: 
+                                        /* emit __panic_error_0x11_fn23.389faa9662e1ee337c2f.internal.start */ (cost: 11)
+                                        469: PUSH 0x4e487b71 
+                                        470: PUSH 0xe0 
+                                        471: SHL 
+                                        472: PUSH 0x00 
+                                        473: MSTORE 
+                                        474: PUSH 0x11 
+                                        475: PUSH 0x04 
+                                        476: MSTORE 
+                                        477: PUSH 0x24 
+                                        478: PUSH 0x00 
+                                        479: REVERT 
+                                      True Branch
+                                        388: tag_62: 
+                                        /* emit __checked_add_t_uint256_fn24.37074329397a7a32d04b.internal.end */ 
+                                        389: DUP1 
+                                        390: DUP3 
+                                        391: ADD 
+                                        392: SWAP4 
+                                        393: POP 
+                                        394: POP 
+                                        395: POP 
+                                        396: POP 
+                                        397: PUSH [tag] 55 
+                                        398: JUMP 
+                                        401: tag_55: 
+                                        402: SWAP2 
+                                        403: SWAP1 
+                                        404: POP 
+                                        405: JUMP	// out 
+                                        /* emit __fun_fib_34_fn19.99a8a5a93933f01cc6f5.internal.end */ 
+                                        444: tag_69: 
+                                        445: SWAP1 
+                                        446: POP 
+                                        447: PUSH [tag] 68 
+                                        448: JUMP 
+                                        449: tag_68: 
+                                        450: SWAP1 
+                                        451: JUMP	// out 
+                                        /* emit __fun_get_fib1_88_fn25.bbf7a82f411aba4bc61c.internal.end */ 
+                                        165: tag_33: 
+                                        166: PUSH [tag] 35 
+                                        167: PUSH [tag] 15 
+                                        168: JUMP	// in 
+                                        248: tag_15: 
+                                        /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.start */ (cost: 7)
+                                        249: PUSH 0x00 
+                                        250: PUSH 0x40 
+                                        251: MLOAD 
+                                        252: SWAP1 
+                                        253: POP 
+                                        254: tag_43: 
+                                        255: SWAP1 
+                                        256: JUMP	// out 
+                                        /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.end */ 
+                                        169: tag_35: 
+                                        170: DUP1 
+                                        171: PUSH [tag] 36 
+                                        172: DUP4 
+                                        173: DUP4 
+                                        174: PUSH [tag] 17 
+                                        175: JUMP	// in 
+                                        232: tag_17: 
+                                        /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.start */ (cost: 11)
+                                        233: PUSH 0x00 
+                                        234: PUSH 0x20 
+                                        235: DUP3 
+                                        236: ADD 
+                                        237: SWAP1 
+                                        238: POP 
+                                        /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.start */ (cost: 3)
+                                        239: DUP3 
+                                        240: DUP3 
+                                        241: MSTORE 
+                                        /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.end */ 
+                                        242: tag_42: 
+                                        243: SWAP3 
+                                        244: SWAP2 
+                                        245: POP 
+                                        246: POP 
+                                        247: JUMP	// out 
+                                        /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.end */ 
+                                        176: tag_36: 
+                                        177: SUB 
+                                        178: DUP2 
+                                        179: RETURN 
+                                        /* emit case0xf17b85cd.__fun_get_fib1_88.internal.end */ 
+              True Branch
+                112: tag_7: 
+                /* emit case0xdb134185.__fun_get_fact_102.internal.start */ (cost: 35)
+                113: CALLVALUE 
+                114: ISZERO 
+                115: PUSH [tag] 25 
+                116: JUMPI 
+                  False Branch
+                    /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal.start */ (cost: 3)
+                    117: DUP2 
+                    118: DUP3 
+                    119: REVERT 
+                    /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal.end */ 
+                  True Branch
+                    120: tag_25: 
+                    121: PUSH [tag] 26 
+                    122: PUSH [tag] 27 
+                    123: CALLDATASIZE 
+                    124: PUSH [tag] 21 
+                    125: JUMP	// in 
+                    208: tag_21: 
+                    /* emit __abi_decode_tuple_t_uint256_fn11.08a687af836c575d7efc.internal.start */ (cost: 18)
+                    209: PUSH 0x00 
+                    210: PUSH 0x20 
+                    211: PUSH 0x03 
+                    212: NOT 
+                    213: DUP4 
+                    214: ADD 
+                    215: SLT 
+                    216: ISZERO 
+                    217: PUSH [tag] 41 
+                    218: JUMPI 
+                      False Branch
+                        /* emit __abi_decode_tuple_t_uint256_fn11.08a687af836c575d7efc.internal.revert.start */ (cost: 0)
+                        /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.start */ (cost: 3)
+                        219: PUSH 0x00 
+                        220: PUSH 0x00 
+                        221: REVERT 
+                        /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.end */ 
+                        /* emit __abi_decode_tuple_t_uint256_fn11.08a687af836c575d7efc.internal.revert.end */ 
+                      True Branch
+                        222: tag_41: 
+                        223: PUSH 0x04 
+                        224: CALLDATALOAD 
+                        225: SWAP1 
+                        226: POP 
+                        227: tag_40: 
+                        228: SWAP2 
+                        229: SWAP1 
+                        230: POP 
+                        231: JUMP	// out 
+                        /* emit __abi_decode_tuple_t_uint256_fn11.08a687af836c575d7efc.internal.end */ 
+                        126: tag_27: 
+                        127: PUSH [tag] 28 
+                        128: JUMP	// in 
+                        421: tag_28: 
+                        /* emit __fun_get_fact_102_fn26.735857a21c939c698c8c.internal.start */ (cost: 22)
+                        422: PUSH 0x00 
+                        /* emit __cost8 */ 
+                        423: PUSH [tag] 67 
+                        424: PUSH 0x01 
+                        425: DUP4 
+                        426: PUSH [tag] 44 
+                        427: JUMP	// in 
+                        257: tag_44: 
+                        /* emit __fun_fact_tail_64_fn27.82c9105db03453c86f7e.internal.start */ (cost: 41)
+                        258: PUSH 0x00 
+                        /* emit __cost3 */ 
+                        259: PUSH 0x01 
+                        260: DUP3 
+                        261: GT 
+                        262: ISZERO 
+                        263: PUSH 0x00 
+                        264: DUP2 
+                        265: EQ 
+                        266: PUSH [tag] 47 
+                        267: JUMPI 
+                          False Branch
+                            /* emit __cost4 */ 
+                            268: DUP4 
+                            269: SWAP2 
+                            270: POP 
+                            271: POP 
+                            272: PUSH [tag] 45 
+                            273: JUMP 
+                            325: tag_45: 
+                            326: SWAP3 
+                            327: SWAP2 
+                            328: POP 
+                            329: POP 
+                            330: JUMP	// out 
+                            /* emit __fun_fact_tail_64_fn27.82c9105db03453c86f7e.internal.end */ 
+                            428: tag_67: 
+                            429: SWAP1 
+                            430: POP 
+                            431: PUSH [tag] 66 
+                            432: JUMP 
+                            433: tag_66: 
+                            434: SWAP2 
+                            435: SWAP1 
+                            436: POP 
+                            437: JUMP	// out 
+                            /* emit __fun_get_fact_102_fn26.735857a21c939c698c8c.internal.end */ 
+                            129: tag_26: 
+                            130: PUSH [tag] 29 
+                            131: PUSH [tag] 15 
+                            132: JUMP	// in 
+                            248: tag_15: 
+                            /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.start */ (cost: 7)
+                            249: PUSH 0x00 
+                            250: PUSH 0x40 
+                            251: MLOAD 
+                            252: SWAP1 
+                            253: POP 
+                            254: tag_43: 
+                            255: SWAP1 
+                            256: JUMP	// out 
+                            /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.end */ 
+                            133: tag_29: 
+                            134: DUP1 
+                            135: PUSH [tag] 30 
+                            136: DUP4 
+                            137: DUP4 
+                            138: PUSH [tag] 17 
+                            139: JUMP	// in 
+                            232: tag_17: 
+                            /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.start */ (cost: 11)
+                            233: PUSH 0x00 
+                            234: PUSH 0x20 
+                            235: DUP3 
+                            236: ADD 
+                            237: SWAP1 
+                            238: POP 
+                            /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.start */ (cost: 3)
+                            239: DUP3 
+                            240: DUP3 
+                            241: MSTORE 
+                            /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.end */ 
+                            242: tag_42: 
+                            243: SWAP3 
+                            244: SWAP2 
+                            245: POP 
+                            246: POP 
+                            247: JUMP	// out 
+                            /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.end */ 
+                            140: tag_30: 
+                            141: SUB 
+                            142: DUP2 
+                            143: RETURN 
+                            /* emit case0xdb134185.__fun_get_fact_102.internal.end */ 
+                          True Branch
+                            276: tag_47: 
+                            /* emit __cost5 */ 
+                            /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.start */ (cost: 6)
+                            277: PUSH 0x01 
+                            278: DUP4 
+                            279: LT 
+                            280: ISZERO 
+                            281: PUSH [tag] 48 
+                            282: JUMPI 
+                              False Branch
+                                /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.panic2.start */ (cost: 3)
+                                283: PUSH [tag] 49 
+                                284: PUSH [tag] 50 
+                                285: JUMP	// in 
+                                468: tag_50: 
+                                /* emit __panic_error_0x11_fn23.389faa9662e1ee337c2f.internal.start */ (cost: 11)
+                                469: PUSH 0x4e487b71 
+                                470: PUSH 0xe0 
+                                471: SHL 
+                                472: PUSH 0x00 
+                                473: MSTORE 
+                                474: PUSH 0x11 
+                                475: PUSH 0x04 
+                                476: MSTORE 
+                                477: PUSH 0x24 
+                                478: PUSH 0x00 
+                                479: REVERT 
+                              True Branch
+                                287: tag_48: 
+                                /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.end */ 
+                                /* emit __checked_mul_t_uint256_fn28.5a61f3ece57f0c1c7a76.internal.start */ (cost: 14)
+                                288: PUSH 0x00 
+                                289: NOT 
+                                290: DUP4 
+                                291: DUP2 
+                                292: DIV 
+                                293: DUP6 
+                                294: GT 
+                                295: DUP5 
+                                296: ISZERO 
+                                297: ISZERO 
+                                298: AND 
+                                299: ISZERO 
+                                300: PUSH [tag] 51 
+                                301: JUMPI 
+                                  False Branch
+                                    /* emit __checked_mul_t_uint256_fn28.5a61f3ece57f0c1c7a76.internal.panic4.start */ (cost: 3)
+                                    302: PUSH [tag] 52 
+                                    303: PUSH [tag] 50 
+                                    304: JUMP	// in 
+                                    468: tag_50: 
+                                    /* emit __panic_error_0x11_fn23.389faa9662e1ee337c2f.internal.start */ (cost: 11)
+                                    469: PUSH 0x4e487b71 
+                                    470: PUSH 0xe0 
+                                    471: SHL 
+                                    472: PUSH 0x00 
+                                    473: MSTORE 
+                                    474: PUSH 0x11 
+                                    475: PUSH 0x04 
+                                    476: MSTORE 
+                                    477: PUSH 0x24 
+                                    478: PUSH 0x00 
+                                    479: REVERT 
+                                  True Branch
+                                    306: tag_51: 
+                                    /* emit __checked_mul_t_uint256_fn28.5a61f3ece57f0c1c7a76.internal.end */ 
+                                    307: PUSH [tag] 53 
+                                    308: DUP6 
+                                    309: DUP6 
+                                    310: MUL 
+                                    311: DUP3 
+                                    312: DUP7 
+                                    313: ADD 
+                                    314: PUSH [tag] 44 
+                                    315: JUMP	// in 
+                                    316: tag_53: 
+                                    317: SWAP3 
+                                    318: POP 
+                                    319: POP 
+                                    320: POP 
+                                    321: PUSH [tag] 45 
+                                    322: JUMP 
+                                    325: tag_45: 
+                                    326: SWAP3 
+                                    327: SWAP2 
+                                    328: POP 
+                                    329: POP 
+                                    330: JUMP	// out 
+                                    /* emit __fun_fact_tail_64_fn27.82c9105db03453c86f7e.internal.end */ 
+                                    428: tag_67: 
+                                    429: SWAP1 
+                                    430: POP 
+                                    431: PUSH [tag] 66 
+                                    432: JUMP 
+                                    433: tag_66: 
+                                    434: SWAP2 
+                                    435: SWAP1 
+                                    436: POP 
+                                    437: JUMP	// out 
+                                    /* emit __fun_get_fact_102_fn26.735857a21c939c698c8c.internal.end */ 
+                                    129: tag_26: 
+                                    130: PUSH [tag] 29 
+                                    131: PUSH [tag] 15 
+                                    132: JUMP	// in 
+                                    248: tag_15: 
+                                    /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.start */ (cost: 7)
+                                    249: PUSH 0x00 
+                                    250: PUSH 0x40 
+                                    251: MLOAD 
+                                    252: SWAP1 
+                                    253: POP 
+                                    254: tag_43: 
+                                    255: SWAP1 
+                                    256: JUMP	// out 
+                                    /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.end */ 
+                                    133: tag_29: 
+                                    134: DUP1 
+                                    135: PUSH [tag] 30 
+                                    136: DUP4 
+                                    137: DUP4 
+                                    138: PUSH [tag] 17 
+                                    139: JUMP	// in 
+                                    232: tag_17: 
+                                    /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.start */ (cost: 11)
+                                    233: PUSH 0x00 
+                                    234: PUSH 0x20 
+                                    235: DUP3 
+                                    236: ADD 
+                                    237: SWAP1 
+                                    238: POP 
+                                    /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.start */ (cost: 3)
+                                    239: DUP3 
+                                    240: DUP3 
+                                    241: MSTORE 
+                                    /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.end */ 
+                                    242: tag_42: 
+                                    243: SWAP3 
+                                    244: SWAP2 
+                                    245: POP 
+                                    246: POP 
+                                    247: JUMP	// out 
+                                    /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.end */ 
+                                    140: tag_30: 
+                                    141: SUB 
+                                    142: DUP2 
+                                    143: RETURN 
+                                    /* emit case0xdb134185.__fun_get_fact_102.internal.end */ 
+          True Branch
+            76: tag_6: 
+            /* emit case0x9899e555.__fun_get_fib_77.internal.start */ (cost: 35)
+            77: CALLVALUE 
+            78: ISZERO 
+            79: PUSH [tag] 18 
+            80: JUMPI 
+              False Branch
+                /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal.start */ (cost: 3)
+                81: DUP2 
+                82: DUP3 
+                83: REVERT 
+                /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal.end */ 
+              True Branch
+                84: tag_18: 
+                85: PUSH [tag] 19 
+                86: PUSH [tag] 20 
+                87: CALLDATASIZE 
+                88: PUSH [tag] 21 
+                89: JUMP	// in 
+                208: tag_21: 
+                /* emit __abi_decode_tuple_t_uint256_fn11.08a687af836c575d7efc.internal.start */ (cost: 18)
+                209: PUSH 0x00 
+                210: PUSH 0x20 
+                211: PUSH 0x03 
+                212: NOT 
+                213: DUP4 
+                214: ADD 
+                215: SLT 
+                216: ISZERO 
+                217: PUSH [tag] 41 
+                218: JUMPI 
+                  False Branch
+                    /* emit __abi_decode_tuple_t_uint256_fn11.08a687af836c575d7efc.internal.revert.start */ (cost: 0)
+                    /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.start */ (cost: 3)
+                    219: PUSH 0x00 
+                    220: PUSH 0x00 
+                    221: REVERT 
+                    /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.end */ 
+                    /* emit __abi_decode_tuple_t_uint256_fn11.08a687af836c575d7efc.internal.revert.end */ 
+                  True Branch
+                    222: tag_41: 
+                    223: PUSH 0x04 
+                    224: CALLDATALOAD 
+                    225: SWAP1 
+                    226: POP 
+                    227: tag_40: 
+                    228: SWAP2 
+                    229: SWAP1 
+                    230: POP 
+                    231: JUMP	// out 
+                    /* emit __abi_decode_tuple_t_uint256_fn11.08a687af836c575d7efc.internal.end */ 
+                    90: tag_20: 
+                    91: PUSH [tag] 22 
+                    92: JUMP	// in 
+                    452: tag_22: 
+                    /* emit __fun_get_fib_77_fn17.58b48d7ecaf9f16bbf46.internal.start */ (cost: 21)
+                    453: PUSH 0x00 
+                    /* emit __cost6 */ 
+                    454: PUSH [tag] 71 
+                    455: DUP3 
+                    456: PUSH [tag] 54 
+                    457: JUMP	// in 
+                    331: tag_54: 
+                    /* emit __fun_fib_34_fn19.99a8a5a93933f01cc6f5.internal.start */ (cost: 47)
+                    332: PUSH 0x00 
+                    /* emit __cost0 */ 
+                    333: PUSH 0x02 
+                    334: DUP3 
+                    335: LT 
+                    336: PUSH 0x00 
+                    337: DUP2 
+                    338: EQ 
+                    339: PUSH [tag] 57 
+                    340: JUMPI 
+                      False Branch
+                        /* emit __cost1 */ 
+                        341: PUSH 0x01 
+                        342: SWAP2 
+                        343: POP 
+                        344: POP 
+                        345: PUSH [tag] 55 
+                        346: JUMP 
+                        401: tag_55: 
+                        402: SWAP2 
+                        403: SWAP1 
+                        404: POP 
+                        405: JUMP	// out 
+                        /* emit __fun_fib_34_fn19.99a8a5a93933f01cc6f5.internal.end */ 
+                        458: tag_71: 
+                        459: SWAP1 
+                        460: POP 
+                        461: PUSH [tag] 70 
+                        462: JUMP 
+                        463: tag_70: 
+                        464: SWAP2 
+                        465: SWAP1 
+                        466: POP 
+                        467: JUMP	// out 
+                        /* emit __fun_get_fib_77_fn17.58b48d7ecaf9f16bbf46.internal.end */ 
+                        93: tag_19: 
+                        94: PUSH [tag] 23 
+                        95: PUSH [tag] 15 
+                        96: JUMP	// in 
+                        248: tag_15: 
+                        /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.start */ (cost: 7)
+                        249: PUSH 0x00 
+                        250: PUSH 0x40 
+                        251: MLOAD 
+                        252: SWAP1 
+                        253: POP 
+                        254: tag_43: 
+                        255: SWAP1 
+                        256: JUMP	// out 
+                        /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.end */ 
+                        97: tag_23: 
+                        98: DUP1 
+                        99: PUSH [tag] 24 
+                        100: DUP4 
+                        101: DUP4 
+                        102: PUSH [tag] 17 
+                        103: JUMP	// in 
+                        232: tag_17: 
+                        /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.start */ (cost: 11)
+                        233: PUSH 0x00 
+                        234: PUSH 0x20 
+                        235: DUP3 
+                        236: ADD 
+                        237: SWAP1 
+                        238: POP 
+                        /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.start */ (cost: 3)
+                        239: DUP3 
+                        240: DUP3 
+                        241: MSTORE 
+                        /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.end */ 
+                        242: tag_42: 
+                        243: SWAP3 
+                        244: SWAP2 
+                        245: POP 
+                        246: POP 
+                        247: JUMP	// out 
+                        /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.end */ 
+                        104: tag_24: 
+                        105: SUB 
+                        106: DUP2 
+                        107: RETURN 
+                        /* emit case0x9899e555.__fun_get_fib_77.internal.end */ 
+                      True Branch
+                        349: tag_57: 
+                        /* emit __cost2 */ 
+                        /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.start */ (cost: 6)
+                        350: PUSH 0x01 
+                        351: DUP4 
+                        352: LT 
+                        353: ISZERO 
+                        354: PUSH [tag] 58 
+                        355: JUMPI 
+                          False Branch
+                            /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.panic2.start */ (cost: 3)
+                            356: PUSH [tag] 59 
+                            357: PUSH [tag] 50 
+                            358: JUMP	// in 
+                            468: tag_50: 
+                            /* emit __panic_error_0x11_fn23.389faa9662e1ee337c2f.internal.start */ (cost: 11)
+                            469: PUSH 0x4e487b71 
+                            470: PUSH 0xe0 
+                            471: SHL 
+                            472: PUSH 0x00 
+                            473: MSTORE 
+                            474: PUSH 0x11 
+                            475: PUSH 0x04 
+                            476: MSTORE 
+                            477: PUSH 0x24 
+                            478: PUSH 0x00 
+                            479: REVERT 
+                          True Branch
+                            360: tag_58: 
+                            /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.end */ 
+                            361: PUSH [tag] 60 
+                            362: PUSH 0x00 
+                            363: NOT 
+                            364: DUP5 
+                            365: ADD 
+                            366: PUSH [tag] 54 
+                            367: JUMP	// in 
+                            368: tag_60: 
+                            369: PUSH [tag] 61 
+                            370: PUSH 0x01 
+                            371: NOT 
+                            372: DUP6 
+                            373: ADD 
+                            374: PUSH [tag] 54 
+                            375: JUMP	// in 
+                            376: tag_61: 
+                            /* emit __checked_add_t_uint256_fn24.37074329397a7a32d04b.internal.start */ (cost: 7)
+                            377: DUP1 
+                            378: NOT 
+                            379: DUP3 
+                            380: GT 
+                            381: ISZERO 
+                            382: PUSH [tag] 62 
+                            383: JUMPI 
+                              False Branch
+                                /* emit __checked_add_t_uint256_fn24.37074329397a7a32d04b.internal.panic2.start */ (cost: 3)
+                                384: PUSH [tag] 63 
+                                385: PUSH [tag] 50 
+                                386: JUMP	// in 
+                                468: tag_50: 
+                                /* emit __panic_error_0x11_fn23.389faa9662e1ee337c2f.internal.start */ (cost: 11)
+                                469: PUSH 0x4e487b71 
+                                470: PUSH 0xe0 
+                                471: SHL 
+                                472: PUSH 0x00 
+                                473: MSTORE 
+                                474: PUSH 0x11 
+                                475: PUSH 0x04 
+                                476: MSTORE 
+                                477: PUSH 0x24 
+                                478: PUSH 0x00 
+                                479: REVERT 
+                              True Branch
+                                388: tag_62: 
+                                /* emit __checked_add_t_uint256_fn24.37074329397a7a32d04b.internal.end */ 
+                                389: DUP1 
+                                390: DUP3 
+                                391: ADD 
+                                392: SWAP4 
+                                393: POP 
+                                394: POP 
+                                395: POP 
+                                396: POP 
+                                397: PUSH [tag] 55 
+                                398: JUMP 
+                                401: tag_55: 
+                                402: SWAP2 
+                                403: SWAP1 
+                                404: POP 
+                                405: JUMP	// out 
+                                /* emit __fun_fib_34_fn19.99a8a5a93933f01cc6f5.internal.end */ 
+                                458: tag_71: 
+                                459: SWAP1 
+                                460: POP 
+                                461: PUSH [tag] 70 
+                                462: JUMP 
+                                463: tag_70: 
+                                464: SWAP2 
+                                465: SWAP1 
+                                466: POP 
+                                467: JUMP	// out 
+                                /* emit __fun_get_fib_77_fn17.58b48d7ecaf9f16bbf46.internal.end */ 
+                                93: tag_19: 
+                                94: PUSH [tag] 23 
+                                95: PUSH [tag] 15 
+                                96: JUMP	// in 
+                                248: tag_15: 
+                                /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.start */ (cost: 7)
+                                249: PUSH 0x00 
+                                250: PUSH 0x40 
+                                251: MLOAD 
+                                252: SWAP1 
+                                253: POP 
+                                254: tag_43: 
+                                255: SWAP1 
+                                256: JUMP	// out 
+                                /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.end */ 
+                                97: tag_23: 
+                                98: DUP1 
+                                99: PUSH [tag] 24 
+                                100: DUP4 
+                                101: DUP4 
+                                102: PUSH [tag] 17 
+                                103: JUMP	// in 
+                                232: tag_17: 
+                                /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.start */ (cost: 11)
+                                233: PUSH 0x00 
+                                234: PUSH 0x20 
+                                235: DUP3 
+                                236: ADD 
+                                237: SWAP1 
+                                238: POP 
+                                /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.start */ (cost: 3)
+                                239: DUP3 
+                                240: DUP3 
+                                241: MSTORE 
+                                /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.end */ 
+                                242: tag_42: 
+                                243: SWAP3 
+                                244: SWAP2 
+                                245: POP 
+                                246: POP 
+                                247: JUMP	// out 
+                                /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.end */ 
+                                104: tag_24: 
+                                105: SUB 
+                                106: DUP2 
+                                107: RETURN 
+                                /* emit case0x9899e555.__fun_get_fib_77.internal.end */ 
+      True Branch
+        40: tag_5: 
+        /* emit case0x7ff58107.__fun_get_fact1_114.internal.start */ (cost: 35)
+        41: CALLVALUE 
+        42: ISZERO 
+        43: PUSH [tag] 9 
+        44: JUMPI 
+          False Branch
+            /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal.start */ (cost: 3)
+            45: DUP2 
+            46: DUP3 
+            47: REVERT 
+            /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal.end */ 
+          True Branch
+            48: tag_9: 
+            49: PUSH [tag] 10 
+            50: CALLDATASIZE 
+            51: PUSH [tag] 11 
+            52: JUMP	// in 
+            191: tag_11: 
+            /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.start */ (cost: 11)
+            192: PUSH 0x00 
+            193: PUSH 0x03 
+            194: NOT 
+            195: DUP3 
+            196: ADD 
+            197: SLT 
+            198: ISZERO 
+            199: PUSH [tag] 39 
+            200: JUMPI 
+              False Branch
+                /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.revert.start */ (cost: 0)
+                /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.start */ (cost: 3)
+                201: PUSH 0x00 
+                202: PUSH 0x00 
+                203: REVERT 
+                /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.end */ 
+                /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.revert.end */ 
+              True Branch
+                204: tag_39: 
+                205: POP 
+                206: tag_38: 
+                207: JUMP	// out 
+                /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.end */ 
+                53: tag_10: 
+                54: PUSH [tag] 12 
+                55: PUSH [tag] 13 
+                56: JUMP	// in 
+                406: tag_13: 
+                /* emit __fun_get_fact1_114_fn29.0a5ad1c9853a22638bf5.internal.start */ (cost: 18)
+                407: PUSH 0x00 
+                /* emit __cost9 */ 
+                408: PUSH [tag] 65 
+                409: PUSH 0x01 
+                410: PUSH 0x01 
+                411: PUSH [tag] 44 
+                412: JUMP	// in 
+                257: tag_44: 
+                /* emit __fun_fact_tail_64_fn27.82c9105db03453c86f7e.internal.start */ (cost: 41)
+                258: PUSH 0x00 
+                /* emit __cost3 */ 
+                259: PUSH 0x01 
+                260: DUP3 
+                261: GT 
+                262: ISZERO 
+                263: PUSH 0x00 
+                264: DUP2 
+                265: EQ 
+                266: PUSH [tag] 47 
+                267: JUMPI 
+                  False Branch
+                    /* emit __cost4 */ 
+                    268: DUP4 
+                    269: SWAP2 
+                    270: POP 
+                    271: POP 
+                    272: PUSH [tag] 45 
+                    273: JUMP 
+                    325: tag_45: 
+                    326: SWAP3 
+                    327: SWAP2 
+                    328: POP 
+                    329: POP 
+                    330: JUMP	// out 
+                    /* emit __fun_fact_tail_64_fn27.82c9105db03453c86f7e.internal.end */ 
+                    413: tag_65: 
+                    414: SWAP1 
+                    415: POP 
+                    416: PUSH [tag] 64 
+                    417: JUMP 
+                    418: tag_64: 
+                    419: SWAP1 
+                    420: JUMP	// out 
+                    /* emit __fun_get_fact1_114_fn29.0a5ad1c9853a22638bf5.internal.end */ 
+                    57: tag_12: 
+                    58: PUSH [tag] 14 
+                    59: PUSH [tag] 15 
+                    60: JUMP	// in 
+                    248: tag_15: 
+                    /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.start */ (cost: 7)
+                    249: PUSH 0x00 
+                    250: PUSH 0x40 
+                    251: MLOAD 
+                    252: SWAP1 
+                    253: POP 
+                    254: tag_43: 
+                    255: SWAP1 
+                    256: JUMP	// out 
+                    /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.end */ 
+                    61: tag_14: 
+                    62: DUP1 
+                    63: PUSH [tag] 16 
+                    64: DUP4 
+                    65: DUP4 
+                    66: PUSH [tag] 17 
+                    67: JUMP	// in 
+                    232: tag_17: 
+                    /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.start */ (cost: 11)
+                    233: PUSH 0x00 
+                    234: PUSH 0x20 
+                    235: DUP3 
+                    236: ADD 
+                    237: SWAP1 
+                    238: POP 
+                    /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.start */ (cost: 3)
+                    239: DUP3 
+                    240: DUP3 
+                    241: MSTORE 
+                    /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.end */ 
+                    242: tag_42: 
+                    243: SWAP3 
+                    244: SWAP2 
+                    245: POP 
+                    246: POP 
+                    247: JUMP	// out 
+                    /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.end */ 
+                    68: tag_16: 
+                    69: SUB 
+                    70: DUP2 
+                    71: RETURN 
+                    /* emit case0x7ff58107.__fun_get_fact1_114.internal.end */ 
+                  True Branch
+                    276: tag_47: 
+                    /* emit __cost5 */ 
+                    /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.start */ (cost: 6)
+                    277: PUSH 0x01 
+                    278: DUP4 
+                    279: LT 
+                    280: ISZERO 
+                    281: PUSH [tag] 48 
+                    282: JUMPI 
+                      False Branch
+                        /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.panic2.start */ (cost: 3)
+                        283: PUSH [tag] 49 
+                        284: PUSH [tag] 50 
+                        285: JUMP	// in 
+                        468: tag_50: 
+                        /* emit __panic_error_0x11_fn23.389faa9662e1ee337c2f.internal.start */ (cost: 11)
+                        469: PUSH 0x4e487b71 
+                        470: PUSH 0xe0 
+                        471: SHL 
+                        472: PUSH 0x00 
+                        473: MSTORE 
+                        474: PUSH 0x11 
+                        475: PUSH 0x04 
+                        476: MSTORE 
+                        477: PUSH 0x24 
+                        478: PUSH 0x00 
+                        479: REVERT 
+                      True Branch
+                        287: tag_48: 
+                        /* emit __checked_sub_t_uint256_fn22.e314e7fdf565c918bf46.internal.end */ 
+                        /* emit __checked_mul_t_uint256_fn28.5a61f3ece57f0c1c7a76.internal.start */ (cost: 14)
+                        288: PUSH 0x00 
+                        289: NOT 
+                        290: DUP4 
+                        291: DUP2 
+                        292: DIV 
+                        293: DUP6 
+                        294: GT 
+                        295: DUP5 
+                        296: ISZERO 
+                        297: ISZERO 
+                        298: AND 
+                        299: ISZERO 
+                        300: PUSH [tag] 51 
+                        301: JUMPI 
+                          False Branch
+                            /* emit __checked_mul_t_uint256_fn28.5a61f3ece57f0c1c7a76.internal.panic4.start */ (cost: 3)
+                            302: PUSH [tag] 52 
+                            303: PUSH [tag] 50 
+                            304: JUMP	// in 
+                            468: tag_50: 
+                            /* emit __panic_error_0x11_fn23.389faa9662e1ee337c2f.internal.start */ (cost: 11)
+                            469: PUSH 0x4e487b71 
+                            470: PUSH 0xe0 
+                            471: SHL 
+                            472: PUSH 0x00 
+                            473: MSTORE 
+                            474: PUSH 0x11 
+                            475: PUSH 0x04 
+                            476: MSTORE 
+                            477: PUSH 0x24 
+                            478: PUSH 0x00 
+                            479: REVERT 
+                          True Branch
+                            306: tag_51: 
+                            /* emit __checked_mul_t_uint256_fn28.5a61f3ece57f0c1c7a76.internal.end */ 
+                            307: PUSH [tag] 53 
+                            308: DUP6 
+                            309: DUP6 
+                            310: MUL 
+                            311: DUP3 
+                            312: DUP7 
+                            313: ADD 
+                            314: PUSH [tag] 44 
+                            315: JUMP	// in 
+                            316: tag_53: 
+                            317: SWAP3 
+                            318: POP 
+                            319: POP 
+                            320: POP 
+                            321: PUSH [tag] 45 
+                            322: JUMP 
+                            325: tag_45: 
+                            326: SWAP3 
+                            327: SWAP2 
+                            328: POP 
+                            329: POP 
+                            330: JUMP	// out 
+                            /* emit __fun_fact_tail_64_fn27.82c9105db03453c86f7e.internal.end */ 
+                            413: tag_65: 
+                            414: SWAP1 
+                            415: POP 
+                            416: PUSH [tag] 64 
+                            417: JUMP 
+                            418: tag_64: 
+                            419: SWAP1 
+                            420: JUMP	// out 
+                            /* emit __fun_get_fact1_114_fn29.0a5ad1c9853a22638bf5.internal.end */ 
+                            57: tag_12: 
+                            58: PUSH [tag] 14 
+                            59: PUSH [tag] 15 
+                            60: JUMP	// in 
+                            248: tag_15: 
+                            /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.start */ (cost: 7)
+                            249: PUSH 0x00 
+                            250: PUSH 0x40 
+                            251: MLOAD 
+                            252: SWAP1 
+                            253: POP 
+                            254: tag_43: 
+                            255: SWAP1 
+                            256: JUMP	// out 
+                            /* emit __allocate_unbounded_fn4.ea0c7721a3386e7b6671.internal.end */ 
+                            61: tag_14: 
+                            62: DUP1 
+                            63: PUSH [tag] 16 
+                            64: DUP4 
+                            65: DUP4 
+                            66: PUSH [tag] 17 
+                            67: JUMP	// in 
+                            232: tag_17: 
+                            /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.start */ (cost: 11)
+                            233: PUSH 0x00 
+                            234: PUSH 0x20 
+                            235: DUP3 
+                            236: ADD 
+                            237: SWAP1 
+                            238: POP 
+                            /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.start */ (cost: 3)
+                            239: DUP3 
+                            240: DUP3 
+                            241: MSTORE 
+                            /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.end */ 
+                            242: tag_42: 
+                            243: SWAP3 
+                            244: SWAP2 
+                            245: POP 
+                            246: POP 
+                            247: JUMP	// out 
+                            /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.end */ 
+                            68: tag_16: 
+                            69: SUB 
+                            70: DUP2 
+                            71: RETURN 
+                            /* emit case0x7ff58107.__fun_get_fact1_114.internal.end */ 
+  True Branch
+    185: tag_1: 
+    /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn16.bc8840500f228100d6ae.internal.start */ (cost: 3)
+    186: PUSH 0x00 
+    187: PUSH 0x00 
+    188: REVERT 
+    /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn16.bc8840500f228100d6ae.internal.end */ 
+    /* emit __deployed_code.internal.end */ 
+

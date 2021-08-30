@@ -1,0 +1,128 @@
+--------------------------------
+  LABEL COSTS
+--------------------------------
+__creation_code.internal = 3
+__copy_arguments_for_constructor_14_object_D_15_fn0.7e8a14c10ddcadf191bb.internal = 8
+__allocate_memory_fn1.a154794ecec7d62ed02e.internal = 0
+__finalize_allocation_fn3.d841bb0e89ecb83d8122.internal = 22
+__abi_decode_tuple_t_uint256_fromMemory_fn6.746dfbc8e88e2cde329b.internal = 8
+__abi_decode_t_uint256_fromMemory_fn10.5ef31da80e30497e8b55.internal = 2
+__constructor_D_15_fn13.eb2c6c1b385c23e03e56.internal = 0
+__update_storage_value_offset_0t_uint256_to_t_uint256_fn14.39347f29b4f2b82ba070.internal = 4
+__deploy_code.internal = 8
+__allocate_unbounded_fn2.0a2887f5899f53d69fd9.internal = 2
+__abi_decode_tuple_t_uint256_fromMemory_fn6.746dfbc8e88e2cde329b.internal.revert = 0
+__revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal = 3
+__finalize_allocation_fn3.d841bb0e89ecb83d8122.internal.panic = 0
+__panic_error_0x41_fn5.0990bd2f3ffd43452a74.internal = 11
+
+--------------------------------
+  EXECUTION
+--------------------------------
+/* emit __creation_code.internal.start */ (cost: 3)
+1: PUSH 0x80 
+2: PUSH 0x40 
+3: MSTORE 
+/* emit __copy_arguments_for_constructor_14_object_D_15_fn0.7e8a14c10ddcadf191bb.internal.start */ (cost: 8)
+4: PUSH bytecodeSize 
+5: DUP1 
+6: CODESIZE 
+7: SUB 
+/* emit __allocate_memory_fn1.a154794ecec7d62ed02e.internal.start */ (cost: 0)
+/* emit __finalize_allocation_fn3.d841bb0e89ecb83d8122.internal.start */ (cost: 22)
+8: PUSH 0x1f 
+9: NOT 
+10: PUSH 0x1f 
+11: DUP3 
+12: ADD 
+13: AND 
+14: PUSH 0x80 
+15: ADD 
+16: PUSH 0x80 
+17: DUP2 
+18: LT 
+19: PUSH 0xffffffffffffffff 
+20: DUP3 
+21: GT 
+22: OR 
+23: ISZERO 
+24: PUSH [tag] 1 
+25: JUMPI 
+  False Branch
+    /* emit __finalize_allocation_fn3.d841bb0e89ecb83d8122.internal.panic.start */ (cost: 0)
+    /* emit __panic_error_0x41_fn5.0990bd2f3ffd43452a74.internal.start */ (cost: 11)
+    26: PUSH 0x4e487b71 
+    27: PUSH 0xe0 
+    28: SHL 
+    29: PUSH 0x00 
+    30: MSTORE 
+    31: PUSH 0x41 
+    32: PUSH 0x04 
+    33: MSTORE 
+    34: PUSH 0x24 
+    35: PUSH 0x00 
+    36: REVERT 
+    /* emit __panic_error_0x41_fn5.0990bd2f3ffd43452a74.internal.end */ 
+    /* emit __finalize_allocation_fn3.d841bb0e89ecb83d8122.internal.panic.end */ 
+  True Branch
+    37: tag_1: 
+    38: DUP1 
+    39: PUSH 0x40 
+    40: MSTORE 
+    41: POP 
+    /* emit __finalize_allocation_fn3.d841bb0e89ecb83d8122.internal.end */ 
+    /* emit __allocate_memory_fn1.a154794ecec7d62ed02e.internal.end */ 
+    42: DUP1 
+    43: DUP3 
+    44: PUSH 0x80 
+    45: CODECOPY 
+    /* emit __abi_decode_tuple_t_uint256_fromMemory_fn6.746dfbc8e88e2cde329b.internal.start */ (cost: 8)
+    46: PUSH 0x20 
+    47: DUP2 
+    48: SLT 
+    49: ISZERO 
+    50: PUSH [tag] 2 
+    51: JUMPI 
+      False Branch
+        /* emit __abi_decode_tuple_t_uint256_fromMemory_fn6.746dfbc8e88e2cde329b.internal.revert.start */ (cost: 0)
+        /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.start */ (cost: 3)
+        52: PUSH 0x00 
+        53: PUSH 0x00 
+        54: REVERT 
+        /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.end */ 
+        /* emit __abi_decode_tuple_t_uint256_fromMemory_fn6.746dfbc8e88e2cde329b.internal.revert.end */ 
+      True Branch
+        55: tag_2: 
+        56: POP 
+        57: POP 
+        /* emit __abi_decode_t_uint256_fromMemory_fn10.5ef31da80e30497e8b55.internal.start */ (cost: 2)
+        58: PUSH 0x80 
+        59: MLOAD 
+        /* emit __abi_decode_t_uint256_fromMemory_fn10.5ef31da80e30497e8b55.internal.end */ 
+        /* emit __abi_decode_tuple_t_uint256_fromMemory_fn6.746dfbc8e88e2cde329b.internal.end */ 
+        /* emit __copy_arguments_for_constructor_14_object_D_15_fn0.7e8a14c10ddcadf191bb.internal.end */ 
+        /* emit __constructor_D_15_fn13.eb2c6c1b385c23e03e56.internal.start */ (cost: 0)
+        /* emit __cost0 */ 
+        /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn14.39347f29b4f2b82ba070.internal.start */ (cost: 4)
+        60: DUP1 
+        61: PUSH 0x00 
+        62: SSTORE 
+        63: POP 
+        /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn14.39347f29b4f2b82ba070.internal.end */ 
+        /* emit __constructor_D_15_fn13.eb2c6c1b385c23e03e56.internal.end */ 
+        /* emit __deploy_code.internal.start */ (cost: 8)
+        /* emit __allocate_unbounded_fn2.0a2887f5899f53d69fd9.internal.start */ (cost: 2)
+        64: PUSH 0x40 
+        65: MLOAD 
+        /* emit __allocate_unbounded_fn2.0a2887f5899f53d69fd9.internal.end */ 
+        66: PUSH [dataSize] sub_0 
+        67: DUP1 
+        68: PUSH [dataOffset] sub_0 
+        69: DUP4 
+        70: CODECOPY 
+        71: DUP1 
+        72: DUP3 
+        73: RETURN 
+        /* emit __deploy_code.internal.end */ 
+        /* emit __creation_code.internal.end */ 
+

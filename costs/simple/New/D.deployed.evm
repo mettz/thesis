@@ -1,0 +1,115 @@
+--------------------------------
+  LABEL COSTS
+--------------------------------
+__deployed_code.internal = 10
+__revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn32.dd122e3cded0b2e77c82.internal = 3
+__dispatch_routine.internal = 11
+case0x0c55699c.__getter_fun_x_3.internal = 7
+__abi_decode_tuple__fn22.da35bd716c0519a56108.internal = 9
+__getter_fun_x_3_fn28.586ac05a17727d6043cb.internal = 0
+__read_from_storage_split_dynamic_t_uint256_fn24.7c3296798fec75a09aa9.internal = 2
+__abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn29.127fa929885d1a6180ee.internal = 0
+__abi_encode_t_uint256_to_t_uint256_fromStack_fn30.d970bcb4548a61645743.internal = 4
+__abi_decode_tuple__fn22.da35bd716c0519a56108.internal.revert = 0
+__revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn23.cc787e0daacb95a6338b.internal = 3
+__revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn21.8a7d19425b4347af55b8.internal = 3
+
+--------------------------------
+  EXECUTION
+--------------------------------
+/* emit __deployed_code.internal.start */ (cost: 10)
+1: PUSH 0x80 
+2: PUSH 0x40 
+3: MSTORE 
+4: PUSH 0x04 
+5: CALLDATASIZE 
+6: LT 
+7: ISZERO 
+8: ISZERO 
+9: PUSH [tag] 1 
+10: JUMPI 
+  False Branch
+    /* emit __dispatch_routine.internal.start */ (cost: 11)
+    11: PUSH 0x00 
+    12: DUP1 
+    13: CALLDATALOAD 
+    14: PUSH 0xe0 
+    15: SHR 
+    16: PUSH 0x0c55699c 
+    17: EQ 
+    18: ISZERO 
+    19: PUSH [tag] 2 
+    20: JUMPI 
+      False Branch
+        /* emit case0x0c55699c.__getter_fun_x_3.internal.start */ (cost: 7)
+        21: CALLVALUE 
+        22: ISZERO 
+        23: PUSH [tag] 3 
+        24: JUMPI 
+          False Branch
+            /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn21.8a7d19425b4347af55b8.internal.start */ (cost: 3)
+            25: DUP1 
+            26: DUP2 
+            27: REVERT 
+            /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn21.8a7d19425b4347af55b8.internal.end */ 
+          True Branch
+            28: tag_3: 
+            /* emit __abi_decode_tuple__fn22.da35bd716c0519a56108.internal.start */ (cost: 9)
+            29: DUP1 
+            30: PUSH 0x03 
+            31: NOT 
+            32: CALLDATASIZE 
+            33: ADD 
+            34: SLT 
+            35: ISZERO 
+            36: PUSH [tag] 4 
+            37: JUMPI 
+              False Branch
+                /* emit __abi_decode_tuple__fn22.da35bd716c0519a56108.internal.revert.start */ (cost: 0)
+                /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn23.cc787e0daacb95a6338b.internal.start */ (cost: 3)
+                38: DUP1 
+                39: DUP2 
+                40: REVERT 
+                /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn23.cc787e0daacb95a6338b.internal.end */ 
+                /* emit __abi_decode_tuple__fn22.da35bd716c0519a56108.internal.revert.end */ 
+              True Branch
+                41: tag_4: 
+                /* emit __abi_decode_tuple__fn22.da35bd716c0519a56108.internal.end */ 
+                /* emit __getter_fun_x_3_fn28.586ac05a17727d6043cb.internal.start */ (cost: 0)
+                /* emit __read_from_storage_split_dynamic_t_uint256_fn24.7c3296798fec75a09aa9.internal.start */ (cost: 2)
+                42: DUP1 
+                43: SLOAD 
+                /* emit __read_from_storage_split_dynamic_t_uint256_fn24.7c3296798fec75a09aa9.internal.end */ 
+                /* emit __getter_fun_x_3_fn28.586ac05a17727d6043cb.internal.end */ 
+                /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn29.127fa929885d1a6180ee.internal.start */ (cost: 0)
+                /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn30.d970bcb4548a61645743.internal.start */ (cost: 4)
+                44: DUP1 
+                45: PUSH 0x80 
+                46: MSTORE 
+                47: POP 
+                /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn30.d970bcb4548a61645743.internal.end */ 
+                /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn29.127fa929885d1a6180ee.internal.end */ 
+                48: PUSH 0x20 
+                49: PUSH 0x80 
+                50: RETURN 
+                /* emit case0x0c55699c.__getter_fun_x_3.internal.end */ 
+      True Branch
+        51: tag_2: 
+        52: POP 
+        /* emit __dispatch_routine.internal.end */ 
+        53: tag_1: 
+        /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn32.dd122e3cded0b2e77c82.internal.start */ (cost: 3)
+        54: PUSH 0x00 
+        55: PUSH 0x00 
+        56: REVERT 
+        /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn32.dd122e3cded0b2e77c82.internal.end */ 
+        /* emit __deployed_code.internal.end */ 
+  True Branch
+    53: tag_1: 
+    /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn32.dd122e3cded0b2e77c82.internal.start */ (cost: 3)
+    54: PUSH 0x00 
+    55: PUSH 0x00 
+    56: REVERT 
+    /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn32.dd122e3cded0b2e77c82.internal.end */ 
+    /* emit __deployed_code.internal.end */ 
+

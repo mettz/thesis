@@ -1,0 +1,116 @@
+--------------------------------
+  LABEL COSTS
+--------------------------------
+__creation_code.internal = 3
+__constructor_Purchase_230_fn1.b9645d4d7e1a797c2cc6.internal = 18
+__update_storage_value_offset_0t_address_payable_to_t_address_payable_fn6.f57c08dc3c4da456bd5b.internal = 15
+__checked_div_t_uint256_fn13.bc2367f34ad14e09da8a.internal = 3
+__update_storage_value_offset_0t_uint256_to_t_uint256_fn16.9b422e065baecee528ce.internal = 3
+__checked_mul_t_uint256_fn24.19d83a181c5ed5a47476.internal = 13
+__deploy_code.internal = 8
+__checked_mul_t_uint256_fn24.19d83a181c5ed5a47476.internal.panic4 = 0
+__panic_error_0x11_fn15.a3aec0b85e7d12028709.internal = 11
+
+--------------------------------
+  EXECUTION
+--------------------------------
+/* emit __creation_code.internal.start */ (cost: 3)
+1: PUSH 0x80 
+2: PUSH 0x40 
+3: MSTORE 
+/* emit __constructor_Purchase_230_fn1.b9645d4d7e1a797c2cc6.internal.start */ (cost: 18)
+/* emit __cost4 */ 
+/* emit __update_storage_value_offset_0t_address_payable_to_t_address_payable_fn6.f57c08dc3c4da456bd5b.internal.start */ (cost: 15)
+4: PUSH 0x01 
+5: SLOAD 
+6: CALLER 
+7: PUSH 0x01 
+8: PUSH 0x01 
+9: PUSH 0xa0 
+10: SHL 
+11: SUB 
+12: NOT 
+13: DUP3 
+14: AND 
+15: OR 
+16: PUSH 0x01 
+17: SSTORE 
+18: POP 
+/* emit __update_storage_value_offset_0t_address_payable_to_t_address_payable_fn6.f57c08dc3c4da456bd5b.internal.end */ 
+/* emit __checked_div_t_uint256_fn13.bc2367f34ad14e09da8a.internal.start */ (cost: 3)
+19: CALLVALUE 
+20: PUSH 0x01 
+21: SHR 
+/* emit __checked_div_t_uint256_fn13.bc2367f34ad14e09da8a.internal.end */ 
+/* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn16.9b422e065baecee528ce.internal.start */ (cost: 3)
+22: DUP1 
+23: PUSH 0x00 
+24: SSTORE 
+/* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn16.9b422e065baecee528ce.internal.end */ 
+/* emit __checked_mul_t_uint256_fn24.19d83a181c5ed5a47476.internal.start */ (cost: 13)
+25: PUSH 0x01 
+26: PUSH 0x01 
+27: PUSH 0xff 
+28: SHL 
+29: SUB 
+30: DUP2 
+31: GT 
+32: PUSH 0x01 
+33: AND 
+34: ISZERO 
+35: PUSH [tag] 1 
+36: JUMPI 
+  False Branch
+    /* emit __checked_mul_t_uint256_fn24.19d83a181c5ed5a47476.internal.panic4.start */ (cost: 0)
+    /* emit __panic_error_0x11_fn15.a3aec0b85e7d12028709.internal.start */ (cost: 11)
+    37: PUSH 0x4e487b71 
+    38: PUSH 0xe0 
+    39: SHL 
+    40: PUSH 0x00 
+    41: MSTORE 
+    42: PUSH 0x11 
+    43: PUSH 0x04 
+    44: MSTORE 
+    45: PUSH 0x24 
+    46: PUSH 0x00 
+    47: REVERT 
+    /* emit __panic_error_0x11_fn15.a3aec0b85e7d12028709.internal.end */ 
+    /* emit __checked_mul_t_uint256_fn24.19d83a181c5ed5a47476.internal.panic4.end */ 
+  True Branch
+    48: tag_1: 
+    49: POP 
+    /* emit __checked_mul_t_uint256_fn24.19d83a181c5ed5a47476.internal.end */ 
+    50: CALLVALUE 
+    51: PUSH 0x01 
+    52: NOT 
+    53: CALLVALUE 
+    54: AND 
+    55: EQ 
+    56: ISZERO 
+    57: ISZERO 
+    58: PUSH [tag] 2 
+    59: JUMPI 
+      False Branch
+        60: PUSH 0x5f1f2621 
+        61: PUSH 0xe1 
+        62: SHL 
+        63: PUSH 0x80 
+        64: MSTORE 
+        65: PUSH 0x04 
+        66: PUSH 0x80 
+        67: REVERT 
+      True Branch
+        68: tag_2: 
+        /* emit __constructor_Purchase_230_fn1.b9645d4d7e1a797c2cc6.internal.end */ 
+        /* emit __deploy_code.internal.start */ (cost: 8)
+        69: PUSH [dataSize] sub_0 
+        70: DUP1 
+        71: PUSH [dataOffset] sub_0 
+        72: PUSH 0x80 
+        73: CODECOPY 
+        74: DUP1 
+        75: PUSH 0x80 
+        76: RETURN 
+        /* emit __deploy_code.internal.end */ 
+        /* emit __creation_code.internal.end */ 
+

@@ -10,7 +10,7 @@ contract D {
 }
 
 contract C {
-    D d = new D(4); // will be executed as part of C's constructor
+    D d = new D(4);
 
     function createD(uint256 arg) public {
         D newD = new D(arg);
@@ -18,7 +18,6 @@ contract C {
     }
 
     function createAndEndowD(uint256 arg, uint256 amount) public payable {
-        // Send ether along with the creation
         D newD = new D{value: amount}(arg);
         newD.x();
     }

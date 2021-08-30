@@ -1,0 +1,38 @@
+--------------------------------
+  LABEL COSTS
+--------------------------------
+__creation_code.internal = 7
+__deploy_code.internal = 8
+__revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn29.2a358914e5cef443b425.internal = 3
+
+--------------------------------
+  EXECUTION
+--------------------------------
+/* emit __creation_code.internal.start */ (cost: 7)
+1: PUSH 0x80 
+2: PUSH 0x40 
+3: MSTORE 
+4: CALLVALUE 
+5: ISZERO 
+6: PUSH [tag] 1 
+7: JUMPI 
+  False Branch
+    /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn29.2a358914e5cef443b425.internal.start */ (cost: 3)
+    8: PUSH 0x00 
+    9: PUSH 0x00 
+    10: REVERT 
+    /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn29.2a358914e5cef443b425.internal.end */ 
+  True Branch
+    11: tag_1: 
+    /* emit __deploy_code.internal.start */ (cost: 8)
+    12: PUSH [dataSize] sub_0 
+    13: DUP1 
+    14: PUSH [dataOffset] sub_0 
+    15: PUSH 0x80 
+    16: CODECOPY 
+    17: DUP1 
+    18: PUSH 0x80 
+    19: RETURN 
+    /* emit __deploy_code.internal.end */ 
+    /* emit __creation_code.internal.end */ 
+

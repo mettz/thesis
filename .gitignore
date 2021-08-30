@@ -1,5 +1,5 @@
 .DS_Store
 out/
-cerco_out/*
-!cerco_out/.keep
+cerco/out/*
+!cerco/out/.keep
 node_modules/

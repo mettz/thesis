@@ -1,0 +1,135 @@
+--------------------------------
+  LABEL COSTS
+--------------------------------
+__deployed_code.internal = 10
+__revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn11.749f936f2e51a6b66b62.internal = 3
+__dispatch_routine.internal = 11
+case0x6d4ce63c.__fun_get_27.internal = 10
+__abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal = 9
+__fun_get_27_fn12.d3006e62e23e462d0179.internal = 8
+__fun_set_14_fn19.5e9f341ea6340596602c.internal = 0
+__update_storage_value_offset_0t_uint256_to_t_uint256_fn20.8b3c071edbdcf288a378.internal = 3
+__abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal = 0
+__abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal = 4
+__abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.revert = 0
+__revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal = 3
+__revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal = 3
+
+--------------------------------
+  EXECUTION
+--------------------------------
+/* emit __deployed_code.internal.start */ (cost: 10)
+1: PUSH 0x80 
+2: PUSH 0x40 
+3: MSTORE 
+4: PUSH 0x04 
+5: CALLDATASIZE 
+6: LT 
+7: ISZERO 
+8: ISZERO 
+9: PUSH [tag] 1 
+10: JUMPI 
+  False Branch
+    /* emit __dispatch_routine.internal.start */ (cost: 11)
+    11: PUSH 0x00 
+    12: DUP1 
+    13: CALLDATALOAD 
+    14: PUSH 0xe0 
+    15: SHR 
+    16: PUSH 0x6d4ce63c 
+    17: EQ 
+    18: ISZERO 
+    19: PUSH [tag] 2 
+    20: JUMPI 
+      False Branch
+        /* emit case0x6d4ce63c.__fun_get_27.internal.start */ (cost: 10)
+        21: CALLVALUE 
+        22: ISZERO 
+        23: PUSH [tag] 3 
+        24: JUMPI 
+          False Branch
+            /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal.start */ (cost: 3)
+            25: DUP1 
+            26: DUP2 
+            27: REVERT 
+            /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn5.4a43caf6f327e4c6397a.internal.end */ 
+          True Branch
+            28: tag_3: 
+            /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.start */ (cost: 9)
+            29: DUP1 
+            30: PUSH 0x03 
+            31: NOT 
+            32: CALLDATASIZE 
+            33: ADD 
+            34: SLT 
+            35: ISZERO 
+            36: PUSH [tag] 4 
+            37: JUMPI 
+              False Branch
+                /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.revert.start */ (cost: 0)
+                /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.start */ (cost: 3)
+                38: DUP1 
+                39: DUP2 
+                40: REVERT 
+                /* emit __revert_error_dbdddcbe895c83990c08b3492a0e83918d802a52331272ac6fdb6a7c4aea3b1b_fn7.0eb70b17305ffd39aa91.internal.end */ 
+                /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.revert.end */ 
+              True Branch
+                41: tag_4: 
+                /* emit __abi_decode_tuple__fn6.3ddd1c3e3342b5a3c592.internal.end */ 
+                42: PUSH [tag] 5 
+                43: PUSH [tag] 6 
+                44: JUMP	// in 
+                61: tag_6: 
+                /* emit __fun_get_27_fn12.d3006e62e23e462d0179.internal.start */ (cost: 8)
+                62: PUSH 0x00 
+                /* emit __cost1 */ 
+                /* emit __fun_set_14_fn19.5e9f341ea6340596602c.internal.start */ (cost: 0)
+                /* emit __cost0 */ 
+                /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn20.8b3c071edbdcf288a378.internal.start */ (cost: 3)
+                63: PUSH 0x05 
+                64: PUSH 0x00 
+                65: SSTORE 
+                /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn20.8b3c071edbdcf288a378.internal.end */ 
+                /* emit __fun_set_14_fn19.5e9f341ea6340596602c.internal.end */ 
+                66: PUSH 0x05 
+                67: SWAP1 
+                68: POP 
+                69: PUSH [tag] 8 
+                70: JUMP 
+                71: tag_8: 
+                72: SWAP1 
+                73: JUMP	// out 
+                /* emit __fun_get_27_fn12.d3006e62e23e462d0179.internal.end */ 
+                45: tag_5: 
+                /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.start */ (cost: 0)
+                /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.start */ (cost: 4)
+                46: DUP1 
+                47: PUSH 0x80 
+                48: MSTORE 
+                49: POP 
+                /* emit __abi_encode_t_uint256_to_t_uint256_fromStack_fn9.ff57f316b1d97caf81cf.internal.end */ 
+                /* emit __abi_encode_tuple_t_uint256__to_t_uint256__fromStack_fn8.2ce9f56cd3a518f32e3b.internal.end */ 
+                50: PUSH 0x20 
+                51: PUSH 0x80 
+                52: RETURN 
+                /* emit case0x6d4ce63c.__fun_get_27.internal.end */ 
+      True Branch
+        53: tag_2: 
+        54: POP 
+        /* emit __dispatch_routine.internal.end */ 
+        55: tag_1: 
+        /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn11.749f936f2e51a6b66b62.internal.start */ (cost: 3)
+        56: PUSH 0x00 
+        57: PUSH 0x00 
+        58: REVERT 
+        /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn11.749f936f2e51a6b66b62.internal.end */ 
+        /* emit __deployed_code.internal.end */ 
+  True Branch
+    55: tag_1: 
+    /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn11.749f936f2e51a6b66b62.internal.start */ (cost: 3)
+    56: PUSH 0x00 
+    57: PUSH 0x00 
+    58: REVERT 
+    /* emit __revert_error_42b3090547df1d2001c96683413b8cf91c1b902ef5e3cb8d9f6f304cf7446f74_fn11.749f936f2e51a6b66b62.internal.end */ 
+    /* emit __deployed_code.internal.end */ 
+

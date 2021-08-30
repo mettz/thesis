@@ -1,0 +1,60 @@
+--------------------------------
+  LABEL COSTS
+--------------------------------
+__creation_code.internal = 7
+__constructor_owned_30_fn2.bedff4f7130dadaabd23.internal = 0
+__update_storage_value_offset_0t_address_payable_to_t_address_payable_fn7.ca42d988381e4c6ffcc3.internal = 15
+__deploy_code.internal = 8
+__revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn1.eca8ae6f92262a669a6b.internal = 3
+
+--------------------------------
+  EXECUTION
+--------------------------------
+/* emit __creation_code.internal.start */ (cost: 7)
+1: PUSH 0x80 
+2: PUSH 0x40 
+3: MSTORE 
+4: CALLVALUE 
+5: ISZERO 
+6: PUSH [tag] 1 
+7: JUMPI 
+  False Branch
+    /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn1.eca8ae6f92262a669a6b.internal.start */ (cost: 3)
+    8: PUSH 0x00 
+    9: PUSH 0x00 
+    10: REVERT 
+    /* emit __revert_error_ca66f745a3ce8ff40e2ccaf1ad45db7774001b90d25810abd9040049be7bf4bb_fn1.eca8ae6f92262a669a6b.internal.end */ 
+  True Branch
+    11: tag_1: 
+    /* emit __constructor_owned_30_fn2.bedff4f7130dadaabd23.internal.start */ (cost: 0)
+    /* emit __cost0 */ 
+    /* emit __update_storage_value_offset_0t_address_payable_to_t_address_payable_fn7.ca42d988381e4c6ffcc3.internal.start */ (cost: 15)
+    12: PUSH 0x00 
+    13: SLOAD 
+    14: CALLER 
+    15: PUSH 0x01 
+    16: PUSH 0x01 
+    17: PUSH 0xa0 
+    18: SHL 
+    19: SUB 
+    20: NOT 
+    21: DUP3 
+    22: AND 
+    23: OR 
+    24: PUSH 0x00 
+    25: SSTORE 
+    26: POP 
+    /* emit __update_storage_value_offset_0t_address_payable_to_t_address_payable_fn7.ca42d988381e4c6ffcc3.internal.end */ 
+    /* emit __constructor_owned_30_fn2.bedff4f7130dadaabd23.internal.end */ 
+    /* emit __deploy_code.internal.start */ (cost: 8)
+    27: PUSH [dataSize] sub_0 
+    28: DUP1 
+    29: PUSH [dataOffset] sub_0 
+    30: PUSH 0x80 
+    31: CODECOPY 
+    32: DUP1 
+    33: PUSH 0x80 
+    34: RETURN 
+    /* emit __deploy_code.internal.end */ 
+    /* emit __creation_code.internal.end */ 
+

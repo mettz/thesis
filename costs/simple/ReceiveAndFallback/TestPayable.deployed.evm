@@ -1,0 +1,53 @@
+--------------------------------
+  LABEL COSTS
+--------------------------------
+__deployed_code.internal = 10
+__fun__31_fn18.f3e743d9c907f05b883c.internal = 0
+__update_storage_value_offset_0t_uint256_to_t_uint256_fn21.3a867fba5df1f2dd4d42.internal = 3
+__fun__45_fn26.b57221669b46f0f10811.internal = 0
+
+--------------------------------
+  EXECUTION
+--------------------------------
+/* emit __deployed_code.internal.start */ (cost: 10)
+1: PUSH 0x80 
+2: PUSH 0x40 
+3: MSTORE 
+4: CALLDATASIZE 
+5: ISZERO 
+6: ISZERO 
+7: PUSH [tag] 1 
+8: JUMPI 
+  False Branch
+    /* emit __fun__45_fn26.b57221669b46f0f10811.internal.start */ (cost: 0)
+    /* emit __cost2 */ 
+    /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn21.3a867fba5df1f2dd4d42.internal.start */ (cost: 3)
+    9: PUSH 0x02 
+    10: PUSH 0x00 
+    11: SSTORE 
+    /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn21.3a867fba5df1f2dd4d42.internal.end */ 
+    /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn21.3a867fba5df1f2dd4d42.internal.start */ (cost: 3)
+    12: CALLVALUE 
+    13: PUSH 0x01 
+    14: SSTORE 
+    /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn21.3a867fba5df1f2dd4d42.internal.end */ 
+    /* emit __fun__45_fn26.b57221669b46f0f10811.internal.end */ 
+    15: STOP 
+  True Branch
+    16: tag_1: 
+    /* emit __fun__31_fn18.f3e743d9c907f05b883c.internal.start */ (cost: 0)
+    /* emit __cost1 */ 
+    /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn21.3a867fba5df1f2dd4d42.internal.start */ (cost: 3)
+    17: PUSH 0x01 
+    18: PUSH 0x00 
+    19: SSTORE 
+    /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn21.3a867fba5df1f2dd4d42.internal.end */ 
+    /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn21.3a867fba5df1f2dd4d42.internal.start */ (cost: 3)
+    20: CALLVALUE 
+    21: PUSH 0x01 
+    22: SSTORE 
+    /* emit __update_storage_value_offset_0t_uint256_to_t_uint256_fn21.3a867fba5df1f2dd4d42.internal.end */ 
+    /* emit __fun__31_fn18.f3e743d9c907f05b883c.internal.end */ 
+    23: STOP 
+    /* emit __deployed_code.internal.end */ 
+
