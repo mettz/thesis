@@ -4,16 +4,13 @@ This repo contains all work related to my undergraduate thesis.
 
 possibile titolo: calcolo del cost model esatto di un programma in Solidity
 
-# TODO NEXT
+# DONE
 
 - [x] Se esiste la rappresentazione del bytecode EVM in Yul
   - Scrivere parte che prende in input ASM (si può lavorare direttamente lì sopra perché l'asm è mappato direttamente sul bytecode), fa visita:
-    1. controlla che tutto il codice sia coperto da label
-    2. associare ad ogni label il costo
+    - [x] controlla che tutto il codice sia coperto da label
+    - [x] associare ad ogni label il costo
 - [x] Gestione label interne: identificarle in modo particolare
-
-# TODO
-
 - [x] Aggiungere esempi con ricorsione e funzioni `fallback` e `receive`
 - [x] Verificare se sono presenti esempi con chiamate di funzioni internal più complesse
 - [x] Iniziare a guardare il compilatore

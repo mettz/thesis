@@ -1,5 +1,5 @@
 .DS_Store
-out/
+artifacts/
 cerco/out/*
 !cerco/out/.keep
 node_modules/
