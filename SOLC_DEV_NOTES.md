@@ -24,3 +24,4 @@ Here are some useful command to interact with [Boost.Test](https://www.boost.org
   ./scripts/soltest.sh --show-progress --boost-options "--run_test=gasTests/abiv2" --
   ```
   Also be careful that some tests may require additional flags such as `--vm evmone/lib/libevmone.dylib`
+docker run -v ~/Uni/thesis/solidity:/root/project -t ghcr.io/ethereum/solidity-buildpack-deps/emscripten bash -c "/root/project/scripts/ci/build_emscripten.sh"

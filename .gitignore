@@ -1,5 +1,7 @@
 .DS_Store
-artifacts/
+build/
+truffle/
+examples/instrumented/
 cerco/out/*
 !cerco/out/.keep
 node_modules/

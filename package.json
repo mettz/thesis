@@ -10,22 +10,24 @@
     "cerco2": "./bin/cerco2.js"
   },
   "scripts": {
-    "test": "node ./src/main.js",
-    "build:simple": "yarn build simple && yarn fmt",
-    "build:complex": "yarn build complex && yarn fmt",
-    "build:all": "yarn build && yarn fmt",
-    "build": "node ./scripts/build.js",
-    "clean": "rm -rf out cerco/out/* uncovered assertionError",
-    "cerco": "./cerco/bin/cerco -o cerco/out/fibonacci -d -asm-pretty cerco/fibonacci.c",
-    "fmt": "prettier --write 'out/**/*_label.sol'"
+    "cerco2": "yarn clean && ./bin/cerco2.js",
+    "t:compile": "truffle compile --compiler external",
+    "t:test": "truffle test",
+    "t:start": "ganache-cli",
+    "clean": "rm -rf artifacts cerco/out/* uncovered assertionError",
+    "cerco": "./cerco/bin/cerco -o cerco/out/fibonacci -d -asm-pretty cerco/fibonacci.c"
   },
   "dependencies": {
+    "@truffle/compile-common": "^0.7.19",
     "colors": "^1.4.0",
     "commander": "^8.1.0",
     "evm": "^0.2.0",
     "nanoid": "^3.1.25",
     "prettier": "^2.3.2",
-    "prettier-plugin-solidity": "^1.0.0-beta.17"
+    "prettier-plugin-solidity": "^1.0.0-beta.17",
+    "web3": "^1.5.2"
   },
-  "files": ["src/**/*.js"]
+  "files": [
+    "src/**/*.js"
+  ]
 }

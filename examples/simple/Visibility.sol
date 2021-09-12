@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.4.16 <0.9.0;
 
-contract C {
+contract A {
     uint256 public withGetter;
     uint256 public data;
 
@@ -27,9 +27,9 @@ contract C {
     }
 }
 
-contract E is C {
+contract B is A {
     function g() public {
-        C c = new C();
+        A a = new A();
         uint256 val = compute(3, 5);
     }
 }

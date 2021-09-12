@@ -26,7 +26,7 @@ library Set {
     }
 }
 
-contract C {
+contract Libraries {
     Data knownValues;
 
     function register(uint256 value) public {

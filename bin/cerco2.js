@@ -1,18 +1,22 @@
 #!/usr/bin/env node
 const colors = require("colors");
 const { program, Option } = require("commander");
-const main = require("../src/main.js");
-const constants = require("../src/lib/constants");
+const commands = require("../src/index.js");
 
 program
+  .command("build")
+  .description(
+    "compiles contracts and generates different artifacts based on options"
+  )
   .option(
     "-e,--example <path>",
     `build the Solidity example located at ${colors.bold("path")}`
   )
   .option(
     "-a,--examples [folder]",
-    `build all the examples inside ${colors.bold("folder")}`,
-    constants.EXAMPLES_DIR
+    `build all the examples inside ${colors.bold(
+      "folder"
+    )} (default: ./examples)`
   )
   .option(
     "-x,--exclude <examples...>",
@@ -20,34 +24,32 @@ program
     []
   )
   .option(
-    "--stdout <examples...>",
+    "--stdout [examples...]",
     `print stdout of ${colors.bold(
       "examples"
-    )} after compilation (useful in case of failure)`,
-    []
+    )} after compilation (if passed without examples defaults to all of them)`
   )
   .option(
-    "--stderr <examples...>",
+    "--stderr [examples...]",
     `print stderr of ${colors.bold(
       "examples"
-    )} after compilation (useful in case of failure)`,
-    []
+    )} after compilation (if passed without examples defaults to all of them)`
   )
   .addOption(
     new Option(
       "-g,--graph [section]",
-      `outputs assembly control graph of ${colors.bold("section")}`
+      `outputs assembly control graph of ${colors.bold("section")} with costs`
     )
       .choices(["creation", "deployed", "all"])
       .default("all")
-  );
+  )
+  .option("--no-graph", "does not output control graph")
+  .option("-c,--costs", "outputs cost of each label formatted as JSON")
+  .action(commands.build);
 
-program.parse(process.argv);
+program
+  .command("truffle")
+  .description("compiles contracts and outputs Truffle compatible artifacts")
+  .action(commands.truffle);
 
-const args = program.opts();
-if (Object.entries(args).length === 0) {
-  program.outputHelp();
-  process.exit(0);
-}
-
-main(args);
+program.parse();
