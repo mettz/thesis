@@ -6,13 +6,17 @@ struct Data {
 
 library Set {
     function insert(Data storage self, uint256 value) public returns (bool) {
-        if (self.flags[value]) return false;
+        if (self.flags[value]) {
+            return false;
+        }
         self.flags[value] = true;
         return true;
     }
 
     function remove(Data storage self, uint256 value) public returns (bool) {
-        if (!self.flags[value]) return false;
+        if (!self.flags[value]) {
+            return false;
+        }
         self.flags[value] = false;
         return true;
     }

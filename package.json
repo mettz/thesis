@@ -14,8 +14,8 @@
     "t:compile": "truffle compile --compiler external",
     "t:test": "truffle test",
     "t:start": "ganache-cli",
-    "clean": "rm -rf artifacts cerco/out/* uncovered assertionError",
-    "cerco": "./cerco/bin/cerco -o cerco/out/fibonacci -d -asm-pretty cerco/fibonacci.c"
+    "clean": "rm -rf build cerco/out/* uncovered assertionError",
+    "cerco": "./cerco/bin/cerco -o cerco/out/boh -d -asm-pretty cerco/boh.c"
   },
   "dependencies": {
     "@truffle/compile-common": "^0.7.19",

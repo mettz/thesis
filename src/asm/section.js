@@ -47,6 +47,15 @@ class Section {
     return this._controlGraph;
   }
 
+  verifyControlGraph() {
+    const graph = this.controlGraph();
+    try {
+      controlGraphUtils.verify(graph);
+    } catch (e) {
+      console.log(e.message);
+    }
+  }
+
   costs(labelKind = "all") {
     switch (labelKind) {
       case "internal":
@@ -54,10 +63,7 @@ class Section {
       case "external":
         return this._externalLabelCosts();
       case "all":
-        return {
-          internal: this._internalLabelCosts(),
-          external: this._externalLabelCosts(),
-        };
+        return costsUtils.computeCosts(this.controlGraph());
       default:
         throw new Error(
           `Unknown label kind: expected 'internal', 'external' or 'all' but found ${labelKind}`

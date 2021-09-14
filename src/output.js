@@ -58,9 +58,9 @@ const controlGraph = async (graph, opts = { file: null, costs: null }) => {
       if (node.type === "EMITLABEL" && costs) {
         const { short: label, type } = node.data;
         if (type === "start") {
-          output += ` (cost: ${costs.internal[label][node.id]})`;
+          output += ` (cost: ${costs.internal[`${label}-${node.id}`].cost})`;
         } else if (type === "external") {
-          output += ` (cost: ${costs.external[label]})`;
+          output += ` (cost: ${costs.external[label].cost})`;
         }
       }
       output += "\n";
@@ -89,21 +89,7 @@ const controlGraph = async (graph, opts = { file: null, costs: null }) => {
 
 const costs = async (labelCosts, opts = { file: null }) => {
   const { file } = opts;
-  const internal = Object.entries(labelCosts.internal).reduce(
-    (costs, [label, data]) => {
-      const entries = Object.entries(data);
-      if (entries.length > 1) {
-        entries.forEach(([id, cost]) => {
-          costs[`${label}-${id}`] = cost;
-        });
-      } else {
-        costs[label] = entries[0][1];
-      }
-      return costs;
-    },
-    {}
-  );
-  const output = JSON.stringify({ ...labelCosts, internal }, null, 2);
+  const output = JSON.stringify(labelCosts, null, 2);
   if (file) {
     await fs.writeFile(file, output);
   } else {
@@ -127,7 +113,7 @@ const instrumented = async (sources, assemblies) => {
       .forEach((asm) => {
         asm.sections.forEach((section) => {
           const costs = section.costs();
-          Object.entries(costs.external).forEach(([label, cost]) => {
+          Object.entries(costs.external).forEach(([label, { cost }]) => {
             const labelComment = `/* ${label} */`;
             const commentIndex = instrumented.indexOf(labelComment);
             if (commentIndex > -1 && instrumented[commentIndex - 1] !== ";") {

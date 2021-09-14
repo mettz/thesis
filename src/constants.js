@@ -5,6 +5,7 @@ exports.SOLC_BIN = path.resolve(
   "../solidity/cmake-build-release/solc/solc"
 );
 exports.SOLC_ARGS = [
+  "--gas",
   "--evm-version",
   "istanbul",
   "--lb",

@@ -12,7 +12,7 @@ const build = async (args) => {
     sources = await utils.findSource(args.example);
   } else if (args.examples) {
     sources = await utils.findSources(
-      typeof args.examples === "string" ? args.example : constants.EXAMPLES_DIR
+      typeof args.examples === "string" ? args.examples : constants.EXAMPLES_DIR
     );
   } else {
     console.error(`You should provide at least one example.`);
@@ -60,7 +60,7 @@ const build = async (args) => {
       return { ...asm, sections };
     });
 
-  await output.instrumented(sources, assemblies);
+  // await output.instrumented(sources, assemblies);
 
   assemblies.forEach(async (asm) => {
     const baseFilename = path.basename(asm.path, ".evm");
@@ -74,6 +74,7 @@ const build = async (args) => {
 
       await Promise.all(
         targetSections.map(async (section) => {
+          if (section.name !== "deployed") return;
           const file = path.join(
             folder,
             `${baseFilename}.${section.name}.graph`
@@ -87,18 +88,19 @@ const build = async (args) => {
       );
     }
 
-    if (args.costs) {
-      await Promise.all(
-        asm.sections.map(async (section) => {
-          const file = path.join(
-            folder,
-            `${baseFilename}.${section.name}.costs.json`
-          );
-          const costs = section.costs();
-          await output.costs(costs, { file });
-        })
-      );
-    }
+    // if (args.costs) {
+    //   await Promise.all(
+    //     asm.sections.map(async (section) => {
+    //       if (section.name !== "deployed") return;
+    //       const file = path.join(
+    //         folder,
+    //         `${baseFilename}.${section.name}.costs.json`
+    //       );
+    //       const costs = section.costs();
+    //       await output.costs(costs, { file });
+    //     })
+    //   );
+    // }
   });
 };
 
