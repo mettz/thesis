@@ -15,12 +15,4 @@ contract For {
     }
     return b;
   }
-
-  // function fib1(uint256 n) public pure returns (uint256) {
-  //   return fibonacci(n);
-  // }
-
-  // function fib2(uint256 n) public pure returns (uint256) {
-  //   return fibonacci(n * 2);
-  // }
 }

@@ -5,10 +5,6 @@ contract A {
     uint256 public withGetter;
     uint256 public data;
 
-    function f(uint256 a) private pure returns (uint256 b) {
-        return a + 1;
-    }
-
     function setData(uint256 a) public {
         data = a;
     }
@@ -30,6 +26,6 @@ contract A {
 contract B is A {
     function g() public {
         A a = new A();
-        uint256 val = compute(3, 5);
+        a.setData(compute(3, 5));
     }
 }

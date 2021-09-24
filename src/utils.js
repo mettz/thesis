@@ -1,10 +1,10 @@
 const path = require("path");
-const colors = require("colors");
 const fs = require("./fs");
 const constants = require("./constants");
 
 const hasSolidityExt = (filePath) => path.extname(filePath) === ".sol";
 const hasEvmExt = (filePath) => path.extname(filePath) === ".evm";
+const hasBinExt = (filePath) => path.extname(filePath) === ".bin";
 
 const findSource = async (nameOrPath) => {
   let srcPath = hasSolidityExt(nameOrPath) ? nameOrPath : `${nameOrPath}.sol`;
@@ -75,4 +75,5 @@ module.exports = {
   findSources,
   hasSolidityExt,
   hasEvmExt,
+  hasBinExt,
 };

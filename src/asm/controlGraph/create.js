@@ -6,7 +6,7 @@ const createControlGraph = (ops, cursor = 0, tagStack = [], visited = []) => {
     cursor < ops.length &&
     !visited.find((op) => op.id === ops[cursor].id)
   ) {
-    thread.push({ ...ops[cursor], tagStack: [...tagStack] });
+    thread.push({ ...ops[cursor] });
     ops[cursor].visited = true;
     visited.push(ops[cursor]);
     if (ops[cursor].type === "PUSH" && ops[cursor].data.args[0] === "[tag]") {
@@ -30,7 +30,7 @@ const createControlGraph = (ops, cursor = 0, tagStack = [], visited = []) => {
           thread[thread.length - 1].tag = lastTagName;
           if (cursor + 1 < ops.length && ops[cursor + 1].type === "EMITLABEL") {
             // We have to add the label that follows jump, if there is one
-            thread.push({ ...ops[cursor + 1], tagStack: [...tagStack] });
+            thread.push({ ...ops[cursor + 1] });
           }
           cursor = ops.findIndex((op) => op.id === tag.id);
           assert.notEqual(cursor, -1);
@@ -81,7 +81,7 @@ const createControlGraph = (ops, cursor = 0, tagStack = [], visited = []) => {
           ops[cursor].type === "EMITLABEL" &&
           ops[cursor].data.type === "end"
         ) {
-          thread.push({ ...ops[cursor], tagStack: [...tagStack] });
+          thread.push({ ...ops[cursor] });
         }
 
         cursor++;

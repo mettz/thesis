@@ -18,8 +18,8 @@
     "cerco": "./cerco/bin/cerco -o cerco/out/boh -d -asm-pretty cerco/boh.c"
   },
   "dependencies": {
+    "@ethereumjs/vm": "^5.5.2",
     "@truffle/compile-common": "^0.7.19",
-    "colors": "^1.4.0",
     "commander": "^8.1.0",
     "evm": "^0.2.0",
     "nanoid": "^3.1.25",

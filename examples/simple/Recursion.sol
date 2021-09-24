@@ -21,7 +21,11 @@ contract Recursion {
     }
 
     function get_fib(uint256 x) public pure returns (uint256) {
-        return fib(x);
+        if (x == 1) {
+            return get_fib1();
+        } else {
+            return fib(x);
+        }
     }
 
     function get_fib1() public pure returns (uint256) {

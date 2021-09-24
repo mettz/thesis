@@ -52,56 +52,58 @@ const build = async (args) => {
           })
       )
   );
-
   const assemblies = asmFiles
     .filter((asm) => asm.code)
     .map((asm) => {
-      const sections = asmUtils.parse(asm.code);
+      const example = path.basename(path.dirname(asm.path));
+      const sections = asmUtils.parse(example, asm.code);
       return { ...asm, sections };
     });
 
-  // await output.instrumented(sources, assemblies);
+  await Promise.all(
+    assemblies.map(async (asm) => {
+      const baseFilename = path.basename(asm.path, ".evm");
+      const folder = path.dirname(asm.path);
 
-  assemblies.forEach(async (asm) => {
-    const baseFilename = path.basename(asm.path, ".evm");
-    const folder = path.dirname(asm.path);
+      if (args.graph) {
+        const targetSections =
+          args.graph === "all"
+            ? asm.sections
+            : asm.sections.filter((s) => s.name === args.graph);
 
-    if (args.graph) {
-      const targetSections =
-        args.graph === "all"
-          ? asm.sections
-          : asm.sections.filter((s) => s.name === args.graph);
+        await Promise.all(
+          targetSections.map(async (section) => {
+            const file = path.join(
+              folder,
+              `${baseFilename}.${section.name}.graph`
+            );
+            const graph = await section.controlGraph();
+            await output.controlGraph(graph, {
+              file,
+            });
+          })
+        );
+      }
 
-      await Promise.all(
-        targetSections.map(async (section) => {
-          if (section.name !== "deployed") return;
-          const file = path.join(
-            folder,
-            `${baseFilename}.${section.name}.graph`
-          );
-          const costs = section.costs();
-          await output.controlGraph(section.controlGraph(), {
-            file,
-            costs,
-          });
-        })
-      );
-    }
+      if (args.costs) {
+        await Promise.all(
+          asm.sections.map(async (section) => {
+            const base = path.join(folder, `${baseFilename}.${section.name}`);
+            const costsFile = `${base}.costs.json`;
+            const graphFile = `${base}.graph`;
+            const costs = section.costs();
+            await output.costs(costs, { file: costsFile });
+            await output.controlGraph(section.controlGraph(), {
+              file: graphFile,
+              costs,
+            });
+          })
+        );
+      }
+    })
+  );
 
-    // if (args.costs) {
-    //   await Promise.all(
-    //     asm.sections.map(async (section) => {
-    //       if (section.name !== "deployed") return;
-    //       const file = path.join(
-    //         folder,
-    //         `${baseFilename}.${section.name}.costs.json`
-    //       );
-    //       const costs = section.costs();
-    //       await output.costs(costs, { file });
-    //     })
-    //   );
-    // }
-  });
+  await output.instrumented(sources, assemblies);
 };
 
 module.exports = build;
