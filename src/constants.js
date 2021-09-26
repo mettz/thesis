@@ -3,7 +3,7 @@ const { BN } = require("ethereumjs-util");
 
 exports.SOLC_BIN = path.resolve(
   process.cwd(),
-  "../solidity/cmake-build-release/solc/solc"
+  "./solidity/build/release/solc/solc"
 );
 exports.SOLC_ARGS = [
   "--evm-version",
@@ -168,7 +168,6 @@ exports.GAS_FORMULAE = {
   SWAP14: 3,
   SWAP15: 3,
   SWAP16: 3,
-  SELFDESTRUCT: 5000,
   EXP: (exponent) => [
     10,
     exponent === "0" ? 0 : `${exponent}.byteLength() * ${gasPrices.expByte}`,
@@ -263,4 +262,8 @@ exports.GAS_FORMULAE = {
   ],
   RETURN: (pointer, size) => `malloc(${pointer}, ${size})`,
   REVERT: (pointer, size) => `malloc(${pointer}, ${size})`,
+  SELFDESTRUCT: (account) => [
+    5000,
+    `(exists(${account}) ? ${gasPrices.callNewAccount} : 0)`,
+  ],
 };
