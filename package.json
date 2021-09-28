@@ -15,7 +15,7 @@
     "t:test": "truffle test",
     "t:start": "ganache-cli",
     "clean": "rm -rf build cerco/out/* uncovered assertionError",
-    "cerco": "./cerco/bin/cerco -o cerco/out/boh -d -asm-pretty cerco/boh.c"
+    "cerco": "./cerco/bin/cerco -o cerco/out/fibonacci -d cerco/fibonacci.c"
   },
   "dependencies": {
     "@ethereumjs/vm": "^5.5.2",
