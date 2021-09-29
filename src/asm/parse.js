@@ -82,7 +82,7 @@ const computeGas = (opcode, solcComputed, comment) => {
     // (see Assembly::assemble or GasMeter::estimateMax)
     !opcode.includes("ASSIGNIMMUTABLE")
   ) {
-    throw new Error(`${opcode} not convered with comment or gas formula`);
+    throw new Error(`${opcode} not covered with comment or gas formula`);
   }
 
   return 0;

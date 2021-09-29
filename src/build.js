@@ -103,7 +103,7 @@ const build = async (args) => {
     })
   );
 
-  // await output.instrumented(sources, assemblies);
+  await output.instrumented(sources, assemblies);
 };
 
 module.exports = build;
