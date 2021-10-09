@@ -6,19 +6,9 @@ contract ViewAndPure {
         return a * (b + 42) + block.timestamp;
     }
 
-    function g(uint256 a, uint256 b) public pure returns (uint256) {
-        return a * (b + 42);
-    }
-
     function f_unchecked(uint256 a, uint256 b) public view returns (uint256) {
         unchecked {
             return a * (b + 42) + block.timestamp;
-        }
-    }
-
-    function g_unchecked(uint256 a, uint256 b) public pure returns (uint256) {
-        unchecked {
-            return a * (b + 42);
         }
     }
 }

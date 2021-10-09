@@ -1,0 +1,960 @@
+\documentclass[12pt,a4paper,openright,oneside]{report}
+
+\usepackage[italian]{babel}
+
+\usepackage[latin1]{inputenc}
+
+\usepackage{fancyhdr}
+
+\usepackage{indentfirst}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\usepackage{newlfont}
+
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\usepackage{latexsym}
+\usepackage{amsthm}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+
+\usepackage{tabto}
+\usepackage[backend=biber]{biblatex}
+
+\usepackage{listings}
+\renewcommand{\lstlistlistingname}{Elenco dei listati}
+\input{solidity-highlighting.tex}
+
+\usepackage{multirow}
+
+\usepackage[all]{xy}
+\usepackage{array}
+\usepackage{xcolor}
+
+\newcommand{\cl}[1]{{\cal #1}}         
+\newcommand{\w}[1]{{\it #1}}
+
+\addbibresource{./bibliography.bib}
+\oddsidemargin=30pt \evensidemargin=20pt
+
+\pagestyle{fancy}\addtolength{\headwidth}{20pt}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection \ #1}{}}
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\cfoot{}
+
+\linespread{1.3}
+
+\begin{document}
+\begin{titlepage}
+\begin{center}
+{{\Large{\textsc{Alma Mater Studiorum $\cdot$ Universit\`a di
+Bologna}}}} \rule[0.1cm]{15.8cm}{0.1mm}
+\rule[0.5cm]{15.8cm}{0.6mm}
+{\small{\bf SCUOLA DI SCIENZE\\
+Corso di Laurea in Informatica}}
+\end{center}
+\vspace{15mm}
+\begin{center}
+{\LARGE{\bf Calcolo del Cost Model Esatto di un Programma in Solidity}}\\
+\vspace{3mm}
+\end{center}
+\vspace{40mm}
+\par
+\noindent
+\begin{minipage}[t]{0.47\textwidth}
+{\large{\bf Relatore:\\
+Chiar.mo Prof.\\
+Claudio Sacerdoti Coen}}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.47\textwidth}\raggedleft
+{\large{\bf Presentata da:\\
+Mattia Guazzaloca}}
+\end{minipage}
+\vspace{40mm}
+\begin{center}
+{\large{\bf II Sessione\\
+Anno Accademico 2020/2021}}
+\end{center}
+\end{titlepage}
+
+\begin{titlepage}
+\thispagestyle{empty}
+\topmargin=6.5cm
+\raggedleft
+\large
+
+\em
+A Sofia, che non legger\`{a} mai questa tesi, \\ma mi ha aiutato a portarla a termine \\
+\hfill \break
+A Peter, che forse prima o poi avr\`{a} il coraggio di leggerla, \\ma avrebbe fatto di tutto per non farmela scrivere
+\newpage
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\end{titlepage}
+
+\pagenumbering{roman}
+\chapter*{Introduzione}
+                                        
+\rhead[\fancyplain{}{\bfseries
+INTRODUZIONE}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
+INTRODUZIONE}}
+\addcontentsline{toc}{chapter}{Introduzione}
+Negli ultimi anni, il settore delle criptovalute, che ha visto per la prima volta la luce nel 2008 grazie a Bitcoin \cite{bitcoin}, ha ricevuto sempre maggiore attenzione e interesse tanto da portare alla nascita di molte altre valute digitali. Fra queste, una delle pi\`{u} diffuse ed utilizzate \`{e} senza dubbio Ether (ETH), la cui popolarit\`{a} \`{e} seconda solo a Bitcoin. Tuttavia, a differenza di Bitcoin, il fattore determinante dietro al successo di Ether \`{e} legato al ruolo fondamentale che questa riveste all'interno della piattaforma Ethereum, ideata e sviluppata da Vitalik Buterin e altri nel 2013. L'idea rivoluzionaria degli autori di Ethereum \`{e} stata infatti quella di impiegare la tecnologia alla base di Bitcoin, quella della blockchain, per permettere a chiunque di sviluppare applicazioni decentralizzate e quindi immuni a qualsiasi atto censorio. Queste applicazioni, che nel gergo di Ethereum prendono il nome di dApp o smart contracts, possono assolvere agli usi pi\`{u} disparati e consentono a chi le sviluppa di beneficiare della capacit\`{a} computazionale dei migliaia di nodi presenti sulla rete di Ethereum sui quali queste applicazioni vengono eseguite. Purtroppo per\`{o}, ci\`{o} apre le porte anche a possibili abusi. In particolare, grazie alla Turing-completezza del linguaggio in cui sono scritti gli smart contracts, un banale programma divergente potrebbe rendere rapidamente inutilizzabile l'intera piattaforma. Per tutelarsi da questo genere di attacchi, Ethereum associa a ciascuna istruzione del codice un certo consumo di \textit{gas}, con l'obiettivo di misurare lo sforzo computazionale richiesto per l'esecuzione. Ogni utente dell'applicazione \`{e} pertanto obbligato a versare ai nodi esecutori una quantit\`{a} di Ether pari al gas richiesto per completare l'esecuzione, da qui il ruolo centrale della criptovaluta. Pertanto uno dei problemi principali per gli sviluppatori di smart contracts \`{e} poter stimare in anticipo i consumi di gas dei loro programmi. Tuttavia, poich\'{e} gli smart contracts sono tipicamente scritti in linguaggi di alto livello e poi tradotti nelle istruzioni di basso livello, ottenere delle stime chiare e precise \`{e} un compito tutt'altro che triviale. In questo elaborato, presenteremo quindi il cosidetto metodo del \textit{labelling}, sviluppato nell'ambito del progetto europeo CerCo come soluzione a questo problema, e ne illustreremo una possibile implementazione all'interno del compilatore di Solidity, il linguaggio pi\`{u} usato nello sviluppo di smart contracts. L'implementazione presentata non costituisce per\`{o} una soluzione definitiva n\'{e} tantomeno completa, pertanto nella parte conclusiva discuteremo alcuni dei miglioramenti che potrebbero essere realizzati in futuro.
+
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\tableofcontents
+
+\rhead[\fancyplain{}{\bfseries\leftmark}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
+INDICE}}
+
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\lstlistoflistings
+
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\listoftables
+
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries\rightmark}}
+\pagenumbering{arabic}
+
+\chapter{Background}\label{bg}
+% Qui assumo di aver gi\'{a} citato sia ethereum che solidity nell'introduzione
+Scopo di questo capitolo \`{e} fornire un background agli argomenti che verranno trattati nell'elaborato. Verranno quindi illustrate le principali caratteristiche di Solidity e della piattaforma Ethereum, in particolare in relazione a come il funzionamento di questa abbia influenzato lo sviluppo del linguaggio.
+
+\section{Ethereum}\label{bg:ethereum}
+Ethereum \cite{ethereum_website} \`{e} una piattaforma per lo sviluppo di applicazioni distribuite, denominate in gergo dApp, e basata su una tecnologia, quella delle blockchain, oramai ampiamente diffusa e studiata. Nonostante il primo e pi\`{u} noto esempio di utilizzo di questa tecnologia sia infatti quello dell'implementazione delle criptovalute come il Bitcoin, non \`{e} il solo e anzi col tempo sono state individuate sempre maggiori applicazioni per l'impeigo di quest'ultima al di fuori del ramo delle criptovalute.\\ Il caso di Ethereum \`{e} per\`{o} ancora pi\`{u} emblematico in quanto il suo elemento rivoluzionario consiste nella possibilit\`{a} di permettere agli utenti di sviluppare dei veri e propri programmi, denominati smart contracts, che possono essere eseguiti all'interno della blockchain per realizzare una computazione distribuita.
+Per permettere la stesura degli smart contracts Ethereum definisce un linguaggio composto da un insieme di istruzioni che hanno come target la EVM, acronimo di Ethereum Virtual Machine, una macchina virtuale di cui il framework definisce la specifica e che i nodi della rete implementano.\\
+All'interno di Ethereum la EVM rappresenta una sorta di computer distribuito dove gli smart contracts possono essere salvati ed eseguiti e il suo stato \`{e} quindi condiviso fra da tutti i nodi della rete. Per poterlo modificare \`{e} quindi necessario avere il consenso di tutti gli altri partecipanti. Ciascun nodo ha infatti un duplice ruolo: in ogni momento pu\`{o} richiedere l'esecuzione di una qualsiasi computazione ma perch\'{e} la richiesta abbia successo \`{e} necessario che questa sia verificata ed eseguita dagli altri membri del network. Quando ci\`{o} accade lo stato della EVM viene aggiornato e sia la richiesta iniziale che il nuovo stato sono salvati all'interno della blockchain. Queste richieste prendono il nome di \textit{transazioni} e oltre a contenere il codice da eseguire (o un riferimento ad esso) specificano una serie di altri attributi fra cui i pi\`{u} rilevanti per questo elaborato sono:
+\begin{itemize}
+    \item \textbf{gasPrice}: \`{e} il prezzo che il commitente della transazione \`{e} disposto a pagare al \textit{miner}, ossia il nodo che la processer\`{a}, per unit\`{a} di gas.
+    \item \textbf{gasLimit}: \`{e} la quantit\`{a} massima di gas che pu\`{o} essere utilizzata per portare a termine la transazione. Se risulta insufficiente questa verr\`{a} abortita e il gas consumato andr\`{a} perso insieme con l'Ether speso.
+\end{itemize}
+
+\subsection{L'ether e il Gas}\label{bg:ethereum:gas}
+L'ether, spesso abbreviato in ETH, \`{e} la criptovaluta di Ethereum. Come le altre criptovalute pu\`{o} essere utilizzata per i pagamenti e immagazzinata nei portafogli digitali all'interno della rete, ma in Ethereum il suo ruolo \`{e} pi\`{u} ampio e risulta di fondamentale importanza per mantenere l'intero ecosistema al riparo da attacchi mirati a sfruttarne in maniera incodizionata l'elevatissima capacit\'{a} computazionale o a limitarne o impedirne l'utilizzo da parte degli altri utenti (attacchi di tipo DDoS).\\
+Chi volesse richiedere una qualsiasi computazione \`{e} infatti obbligato ad associare alla sua richiesta anche una certa quantit\`{a} di ether, in maniera non dissimile da come per poter usufruire dei servizi offerti dalle piattaforme di cloud computing \`{e} necessario pagare una certa quota sulla base della durata della computazione e/o dello spazio occupato.\\
+Chiaramente l'ether richiesto per effettuare una certa transazione non \`{e} sempre lo stesso ed \`{e} anzi strettamente correlato al codice dello smart contract di cui la transazione richiede l'esecuzione, oltre che dal numero e dalla dimensione degli eventuali parametri associati alla chiamata. A ciascuna delle istruzioni che compongono il bytecode della EVM corrisponde infatti un certo costo, il cui valore \`{e} espresso in unit\`{a} di gas. Il \textit{gas}, come suggerisce il nome, permette di misurare lo sforzo computazionale necessario per portare a termine una specifica operazione. Nella Tabella \ref{table:bg:ethereum:gas:costs} sono riportati i consumi di gas di alcune delle istruzioni della EVM, per la lista completa si veda \cite{gascosts_excel} e l'appendice G di \cite{yellow_paper}.
+\begin{table}[t]
+    \centering
+    \begin{tabular}{|l|r|m{25em}|}
+        \hline
+        Istruzione & Gas & Descrizione \\
+        \hline
+        \texttt{ADD} & 3 & Prende due elementi dalla cima dello stack e vi sostituisce la loro somma \\
+        \hline
+        \texttt{MUL} & 5 & Prende due elementi dalla cima dello stack e vi sostituisce il loro prodotto \\
+        \hline
+        \texttt{PUSHn} & 3 & Aggiunge allo stack un elemento di dimensione pari a \texttt{n} byte \\
+        \hline
+        \texttt{POP} & 2 & Rimuove un elemento dallo stack \\
+        \hline
+        \texttt{JUMP} & 8 & Salto incondizionato \\
+        \hline
+        \texttt{JUMPI} & 10 & Salto condizionato \\
+        \hline
+        \texttt{AND} & 3 & Prende due elementi dalla cima dello stack e vi sostituisce il loro and logico \\
+        \hline
+        \texttt{OR} & 3 & Prende due elementi dalla cima dello stack e vi sostituisce il loro or logico \\
+        \hline
+        \texttt{SLOAD} & 800 & Legge un valore dallo \textit{storage} \\
+        \hline
+        \texttt{ADDRESS} & 3 & Indirizzo del contratto in esecuzione \\
+        \hline
+        \texttt{BALANCE} & 700 & Saldo del contratto in esecuzione in \textit{Wei} (un sottomultiplo dell'Ether) \\
+        \hline
+    \end{tabular}
+    \caption{Consumi di gas per alcune instruzioni della EVM}
+    \label{table:bg:ethereum:gas:costs}
+\end{table}
+
+\section{Solidity}\label{bg:solidity}
+Solidity \`{e} un linguaggio di programmazione di alto livello per lo sviluppo di smart contracts. Il suo scopo \`{e} semplificare la scrittura dei contratti da parte degli sviluppatori, che possono cos\`{i} fare affidamento su un linguaggio moderno simile a molti dei pi\`{u} noti linguaggi di programmazione abitualmente utilizzati dagli sviluppatori come C++, Java o JavaScript (al quale la sintassi di Solidity \`{e} ispirata).
+Una volta completato il codice del contratto viene compilato tramite il compilatore di Solidity \cite{solc} che produce in output il bytecode che pu\`{o} essere eseguito dalla EVM.\\
+Di seguito illustreremo alcune delle caratteristiche principali di Solidity, soffermandoci in particolare su quelle che lo contraddistinugono come linguaggio per smart contracts.
+
+\subsection{Tipi}\label{bg:solidity:types}
+Solidity \`{e} un linguaggio di programmazione staticamente tipato, pertanto il tipo di ciascuna variabile deve essere noto a tempo di compilazione in modo che il type checker possa effettuare i controlli necessari a garantire la coerenza dei tipi, per quanto questa sia purtroppo facilmente aggirabile come evidenziato da \cite{solidity_type_error1,solidity_type_error2}. Solidity contiene i tipi di dato primitivi pi\`{u} comuni come booleani e interi, di cui sono presenti diverse varianti con e senza segno, oltre che diversi tipi utili nel contesto delle dApp come diverse tipologie di array di byte e il tipo speciale \texttt{address}, usato per ottenere l'indirizzo di un account Ethereum. Grazie ai costrutti \texttt{struct} e \texttt{enum} \`{e} poi possibile definire i propri tipi di dato come composizione dei tipi di dato primitivi come nella maggior parte dei linguaggi di programmazione e inoltre ciascun contratto definisce rappresenta un tipo a s\'{e} stante, come le classi in Java. Un elemento particolarmente distintivo \`{e} invece la possibilit\`{a} (che in alcuni casi diventa un obbligo) di poter specificare tramite keyword corrispondenti alle diverse aree di memoria della EVM, dove memorizzare una variabile. Queste sono:
+\begin{itemize}
+    \item \texttt{storage}: si tratta di uno store per coppie di chiavi-e-valori persistente, pertanto non viene resettato fra una chiamata di funzione e l'altra o fra una transazione e la successiva. \`{E} per\`{o} costoso sia da leggere che da scrivere perci\`{o} tipicamente conviene limitare il suo utilizzo esclusivamente ai dati propri del contratto, come le variabili di stato (\S\ref{bg:solidity:oop})
+    \item \texttt{memory}: si tratta di un'area di memoria lineare indirizzabile tramite \textit{word} di lunghezza pari a 256-bit. Inoltre le scritture possono avvenire anche a livello di un singolo byte (tramite l'istruzione \texttt{MSTORE8}). Se viene effettuato un'accesso ad una parola di memoria che non era stata precedentemente interessata da qualche operazione, la memoria viene allargata della quantit\`{a} richiesta per completare l'accesso e il costo per l'espansione viene pagato in termini di consumo di gas. Infine, a differenza di \texttt{storage}, quest'area non \`{e} persistente e il contratto in esecuzione ne riceve una nuova istanza ad ogni chiamata.
+    \item \texttt{calldata}: \`{e} l'area della EVM dove vengono memorizzati gli argomenti delle funzioni. Si comporta in modo simile a \texttt{memory} ma non \`{e} modificabile.
+\end{itemize}
+
+\subsection{Funzioni e Modifiers}\label{bg:solidity:func_and_mod}
+Tipicamente le funzioni vengono definite all'interno dei contratti, analogamente ai metodi delle classi in Java, ma Solidity supporta anche la definizione di free-standing functions, ossia funzioni non legate ad uno specifico contratto bens\`{i} parte dello scope globale. Una carattestica peculiare delle funzioni in Solidity \`{e} data dalla possibilit\'{a} di poter indicare nella definizione il livello di state mutability richiesto, ovvero in che modo la funzione accede allo stato interno del contratto. Si distinguono pertanto tre tipi di funzioni:
+\begin{itemize}
+    \item \texttt{pure}: non interagiscono in alcun modo con lo stato interno, n\'{e} in lettura n\'{e} in scrittura. Sono tipicamente semplici funzioni utilizzate per esempio per calcoli matematici.
+    \item \texttt{view}: possono accedere in lettura allo stato interno ma non possono in alcun modo modificarlo. In pratica tutte le funzioni getter o quelle che calcolano un qualche valore derivabile dallo stato interno.
+    \item tutte le funzioni che non presentano i due modifcatori precedenti possono leggere e modificare liberamente lo stato del contratto
+\end{itemize}
+Un altro componente caratteristico di Solidity sono i \textit{modifiers}. Questi rappresentano blocchi di codice che possono essere applicati alle funzioni per dotarle di una certa funzionalit\'{a} (come per esempio il controllo di una qualche pre o post condizione) senza ripetere sempre lo stesso codice.\\
+Solidity supporta inoltre, come pressoch\'{e} tutti i linguaggi di alto livello, il meccanismo della ricorsione.
+
+\subsection{Gestione degli errori}\label{bg:solidity:errors}
+Il meccanismo di creazione e gestione degli errori \`{e} analogo a quello di molti altri linguaggi orientati agli oggetti ed \`{e} basato sulle eccezioni. Queste possono essere dichiarate sia internamente che esternamente ad un contratto attraverso la keyword \texttt{error} e vengono individuate e gestite attravero il costrutto \textit{try/catch}, mentre per sollevarle \`{e} necessario utilizzare un \textit{revert-statement} il cui compito \`{e} quello di annullare tutte le modifiche effettuate dalla transazione corrente riportando lo stato a quello precedente. 
+
+\subsection{Programmazione Orientata agli Oggetti}\label{bg:solidity:oop}
+In Solidity gli oggetti sono rappresentati dai contratti, i quali possono essere istanziati, distrutti e modificati attraverso i metodi che mettono a disposizione. La ragion d'essere della OOP in Solidity \`{e} principalmente legata al riuso del codice che \`{e} reso possibile dal meccanismo dell'ereditariet\`{a}. Quando si definisce un contratto \`{e} infatti possibile specificare quelli (supporta l'ereditariet\`{a} multipla) da cui il primo eredita metodi e variabili di stato, analoghe alle variabili di istanza dei linguaggi orientati agli oggetti, le cui definizioni possono poi essere sovrascritte.\\
+Vi \`{e} poi un ulteriore elemento tipico della programmazione a oggetti di cui Solidity fa ampio uso: l'information hiding. Quando si dichiara un metodo o una variabile di stato \`{e} possibile indicarne il livello di accesso tramite uno dei quattro modificatori definiti dal linguaggio:
+\begin{itemize}
+    \item \texttt{external}: una funzione esterna \`{e} parte dell'API del contratto e pu\`{o} quindi essere invocata da altri contratti. Non \`{e} per\`{o} possibile chiamare internamente una funzione esterna, a meno di non utilizzare la sintassi \texttt{this.someExternalFunction()}.
+    \item \texttt{public}: simili alle funzioni \texttt{external} ma possono essere chiamate internamente senza utilizzare \texttt{this}. La natura di questa differenza verr\`{a} trattata in \S\ref{impl:instrumentation:public}. Dichiarando una variabile come pubblica il compilatore generer\`{a} inoltre automaticamente una funzione getter.
+    \item \texttt{internal}: a funzioni e variabili marcate con questo modificatore \`{e} possibile accedere solo internamente, ossia dal contratto corrente o dai suoi derivati.
+    \item \texttt{private}: la visibilit\`{a} di funzioni e variabili private \`{e} limitata al contratto in cui sono definite.
+\end{itemize}
+
+\chapter{Certified Complexity}\label{cerco}
+L'obiettivo di questo capito \`{e} quello di illustrare il framework teorico sviluppato dal progetto europeo CerCo \cite{cerco_website} per la realizzazione di un compilatore capace di riportare nel codice sorgente le informazioni relative al costo dell'esecuzione del corrispondente codice oggetto. Il lavoro svolto da CerCo ha posto le basi per lo sviluppo di questo elaborato e ne costituisce il background teorico.
+
+\section{Il compilatore di CerCo}\label{cerco:compiler}
+Il contributo principale del progetto CerCo consiste nell'aver realizzato, e verificato formalmente, un cost annotating compiler ossia un compilatore capace di riportare nel codice sorgente delle indicazioni circa il costo di esecuzione di un certo blocco di codice e chiamate pertanto annotazioni di costo. Formalmente, un cost annotating compiler, preso in input un programma $P$ \`{e} in grado di produrre come output un programma $An(P)$ "annotato" funzionalmente equivalente al precedente ma modificato oppurtamente per tenere traccia del costo di esecuzione. Vediamo un esempio:\\
+\begin{minipage}{.45\textwidth}
+\begin{lstlisting}[caption=Sorgente originale,frame=tlrb]
+int fib(int n) {
+  if (n < 2) {
+    return 1;
+  } else {
+    return fib(n - 1) + fib(n - 2);
+  }
+}
+\end{lstlisting}
+\end{minipage}\hfill
+\begin{minipage}{.45\textwidth}
+\begin{lstlisting}[caption=Codice annotato,label={lst:cerco_instrumented},frame=tlrb]
+int _cost = 0;
+int fib(int n) {
+  __cost2:
+  _cost = _cost + 571;
+  if (n < 2) {
+    __cost0:
+    _cost = _cost + 179;
+    return 1;
+  } else {
+    __cost1:
+    _cost = _cost + 375;
+    return fib(n - 1) + fib(n - 2);
+  }
+}
+\end{lstlisting}
+\end{minipage}
+Appare immediatamente evidente come il compilatore abbia aggiunto al programma originale la variabile \texttt{\_cost} il cui compito \`{e} intuitivamente quello di tracciare il costo dell'esecuzione del programma in ogni sua parte. Questo avviene attraverso incrementi successivi della variabile inseriti all'inizio dei blocchi il cui costo computazionale \`{e} O(1), ossia costante. Come si pu\`{o} notare infatti l'incremento della variabile \texttt{\_cost} per il ciclo for viene fatto all'interno del corpo del ciclo e non all'esterno. Ci\`{o} \`{e} determinante per ottenere delle annotazioni di costo che siano \textit{sound} e \textit{precise}.
+\begin{definition} 
+Una cost annotation \`{e} \textit{sound} se il suo valore costituisce un upper bound al costo di esecuzione reale
+\end{definition}
+\begin{definition}
+Una cost annotation \`{e} \textit{precise} quando la differenza fra il costo reale dell'esecuzione e quello espresso dall'annotazione \`{e} limitata dal valore di una costante che dipende solo dal programma.
+\end{definition}
+Una volta attribuito il costo ai blocchi costanti, se il modello di costo del programma originale \`{e} ragionevole, sar\`{a} sufficiente sommare i loro costi per ottenere quello totale, esattamente come accade per l'esempio in figura.\\
+Scopo di queste annotazioni \`{e} quindi quello di creare un mapping quanto pi\`{u} possibile preciso fra un frammento di codice scritto nel lingauggio sorgente, tipicamente di alto livello, preso in input dal compilatore e il prodotto della compilazione ossia il corrispettivo codice oggetto per una qualche architettura. Grazie ad esse \`{e} quindi possibile formulare una descrizione esatta del modello di costo del codice oggetto emesso dal compilatore che pu\`{o} quindi essere successivamente impiegata per verificare che alcune importanti propriet\`{a} del sorgente siano soddisfatte. \`{E} il caso, ad esempio, dei programmi real-time per i quali conoscere staticamente con precisione il tempo necessario per eseguire una certa sequenza di istruzioni sarebbe determinante per decidere se il codice riuscir\`{a} o meno a rispettare le deadline richieste.\\
+
+\section{Labelling}\label{cerco:labelling}
+Il \textit{labelling} \`{e} il metodo proposto dai membri di CerCo per trasformare un normale compilatore in uno capace di generare annotazioni di costo \cite{cerco}. L'idea alla base del metodo \`{e} quella di \textit{etichettare} ciascuno dei blocchi O(1) in maniera particolare in modo tale che il suo costo venga associato all'etichetta e sia cos\`{i} possibile ragionare sul cost model del programma a un livello di astrazione pi\`{u} alto rispetto a quello delle singole istruzioni presenti nel codice oggetto. Una descrizione sommaria del metodo \`{e} riportata nello schema seguente.
+\newcolumntype{M}[1]{m{#1}}
+\begin{center}
+\begin{tabular}{m{10cm}}
+$$
+\xymatrix{
+% % Row 2
+  L_1 &
+  \ar[l]^{\cl{I}}
+  L_{1,l} 
+  \ar@/^/[d]^{er_1} 
+  \ar[r]^{\cl{C}_1}
+%
+& L_{2,l} 
+  \ar[d]^{er_2}  
+%
+& \ldots \hspace{0.3cm}\ar[r]^{\cl{C}_k} 
+%
+& L_{k+1,l} 
+  \ar[d]^{er_{k+1}}  \\
+%
+% Row 3
+&
+  L_1                                  
+  \ar@/^/[u]^{\cl{L}} 
+  \ar[r]^{\cl{C}_1}
+& L_2   
+& \ldots\hspace{0.3cm}
+  \ar[r]^{\cl{C}_{k}}
+& L_{k+1}
+}
+$$
+\end{tabular}
+\end{center}
+
+Il processo di compilazione \`{e} rappresentato dalla sequenza di linguaggi $L_1...L_{k+1}$ intervallati dalle rispettive funzioni di compilazione $C_1...C_k$. I compilatori sono infatti programmi molto complessi e pertanto sono tipicamente suddivisi in pi\`{u} fasi, a cui corrispondono le funzioni $C_1...C_k$. Ciascuna delle fasi ha come output una certa rappresentazione che, per quanto eventualemente arrichita di informazioni, deriva pi\`{u} o meno direttamente dal codice sorgente e prende in input quella generata dalla fase precedente. La fase di parsing, per esempio, processa la lista di token prodotta dalla fase di analisi lessicale e restituisce come output un albero di sintassi astratta (AST). Una rappresentazione pu\`{o} quindi assumere forme e strutture molto diverse: lista, albero e, nei casi pi\`{u} complessi, anche veri e propri linguaggi intermedi. Nello schema ciascuna di queste rappresentazione viene identificata da uno dei linguaggi $L_1...L_k$.\\
+Per ognuno dei linguaggi $L_1...L_k$ viene poi definito un nuovo linguaggio $L_{i,l}$ identico a $L_i$ ma con l'aggiunta di un nuovo costrutto per permettere l'etichettatura dei blocchi tramite \textit{label}. Chiaramente per supportare $L_{i,l}$ la corrispettiva funzione di compilazione $C_i$ deve essere opportunamente modificata. Inoltre, per ciascuno dei linguaggi \textit{etichettati} \`{e} naturalmente definita una funzione $er_i$ il cui compito \`{e} cancellare tutte le label presenti nel codice scritto in $L_{i,l}$ in modo da ottenere il suo corrispettivo nel linguaggio senza label.
+Con queste premesse \`{e} possibile definire le due operazioni principali del metodo proposto da CerCo.
+\begin{definition}\label{def:labelling}
+Un \textit{labelling} $L$ di un linguaggio sorgente $Li$ \`{e} una funzione tale che $er_{L_i}{\circ}L$ \`{e} la funzione identit\`{a}
+\end{definition}
+\begin{definition}\label{def:instrumentation}
+Una \textit{instrumentazione} $I$ di un linguaggio etichettato $L_{1,l}$ \`{e} una funzione che rimpiazza le label di $L_{1,l}$ con, per esempio, incrementi di una variabile di costo
+\end{definition}
+Un esempio di codice sottoposto a labelling \`{e} riportato nel Listato \ref{lst:cerco_labelled} mentre il risultato dell'instrumentazione \`{e} esattamente quello riportato nel Listato \ref{lst:cerco_instrumented}.
+\begin{lstlisting}[caption=Sorgente etichettato da CerCo,label={lst:cerco_labelled},frame=tlrb]
+int fib(int n) {
+  __cost2:
+  if (n < 2) {
+    __cost0:
+    return 1;
+  } else {
+    __cost1:
+    return fib(n - 1) + fib(n - 2);
+  }
+}
+\end{lstlisting}
+Date le operazioni definite da \ref{def:labelling} e \ref{def:instrumentation} un'annotazione di costo pu\`{o} essere definita molto semplicemente come la composizione, e quindi in pratica come un'esecuzione in sequenza, dell'operazione di labelling e di quella di instrumentazione, in simboli $An = I \circ L$.\\
+Tuttavia, giunti a questo punto \`{e} lecito chiedersi se il metodo proposto sia realmente in grado di fornire delle annotazioni che siano sia \textit{sound} che \textit{precise} e la risposta \`{e} affermativa. Le annotazioni prodotte dal metodo del labelling risultano infatti \textit{sound} se tutto il codice sorgente \`{e} coperto da almeno una label e, allo stesso tempo, se tutti i percorsi che vanno da una label alla successiva hanno lo stesso costo allora sono anche \textit{precise}. Le prove formali di questi risultati sono anch'esse parte integrante del lavoro svolto dai membri di CerCo \cite{cerco_website}.
+
+\chapter{Implementazione}\label{impl}
+
+\section{Overview}\label{impl:overview}
+L'implementazione per un nuovo linguaggio del framework sviluppato dal progetto CerCo pu\`{o} avvenire sostanzialmente in due modi: 
+\begin{enumerate}
+    \item Realizzazione \textit{ex novo} dell'implementazione del linguaggio, ossia di un nuovo compilatore, ma con le estensioni descritte nel capitolo \ref{cerco}
+    \item Modifica di un compilatore esistente per trasformarlo in un \textit{cost annotating compiler}
+\end{enumerate}
+L'approccio seguito dagli autori di CerCo \`{e} il primo, in quanto i moderni compilatori C, come \texttt{gcc} \cite{gcc}, poco si prestano all'implementazione delle estensioni necessarie per il metodo del labelling. Inoltre, poich\'{e} uno degli obiettivi principali del progetto era quello di provare formalmente la correttezza dell'implementazione, realizzarne una da zero avrebbe permesso di costruirla in modo da semplificarne le prove di correttezza.\\ 
+Tuttavia, lo sforzo richiesto per implementare un compilatore \`{e} molto elevato e pertanto nello svolgimento di questo elaborato si \`{e} preferito impiegare il secondo approccio. Inoltre, mentre \`{e} ampiamente noto come il linguaggio C sia stato progettato per essere semplice e quanto pi\`{u} possibile vicino al linguaggio macchina \cite{torvalds}, \`{e} evidente come le caratteristiche peculiari di Solidity \cite{solc}, soprattutto in quanto linguaggio orientato agli oggetti, e il suo ambiente di riferimento, Ethereum e gli smart contracts, lo rendano un linguaggio intrinsecamente complesso. Tale complessit\`{a} ha influenzato quindi inevitabilmente anche il compilatore, il cui compito principale \`{e} proprio quello di tradurre i complessi meccanismi di alto livello di Solidity nel bytecode della EVM.\\
+Per questo motivo abbiamo cercato di minimizzare il numero di modifiche effettuate alla codebase del compilatore di Solidity, \textit{solc}, optando invece per la creazione di un tool aggiuntivo esterno al compilatore denominato, in onore al progetto originale, \texttt{Cerco2}\cite{repo_thesis} con l'obiettivo di demandare ad esso lo svolgimento della gran parte delle verifiche e delle procedure necessarie per l'implementazione del metodo del labelling.\\
+Nelle sezioni seguenti effettueremo quindi una panoramica di entrambi gli strumenti, ponendo l'accento in particolare su come sono fra loro legati e come dovrebbero quindi essere usati da un utente terzo.
+
+\subsection{Il compilatore di Solidity: solc}\label{impl:ov:solc}
+\subsubsection{Le interfacce utente}\label{impl:ov:solc:interface}
+Il \textbf{Sol}idity \textbf{C}ompiler\cite{solc}, \textit{solc} in breve, \`{e} l'implementazione di riferimento, oltre che la sola al momento, del linguaggio Solidity ed \`{e} disponibile per Windows, Macos, e Linux. La modalit\`{a} consigliata dagli sviluppatori per interagire con il compilatore \`{e} la cosidetta \textit{JSON Input/Output Interface}. In questa modalit\`{a}, solc si aspetta di ricevere in input un file JSON contente i nomi dei file sorgente da compilare e altri metadati ed emette in output un altro file JSON contente i risultati della compilazione e quanto specificato dall'utente nel file di input (la specifica completa del formato dei file di input e output \`{e} riportata nella documentazione di Solidity \cite{solidity_docs}). La JSON Input/Output Interface \`{e} pensata per favorire l'integrazione del compilatore all'interno di setup automatici complessi o altri tool come Remix \cite{remix}, un ambiente di sviluppo integrato (IDE) per smart contract, o Truffle \cite{truffle}, una suite di software per lo sviluppo e il testing degli smart contract. Per questo motivo durante lo sviluppo di questo elaborato abbiamo preferito utilizzare direttamente l'interfaccia a riga di comando messa a disposizione dal compilatore, di cui \`{e} possibile visualizzare tutte le opzioni invocandolo con il flag \texttt{--help}.\\
+Nella Tabella \ref{table:solc:options} sono riportate in particolare quelle pi\`{u} usate durante lo sviluppo dell'elaborato.
+\begin{table}[h]
+\centering
+\begin{tabular}{ |m{6em}|m{7em}|m{18em}| }
+    % HEADER
+    \hline
+    \textbf{Gruppo} & \textbf{Flag} & \textbf{Descrizione}\\
+    \hline
+    %BODY
+    \multirow{2}{6em}{Informazioni generali} & \texttt{--help} & Mostra il messaggio di aiuto.\\\cline{2-3}
+    & \texttt{--version}   &   Mostra la versione.\\
+    \hline
+    \multirow{4}{6em}{Opzioni di output} & \texttt{--evm-version} & Permette di selezionare la versione della EVM su cui verr\`{a} eseguito il bytecode.\\\cline{2-3}
+    & \texttt{--experimen\-tal-via-ir}   &   Abilita la compilazione attraverso IR, ossia Yul.\\
+    \hline
+    \multirow{6}{6em}{Componenti di output} & \texttt{--asm} & Emette l'assembly EVM del contratto.\\\cline{2-3}
+    & \texttt{--bin}   &   Emette il bytecode del contratto.\\\cline{2-3}
+    & \texttt{--ir}   &   Emette la rappresentazione intermedia (Yul) del contratto.\\\cline{2-3}
+    & \texttt{--ir-optimized}   &   Emette la rappresentazione intermedia (Yul) ottimizzata del contratto.\\
+    \hline
+    \multirow{3}{6em}{Ottimizzatore} & \texttt{--optimize} & Abilita l'ottimizzatore.\\\cline{2-3}
+    & \texttt{--yul-optimi\-zation-steps}   &   Permette di specificare la sequenza di ottimizzazione.\\
+    \hline
+    Output aggiuntivo & \texttt{--gas} & Stampa una stima del massimo consumo di gas per ogni funzione.\\
+    \hline
+\end{tabular}
+\caption{Opzioni interfaccia a riga di comando di solc}
+\label{table:solc:options}
+\end{table}
+\\Inoltre sono state aggiunte tre opzioni per la generazione di particolari output:
+\begin{itemize}
+    \item \texttt{--lb}: genera le definizioni di tutti i contratti in seguito alla fase di labelling (\ref{impl:labelling})
+    \item \texttt{--asm-costs}: analogo di \texttt{--asm} ma con l'aggiunta del consumo del gas degli opcode (\ref{impl:costs_calculation})
+    \item \texttt{--instrumented}: genera la versione parzialmente instrumentata dei contratti (\ref{impl:instrumentation})
+\end{itemize}
+\subsubsection{La struttura}\label{impl:ov:solc:structure}
+La struttura di solc corrisponde a quella che si ritrova tipicamente in tutti i compilatori moderni per linguaggi di alto livello ed \`{e} composta da una serie di layer che corrispondono, pi\`{u} o meno direttamente, alle diverse fasi del processo di compilazione la cui suddivisione, cos\`{i} come descritta in \cite{linguaggi,dragonBook}, \`{e} riportata brevemente di seguito:
+\begin{itemize}
+    \item \textbf{Analisi lessicale}: a partire dalla stringa del codice sorgente il \textit{lexer} (o scanner), genera una lista di \textit{token}, ossia gli elementi atomici che compongono la sintassi del linguaggio. Ad esempio, il codice seguente in Solidity, \texttt{uint v;} produce tre token: l'identificatore del tipo \texttt{'uint'}, la variable \texttt{'v'} e l'operatore di concatenazione dei comandi \texttt{';'}.
+    \item \textbf{Analisi sintattica}: dalla lista dei token il \textit{parser} deriva un albero di sintassi astratta, \textit{AST}, il quale rappresenta la struttura logica del programma e verr\`{a} usato nelle fase successive. Inoltre, un fallimento nella costruzione dell'AST indica un errore di sintassi nel programma.
+    \item \textbf{Analisi semantica}: durante questa fase l'AST viene sottoposto ai controlli relativi ai cosidetti \textit{vincoli contestuali} come la coerenza dei tipi, la validit\`{a} delle dichiarazioni, ecc. L'output di questa fase \`{e} un AST aumentato, ossia arrichito con le informazioni ottenute tramite i controlli effettuati.
+    \item \textbf{Ottimizzazione}: in questa fase il codice viene ottimizzato attraverso molteplici tecniche con l'obiettivo di renderlo pi\`{u} "snello" in termini di spazio, per esempio attraverso la rimozione del \textit{dead code}, ossia il codice irragiungibile, o pi\`{u} veloce, attraverso \textit{inlining}, sostituzione delle chiamate alle funzioni col corpo delle funzioni stesse, \textit{loop unrolling}, l'eliminazione dei cicli con un numero di iterazioni staticamente note in favore della ripetizione per lo stesso numero di volte del corpo del ciclo, e altre.
+    \item \textbf{Generazione del codice oggetto}: viene generato il codice oggetto, tipicamente in formato binario, per l'architettura target.
+\end{itemize}
+Come si pu\`{o} facilmente notare ogni fase genera una qualche rappresentazione intermedia, ad eccezione dell'ultima il cui output \`{e} il codice oggetto che nel caso di solc corrisponde al bytecode della EVM, e riceve in input quella emessa dalla fase precedente, tranne per l'analisi lessicale il cui dato di ingresso \`{e} chiaramente il sorgente stesso. Queste rappresentazioni intermedie possono essere liste, come l'insieme dei token, alberi, come nel caso dell'AST, e in alcuni casi veri e propri linguaggi intermedi caratterizzati da una sintassi e da una semantica ben precise, come \cite{llvmir}. I linguaggi intermedi hanno diversi scopi ma quello per cui vengono impiegati pi\`{u} spesso \`{e} quello di separare due parti fondamentali del compilatore: il \textit{frontend}, che comprende le diverse fasi di analisi condotte dal compilatore, e il cosidetto \textit{backend}, composto invece dalle fasi di ottimizzazione e generazione del codice oggetto. Questa suddivisione pu\`{o} risultare fondamentale nel caso in cui si voglia implementare lo stesso linguaggio sorgente su target diversi o, al contrario, diversi linguaggi sorgenti sul medesimo target poich\'{e} sarebbe sufficiente modificare solamente il frontend, rispettivamente il backend, lasciando inalterata l'altra parte. Ci\`{o} \`{e} reso possibile per\`{o} solo dalla presenza di un qualche linguaggio che funge da target univoco per le ottimizzazioni e pu\`{o} essere compilato su diverse architetture indipendentemente dal linguaggio sorgente.\\
+\subsubsection{Il linguaggio intermedio Yul}\label{impl:ov:solc:yul}
+Recentemente, proprio con l'intento di aggiungere a Solidity il supporto per molteplici target, gli sviluppatori di solc hanno ideato \textit{Yul} \cite{yul}, un linguaggio intermedio che pu\`{o} essere compilato nel bytecode di diverse versioni della EVM (\texttt{EVM 1.0}, \texttt{EVM 1.5} e \texttt{Ewasm}). Lo scopo principale di Yul \`{e} per l'appunto quello di astrarre i dettagli delle singole piattaforme in particolare ponendosi come linguaggio target della fase di ottimizzazione. Non a caso infatti, in seguito alla sua introduzione, gli sviluppatori hanno completamente riscritto l'ottimizzatore che \`{e} adesso in gran parte basato proprio su di esso. Per quanto sia ancora in fase sperimentale quindi, gli investimenti per renderlo uno standard \textit{de facto} sono concreti e continui, per questo motivo abbiamo deciso di includerlo nell'elaborato. Fra gli obiettivi che ne hanno guidato il design vi sono poi:
+\begin{itemize}
+    \item Leggibilit\`{a}: la sintassi \`{e} molto pi\`{u} simile a quella di un linguaggio di alto livello che ad un uno di livello analogo all'assembly
+    \item Semplicit\`{a} del controllo di flusso: anche in questo caso si \`{e} preferita una sintassi ispirata ai linguaggi di alto livello e pertanto sono presenti direttamente costrutti come \texttt{if}, \texttt{switch} e \texttt{for} ed \`{e} ammessa perfino la ricorsione.
+    \item Facilit\`{a} di traduzione in bytecode: nonostante i costrutti e la sintassi di alto livello \`{e} abbastanza facile intuire i loro corrispettivi in bytecode osservando il codice in Yul.
+\end{itemize}
+A sostegno di quanto detto mostriamo di seguito due esempi della funzione \texttt{power} per calcolare la potenza ennesima di una fuzione la prima in versione iterativa e la seconda ricorsiva.
+\begin{lstlisting}[language=Solidity,caption={Definizione iterativa della funzione \texttt{power} in Yul},frame=tlrb]
+{
+    function power(base, exponent) -> result {
+        result := 1
+        for { let i := 0 } lt(i, exponent) { i := add(i, 1) }
+        {
+            result := mul(result, base)
+        }
+    }
+}
+\end{lstlisting}
+\begin{lstlisting}[language=Solidity,caption={Definizione ricorsiva della funzione \texttt{power} in Yul},frame=tlrb]
+{
+    function power(base, exponent) -> result {
+        switch exponent
+        case 0 { result := 1 }
+        case 1 { result := base }
+        default {
+            result := power(mul(base, base), div(exponent, 2))
+            switch mod(exponent, 2)
+                case 1 { result := mul(base, result) }
+        }
+    }
+}
+\end{lstlisting}
+
+\subsection{Cerco2}\label{impl:ov:cerco2}
+Cerco2 \`{e} un tool da riga di comando sviluppato durante lo svolgimento dell'elaborato in aggiunta alle modifiche apportate al compilatore di Solidity. Cos\`{i} come spiegato in \S\ref{impl:overview}, la sua realizzazione si \`{e} resa necessaria per via della complessit\`{a} di solc. I controlli necessari a verificare che le annotazioni di costo prodotte risultino \textit{sound} e \textit{precise} cos\`{i} come l'algoritmo per l'attribuzione dei costi, descritto in \ref{impl:costs_attribution}, sono infatti tutt'altro che triviali. Il secondo, per esempio, si basa sulla visita di una struttura dati particolare chiamata \textit{Control Flow Graph} la cui implementazione in C++, il linguaggio nel quale solc \`{e} scritto, avrebbe rappresentato un inutile ostacolo aggiuntivo.\\
+Per ovviare alla complessit\`{a} di C++, si \`{e} quindi deciso di scrivere il tool in JavaScript in modo tale che potesse essere eseguito su Node.js e risultare cos\`{i} comunque disponibile per tutte le piattaforme supportate da solc. Cos\`{i} come per solc, \`{e} possibile ottenere la lista di tutte le opzioni disponibili per la CLI passando il flag \texttt{--help} (o \texttt{-h} in breve). Le principali sono riportate nella Tabella \ref{table:cerco2:options}.\\
+Nonostante sia uno strumento esterno, Cerco2 \`{e} pensato direttamente come estensione di solc. Internamente infatti, una volta elaborate le opzioni ricevute dall'utente (fra le quali deve essere presente almeno anche un file sorgente) invoca il compilatore con un set di opzioni predefinito in modo da ottenere i file necessari per le successive elaborazioni. Fra questi i pi\`{u} importanti sono il codice assembly dei sorgenti compilati con l'aggiunta dei costi delle istruzioni e le definizioni parzialmente instrumentate di ciascun contratto (ottenuti grazie ai flag aggiunti a solc, per i dettagli si faccia riferimento a \S\ref{impl:ov:solc:interface}).
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |m{10em}|m{20em}| }
+    % HEADER
+    \hline
+    \textbf{Flag} & \textbf{Descrizione}\\
+    \hline
+    %BODY
+    \texttt{-h,--help} & Mostra il messaggio di aiuto.\\
+    \hline
+    \texttt{-e,--example <path>} & Mostra il messaggio di aiuto.\\
+    \hline
+    \texttt{-x,--exclude <examples...>} & Mostra il messaggio di aiuto.\\
+    \hline
+    \texttt{--stdout} & Mostra il messaggio di aiuto.\\
+    \hline
+    \texttt{--stderr} & Mostra il messaggio di aiuto.\\
+    \hline
+    \texttt{-g,--graph} & Mostra il messaggio di aiuto.\\
+    \hline
+    \texttt{-c,--costs} & Mostra il messaggio di aiuto.\\
+    \hline
+\end{tabular}
+\caption{Opzioni interfaccia a riga di comando di Cerco2}
+\label{table:cerco2:options}
+\end{table}
+
+\section{Labelling}\label{impl:labelling}
+Nelle fasi iniziali del progetto, l'operazione di labelling descritta nel paragrafo \S\ref{cerco:labelling} veniva effettuata manualmente. Tuttavia, \`{e} evidente come effettuare un processo cos\`{i} delicato in questo modo possa condurre facilmente ad errori e non \`{e} comunque sostenibile nel caso di programmi di grandi dimensioni. In seguito abbiamo quindi deciso di implementarla direttamente all'interno di solc, in modo tale da renderlo un processo automatico e, idealmente, corretto.\\
+A prescindere dal linguaggio considerato l'implementazione del labelling passa in primis necessariamente per la definizione di un costrutto per etichettare i blocchi di codice. Questa operazione corrisponde alla definizione del linguaggio etichettato $L_{i,l}$ a partire dal linguaggio $L_i$. Per supportare questo nuovo costrutto \`{e} stato sufficiente aggiungere una nuova tipologia di nodi all'AST di Solidity. L'aggiunta di un nodo avviene attraverso la definizione di una nuova classe all'interno del file \texttt{AST.h} in cui \`{e} possibile trovare le definizioni di tutti i possibili nodi dell'albero. Nel nostro caso la classe \`{e} stata denominata \texttt{LabelStatement} poich\`{e} eredita dalla classe \texttt{Statement}, la classe base per tutti gli elementi che, a differenza delle espressioni, non producono alcun valore. La classe \texttt{Statement} eredita a sua volta dalla classe astratta \texttt{ASTNode} che definisce i metodi necessari per realizzare la visita di un particolare nodo. In seguito, abbiamo modificato il parser affich\`{e} potesse utilizzare questo nuovo nodo per rappresentare le etichette. Infatti, poich\'{e} la generazione delle label \`{e} un compito esclusivo del compilatore, queste possono essere aggiunte direttamente dal parser durante la costruzione dell'albero, mentre sarebbe un errore implementarne il parsing in quanto non esiste un modo per lo sviluppatore di specificarle nel sorgente. Ci\`{o} nonostante, per favorire il debugging e l'ispezione del codice, nel caso in cui venga richiesto in output il sorgente etichettato i nodi di tipo \texttt{LabelStatement} verrano trasformati in semplici commenti multilinea contenenti il nome della label generata come nell'esempio seguente.
+\begin{lstlisting}[language=Solidity,caption=Esempio di codice etichettato,label={lst:labelled},frame=tlrb]
+contract Fibonacci {
+    function fibonacci(uint256 n) public pure returns (uint256 b) {
+        /* __cost0 */
+        if (n == 0) {
+            /* __cost1 */
+            return 0;
+        }
+        /* __cost2 */
+        uint256 a = 1;
+        b = 1;
+        for (uint256 i = 2; i < n; i++) {
+            /* __cost3 */
+            uint256 c = a + b;
+            a = b;
+            b = c;
+        }
+        /* __cost4 */
+        return b;
+    }
+}
+\end{lstlisting}
+L'algoritmo impiegato dal parser per aggiungere le label all'albero \`{e} il seguente (si veda ad esempio il Listato \ref{lst:labelled}):
+\begin{enumerate}
+    \item L'inizio di ciascun blocco \`{e} etichettato con una label.
+    \item Tutte le sequenze di istruzioni precedute da un qualche costrutto per il controllo di flusso (che apre quindi uno o pi\`{u} blocchi all'interno di quello principale) sono etichettate con una label posta subito dopo la fine del costrutto
+\end{enumerate}
+Ci\`{o} garantisce che tutte le istruzioni siano etichettate con almeno una label e, se assumiamo che un'etichetta sia valida fino a quella successiva, allora questo bound diventa pari a uno e pertanto ciascuna istruzione risulta coperta da esattamente una label.
+\subsection{Da Solidity a Yul}\label{impl:lbl:yul}
+Come riportato in \S\ref{cerco:labelling}, la presenza di linguaggi intermedi influenza in maniera importante il processo di labelling perch\'{e} le etichette aggiunte al sorgente devono essere trasferite a ciascuno di questi fino a raggiungere il codice oggetto. Diventa quindi necessario estendere anche questi linguaggi con costrutti opportuni affich\'{e} sia possibile tenere traccia delle label emesse. Tuttavia, quanto descritto nel paragrafo precedente non pu\`{o} essere applicato a Yul perch\'{e} le etichette non devono essere generate ma tradotte. Perci\`{o} in questo caso \`{e} stato necessario estendere la sintassi del linguaggio con una nuova keyword \texttt{emit}. Questa, insieme con un identificatore, definisce un nuovo nodo per l'AST di Yul denominato \texttt{EmitLabel}. Nell'esempio \ref{lst:yul_labelled} \`{e} riportato un estratto della traduzione in Yul della funzione \texttt{fibonacci} dell'esempio \ref{lst:labelled}. Come si pu\`{o} notare le label emesse sono le stesse che compaiono nel sorgente in Solidity.
+\begin{lstlisting}[language=Solidity,caption=Esempio di codice etichettato in Yul,label={lst:yul_labelled},frame=tlrb]
+function fun_fibonacci(var_n) -> var_b {
+    emit __cost0
+    if iszero(var_n)
+    {
+        emit __cost1
+        var_b := 0x00
+        leave
+    }
+    emit __cost2
+    var_b := 0x01
+    let var_a := 0x01
+    let var_i := 0x02
+    // ...
+\end{lstlisting}
+\subsection{Da Yul all'Assembly}\label{impl:lbl:evm}
+Il passaggio finale del processo di labelling corrisponde alla traduzione da Yul all'assembly della EVM. Per quanto questo non rappresenti il vero e proprio codice oggetto della virtual machine, che ricordiamo essere il bytecode, esiste per\`{o} fra i due una corrispondeza diretta. L'assembly \`{e} infatti una semplice rappresentazione testuale degli opcode e dei dati contenuti nel bytecode, ma \`{e} chiaramente pi\`{u} leggibile e facilmente analizzabile. Inoltre, grazie a questo corrispondenza, \`{e} possibile effettuare il calcolo e l'attribuzione dei costi direttamente sull'assembly (come vedremo nei paragrafi \S\ref{impl:costs_calculation} e \S\ref{impl:costs_attribution}) senza estendere in alcun modo il bytecode. L'unica modifica fatta ha riguardato la generazione del file assembly per il quale si \`{e} chiaramente reso necessario aggiungere il supporto per la traduzione del nodo \texttt{EmitLabel} di Yul in un corrispettivo in assembly. Abbiamo deciso quindi di optare, similmente a quanto fatto per Solidity, per un banale commento. Nel listato \ref{lst:asm_labelled} ritroviamo un estratto della traduzione in assembly del codice Yul dell'esempio \ref{lst:yul_labelled}. 
+\begin{lstlisting}[caption=Esempio di codice etichettato in Assembly,label={lst:asm_labelled},frame=tlrb]
+  // emit __cost0
+  ISZERO
+  PUSH [tag] 9
+  JUMPI
+  // emit __cost1
+  PUSH 0x00
+tag_9:
+  // emit __cost2
+\end{lstlisting}
+
+\section{Calcolo dei Costi}\label{impl:costs_calculation}
+Completata la fase di labelling \`{e} necessario stabilire il gas utilizzato da ciascuna istruzione contenuta nell'assembly. Al contrario di quanto si potrebbe pensare infatti, non tutti gli opcode del bytecode consumano una  quantit\`{a} di gas sempre costante, come invece accade per le istruzioni riportate nella Tabella \ref{table:bg:ethereum:gas:costs}. La motivazione principale dietro a questa disparit\`{a} \`{e} dovuta alla necessit\`{a}, da parte degli sviluppatori di Ethereum, di fornire un bound non solo al tempo impiegato dalla virtual machine per eseguire un certo contratto ma anche allo spazio richiesto per l'esecuzione. Anche la memoria costituisce infatti una risorsa finita per i nodi della rete pertanto non \`{e} ammissibile che un contratto ne faccia un uso indiscriminato. Le istruzioni come \texttt{MSTORE} e \texttt{CODECOPY} che interagiscono con l'area \textit{memory} della EVM, o l'istruzione \texttt{SSTORE}, che scrive nello \textit{storage}, \`{e} quindi evidente che consumeranno tanto pi\`{u} gas quanto maggiore sar\`{a} la dimensione dei dati letti, scritti, o copiati.
+
+\subsection{La Funzione di Costo del Gas}\label{impl:costs_calculation:cost_fn}
+La funzione di costo del gas permette di stabilire la quantit\`{a} di gas consumata da una specifica istruzione contenuta nel bytecode di un dato smart contract nel contesto di un preciso stato dell'esecuzione. Di seguito ne riportiamo la definizione che tuttavia, per motivi di leggibilit\`{a} e brevit\`{a}, non copre tutte le istruzioni del bytecode. Per le istruzioni mancanti rimandiamo a \cite{yellow_paper}.
+\begin{definition}\label{def:cost_fn}
+La generica funzione di costo del gas $C$ \`{e} cos\`{i} definita:
+\begin{equation}
+\resizebox{.9 \textwidth}{!}
+{$
+C(\boldsymbol{\sigma}, \boldsymbol{\mu}, w) \equiv C_{\mathrm{mem}}(\boldsymbol{\mu}'_{\mathrm{i}})-C_{\mathrm{mem}}(\boldsymbol{\mu}_{\mathrm{i}}) + 
+\begin{cases}
+C_\text{\tiny SSTORE}(\boldsymbol{\sigma}, \boldsymbol{\mu}) & \text{if} \quad w = \text{\small SSTORE} \\
+G_{\mathrm{verylow}} + G_{\mathrm{copy}}\times\lceil\boldsymbol{\mu}_{\mathbf{s}}[2] \div 32\rceil & \text{if} \quad w \in W_{\mathrm{copy}} \\
+C_\text{\tiny CALL}(\boldsymbol{\sigma}, \boldsymbol{\mu}) & \text{if} \quad w \in W_{\mathrm{call}} \\
+C_\text{\tiny SELFDESTRUCT}(\boldsymbol{\sigma}, \boldsymbol{\mu}) & \text{if} \quad w = \text{\small SELFDESTRUCT} \\
+G_{\mathrm{create}} & \text{if} \quad w = \text{\small CREATE}\\
+G_{\mathrm{jumpdest}} & \text{if} \quad w = \text{\small JUMPDEST}\\
+G_{\mathrm{zero}} & \text{if} \quad w \in W_{\mathrm{zero}}\\
+G_{\mathrm{base}} & \text{if} \quad w \in W_{\mathrm{base}}\\
+G_{\mathrm{verylow}} & \text{if} \quad w \in W_{\mathrm{verylow}}\\
+G_{\mathrm{low}} & \text{if} \quad w \in W_{\mathrm{low}}\\
+G_{\mathrm{mid}} & \text{if} \quad w \in W_{\mathrm{mid}}\\
+G_{\mathrm{high}} & \text{if} \quad w \in W_{\mathrm{high}}\\
+\end{cases}
+$}
+\end{equation}
+dove:
+\begin{itemize}
+    \item $\boldsymbol{\sigma}$ \`{e} lo stato globale della blockchain;
+    \item $\boldsymbol{\mu}$ \`{e} lo stato attuale della EVM, $\boldsymbol{\mu}_s$ lo stack, e $\boldsymbol{\mu}_i$ e $\boldsymbol{\mu}'_i$ rappresentano la dimensione (in parole) della memoria rispettivamente prima e dopo l'esecuzione dell'istruzione $w$; 
+    \item $w$ \`{e} un'instruzione del bytecode;
+\end{itemize}
+Inoltre, gli insiemi $W_{zero}$, $W_{base}$, $W_{verylow}$, $W_{low}$, $W_{mid}$, $W_{high}$ raggruppano fra loro le istruzioni del bytecode che hanno lo stesso costo, mentre l'insieme $W_{copy}$ contiene tutte le operazioni che copiano porzioni di memoria come \texttt{CODECOPY} (ad eccezione di \texttt{EXTCODECOPY}).
+\end{definition}
+La funzione $C_{mem}$ calcola, sulla base della dimensione attuale, di quanto sia necessario estendere la memoria per far s\`{i} che gli indirizzi a cui acceder\`{a} l'istruzione siano validi. La sua definizione \`{e} la seguente:
+\begin{equation}\label{def:c_mem}
+C_{\mathrm{mem}}(a) \equiv G_{\mathrm{memory}} \cdot a + \left\lfloor \dfrac{a^2}{512} \right\rfloor
+\end{equation}
+Come si nota \`{e} una funzione polinomiale il cui coefficiente di grado pi\`{u} alto viene diviso e arrotondato per difetto e pertanto risulta lineare fino a circa 724B di utilizzo della memoria, dopodich\'{e} il suo costo aumenta e pu\`{o} diventare molto significativo.\\
+Allo stesso tempo, si osserva come per alcune delle istruzioni tipicamente pi\`{u} utilizzate nella stesura degli smart contract la funzione di costo dipenda non solo dallo stato della EVM ma anche da quello globale in maniera tutt'altro che ovvia: \`{e} il caso per esempio di \texttt{SELFDESTRUCT} o \texttt{CALL}. Per queste istruzioni in \ref{def:cost_fn} sono riportati solo i nomi delle specifiche "sottofunzioni" di costo, come $C_\text{\tiny SSTORE}(\boldsymbol{\sigma}, \boldsymbol{\mu})$, mentre la loro definizioni complete si trovano nell'appendice H di \cite{yellow_paper}.
+Nella Tabella \ref{table:impl:costs_calculation:intrinsic_gas_constants} sono riportati i valori delle costanti che appaiono in \ref{def:cost_fn} (la versione completa della stessa tabella \`{e} presente nell'appendice G di \cite{yellow_paper}).
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|r|m{23em}|}
+        \hline
+        Nome & Valore & Descrizione \\
+        \hline
+        $G_{copy}$ & 3 & Pagamento parziale per le operazioni del tipo \texttt{*COPY} (da moltiplicare per il numero di parole e arrotondare) \\
+        \hline
+        $G_{memory}$ & 3 & Quantit\`{a} di gas da pagare per ogni parola aggiuntiva durante l'espansione della memoria \\
+        \hline
+        $G_{create}$ & 32000 & Quantit\`{a} di gas usata dall'operazione \texttt{CREATE} \\
+        \hline
+        $G_{jumpdest}$ & 1 & Quantit\`{a} di gas usata dall'operazione \texttt{JUMPDEST} \\
+        \hline
+        $G_{zero}$ & 0 & Quantit\`{a} di gas usata dalle operazioni dell'insieme $W_{zero}$ \\
+        \hline
+        $G_{base}$ & 2 & Quantit\`{a} di gas usata dalle operazioni dell'insieme $W_{base}$ \\
+        \hline
+        $G_{verylow}$ & 3 & Quantit\`{a} di gas usata dalle operazioni dell'insieme $W_{verylow}$ \\
+        \hline
+        $G_{low}$ & 5 & Quantit\`{a} di gas usata dalle operazioni dell'insieme $W_{low}$ \\
+        \hline
+        $G_{mid}$ & 8 &  Quantit\`{a} di gas usata dalle operazioni dell'insieme $W_{mid}$ \\
+        \hline
+        $G_{high}$ & 10 & Quantit\`{a} di gas usata dalle operazioni dell'insieme $W_{high}$ \\
+        \hline
+    \end{tabular}
+    \caption{Valori e descrizioni delle costanti nella definizione \ref{def:cost_fn}}
+    \label{table:impl:costs_calculation:intrinsic_gas_constants}
+\end{table}
+
+\subsection{L'approccio di Cerco2}\label{impl:costs_calculation:cerco2_nonsolution}
+La definizione della funzione di costo (\ref{def:cost_fn}), specialmente per via della funzione $C_{mem}$ (\ref{def:c_mem}) e delle "sottofunzioni" di costo di alcune istruzioni come \texttt{SSTORE}, costituisce la ragione principale per cui non \`{e} possibile, impiegando esclusivamente tecniche di analisi statica, ottenere delle stime del consumo di gas precise, a meno che non si considerino casi triviali. Ci\`{o} vale, ad esempio, anche per il compilatore di Solidity. Fra le opzioni descritte nella Tabella \ref{table:solc:options} vi \`{e} il flag \texttt{--gas} che permette di ottenere una stima del gas necessario per ognuna delle funzioni definite dal contratto. Il Listato \ref{lst:solc_gas} riporta l'output prodotto da solc per l'esempio \ref{lst:labelled} che definisce una versione iterativa della funzione di Fibonacci.\\
+\begin{lstlisting}[caption={Output del flag \texttt{--gas} di solc} per la funzione di Fibonacci,label={lst:solc_gas},frame=tlrb]
+======= examples/simple/For.sol:Fibonacci =======
+Gas estimation:
+construction:
+   171 + 126600 = 126771
+external:
+   fibonacci(uint256):  infinite
+\end{lstlisting}
+Come si pu\`{o} notare, solc non riesce a fornire un bound al consumo di gas della funzione \texttt{fibonacci(uint256)} e restituisce pertanto \texttt{infinite}.\\
+Per calcolare questi valori il compilatore si affida alla classe \texttt{PathGasMeter} che data un lista di istruzioni (o la definizione di una funzione) ne simula parzialmente l'esecuzione. Purtroppo per\`{o} questa simulazione presenta non pochi limiti. In primis, analizzando il codice contenuto in \texttt{PathGasMeter}, \`{e} possibile osservare che la simulazione impiegata non ammette salti all'indietro, pertanto tutte le funzioni che contengono un qualche tipo di costrutto iterativo daranno come risultato \texttt{infinite}. In secondo luogo, sempre ispezionando il codice, ci si accorge che la classe \texttt{PathGasMeter} per calcolare il consumo di gas di una certa istruzione si appoggia alla classe \texttt{GasMeter}, all'interno della quale troviamo la definizione di $C_{mem}$. Tuttavia, anche in questo caso, \`{e} presente una limitazione: se durante la simulazione non \`{e} possibile determinare a quale parola di memoria verr\`{a} effettuato l'accesso, \texttt{GasMeter} restituisce \texttt{infinite}, in quanto risulta ovviamente impossibile calcolare la funzione $C_{mem}$. Infine, \`{e} importante notare che nel momento in cui il consumo di gas diventa pari a \texttt{infinite}, l'intera simulazione viene arrestata, perci\`{o} anche se fosse possibile determinare il costo di altri opcode, ci\`{o} non avviene.\\
+Nonostante queste importanti limitazioni, la simulazione condotta dalla classe \texttt{PathGasMeter} rimane, quantomeno per alcune istruzioni, la stima pi\`{u} precisa che \`{e} possibile ottenere senza effettuare un'esecuzione completa. Per questo motivo abbiamo deciso di sfruttarla parzialmente per attribuire il costo alle istruzioni. Fra i file richiesti da Cerco2 al compilatore \`{e} infatti presente anche una versione dell'assembly (ottenuta col flag \texttt{--asm-costs}) che riporta per ogni opcode il consumo di gas calcolato da \texttt{PathGasMeter}. Successivamente, durante la fase di parsing dell'assembly, Cerco2 assegna a tutte le istruzioni prive di costo, il loro valore numerico se costante (\`{e} il caso per esempio delle istruzioni aritmetiche) oppure una forma simbolica rappresentata da una particolare stringa. Questa forma simbolica corrisponde pressoch\'{e} alla definizione della funzione di costo del gas (\ref{def:cost_fn}) dell'istruzione in questione. Per i dettagli relativi a come questa particolare forma venga poi gestita dalle fasi di attribuzione dei costi e instrumentazione si faccia riferimento ai paragrafi dedicati (rispettivamente \S\ref{impl:costs_attribution} e \S\ref{impl:instrumentation}). Appare comunque evidente come questo approccio non risolva il problema poich\'{e} non permette di ottenere una stima reale del consumo di gas e la sua utilit\`{a} \`{e} quindi, almeno attualmente, limitata esclusivamente a fornire allo sviluppatore alcune indicazioni in merito a quali siano le istruzioni che influenzano maggiormente il costo del programma. Al termine della trattazione verranno presentati alcuni possibili miglioramenti che consentano di trasformare queste indicazioni in vere e proprie stime dell'utilizzo di gas.
+
+\section{Attribuzione dei Costi}\label{impl:costs_attribution}
+Una volta determinato il consumo di gas di ciascuna istruzione, a prescindere che questo sia dato in forma numerica o simbolica, \`{e} necessario stabilire a quali etichette associarlo. Intuitivamente possiamo dire che il costo di una label \`{e} pari alla somma dei consumi di gas di tutti gli opcode che compaiono fra questa e la successiva nel codice assembly. Tuttavia, questo approccio risulta insufficiente a causa di due problemi fondamentali: il primo \`{e} legato alla presenza delle istruzioni di salto nel bytecode della EVM, mentre il secondo si deve alla modalit\`{a} in cui gli smart contracts vengono salvati sulla blockchain e a come le funzioni \texttt{public} ed \texttt{external} vengono successivamente invocate.
+
+\subsection{Il Controllo di Flusso}\label{impl:costs_attribution:control_flow}
+Cos\`{i} come tutti i linguaggi di basso livello, anche il bytecode di Ethereum contiene alcune istruzioni per permettere l'utilizzo dei salti. Queste sono \texttt{JUMPI}, per i salti condizionali, e \texttt{JUMP}, per saltare incondizionatamente e su di esse si basa il controllo di flusso del bytecode sul quale viene mappato quello dei linguaggi di alto livello come Solidity. Purtroppo per\`{o} la presenza dei salti rende impossibile determinare con precisione quali istruzioni si trovino realmente dopo una certa etichetta perch\'{e} per farlo bisognerebbe conoscere il flusso dell'esecuzione. Questo non \`{e} chiaramente riportato nel file emesso dal compilatore e va quindi calcolato a parte tipicamente costruendo una struttura dati particolare denominata \textit{Control Flow Graph}.
+\begin{definition}\label{def:cfg}
+Dato un qualche programma $P$, si definisce \textit{Control Flow Graph} il grafo orientanto $G = (N,E)$ dove ciascun nodo $n \in N$ \`{e} un blocco del programma $P$ e ogni arco $(n_i,n_j) \in E$ rappresenta il passaggio del flusso di esecuzione dal nodo $n_i$ al nodo $n_j$.
+\end{definition}
+Nel caso dell'assembly, per il quale non \`{e} ovviamente possibile parlare di blocchi nel senso normalmente inteso per i linguaggi di alto livello, i nodi possono essere rappresentati dalla sequenza di instruzioni che precede un'operazione di salto condizionale (\texttt{JUMPI}) compresa quest'ultima. In Cerco2 l'implementazione del CFG \`{e} realizzata mediante un array di opcode il cui ultimo elemento \`{e}, per l'appunto, un'istruzione \texttt{JUMPI}. Ogni elemento dell'array \`{e} un oggetto JavaScript contente, oltre al nome dell'opcode, il numero della linea alla quale si trova l'istruzione nel sorgente assembly e, se previsti, gli argomenti dell'opcode. Per l'istruzione \texttt{PUSH}, ad esempio, troveremo l'elemento da inserire sullo stack della EVM. Gli oggetti che corrispondono all'istruzione \texttt{JUMPI} possiedono inoltre altre due propriet\`{a}, \texttt{true} e \texttt{false}, contenenti le operazioni che \`{e} possibile trovare seguendo l'uno o l'altro ramo della computazione e rappresentano quindi gli archi del CFG. L'algoritmo per la costruzione del grafo, che si trova all'interno del file \texttt{src/asm/controlGraph/create.js} in \cite{repo_thesis}, opera quindi in maniera molto semplice: data in input una lista di istruzioni ottenute processando il file assembly generato dal compilatore, le esamina ad una ad una e la aggiunge ad un array locale fino a quando non si raggiunge un'istruzione che termina il flusso dell'esecuzione, come \texttt{RETURN} o \texttt{REVERT}, o un'istruzione di salto condizionato. Nel primo caso l'algoritmo termina restituendo l'array creato, che rappresenta cos\`{i} un ramo dell'esecuzione. Se incontra un \texttt{JUMPI}, al contrario, l'algoritmo procede ricorsivamente sui due possibili rami alternativi della computazione. L'istruzione di salto funziona in modo analogo a quella di altri linguaggi di basso livello, perci\`{o} le istruzioni seguenti si trovano o subito dopo il salto (se la condizione \`{e} falsa) o di seguito ad un qualche \textit{tag} (se la condizione \`{e} vera). Pertanto, mentre la chiamata ricorsiva sul ramo "falso" potr\`{a} proseguire direttamente dall'istruzione successiva al salto, non vale lo stesso per quella corrispondente al ramo "vero", in quanto \`{e} necessario conoscere la destinazione del salto. Per questo motivo l'algoritmo mantiene uno stack interno dei tag e ogni volta che incontra un'istruzione del tipo \texttt{PUSH [tag] n} aggiunge il numero \texttt{n} del tag alla pila. In seguito ad un salto, l'elemento in cima alla pila viene rimosso e si cerca nella lista delle istruzioni quella che definisce il tag. Una volta individuata l'esecuzione prosegue esaminando l'istruzione in questione e quelle a lei successive fino al salto seguente. Questo meccanismo non si applica solamente al ramo "true" dei salti condizionati ma risulta fondamentale anche per i salti non condizionati, per quanto in quel caso il percorso possibile sia solamente uno.\\
+La procedura fin qui descritta presenta per\`{o} un problema. Se nel codice sorgente sono presenti cicli con iterazione indeterminata o ricorsione allora questi verranno probabilmente tradotti con salti all'indietro. In questi casi l'algoritmo diverger\`{a} poich\'{e} non ha modo di determinare se e quando l'iterazione avr\`{a} termine. Tuttavia, ai fini della costruzione del CFG non \`{e} necessario ripercorrere pi\`{u} di una volta lo stesso salto in quanto sappiamo gi\`{a} come proseguir\`{a} l'esecuzione. Pertanto \`{e} sufficiente che l'algoritmo tenga traccia delle istruzioni gi\`{a} visitate evitando cos\`{i} di percorrere pi\`{u} volte il medesimo ramo dell'esecuzione. Infine, se allo stack delle destinazioni viene aggiunto un tag che \`{e} gi\`{a} stato esplorato, questo verr\`{a} semplicemente scartato in favore del primo non visitato o del termine della computazione se tutti i tag presenti risultassero gi\`{a} visitati. La struttura dati risultante corrisponde cos\`{i} pi\`{u} ad un albero che ad un grafo ma \`{e} comunque sufficiente per poter determinare quali istruzioni sono coperte da una certa label. Nel seguito continueremo comunque per semplicit\`{a} a riferirci ad esso col nome di Control Flow Graph.
+
+\subsection{Il Costo dell'Inizializzazione}\label{impl:costs_attribution:init_cost}
+Per comprendere cosa intendiamo con \textit{costo dell'inizializzazione}, si consideri il codice riportato nell'esempio seguente che definisce un banale smart contract con due funzioni pubbliche.
+\begin{lstlisting}[language=Solidity,caption=Esempio di smart contract in Solidity,label={lst:simple_storage_solidity},frame=tlrb]
+contract SimpleStorage {
+    uint256 storedData;
+
+    function set(uint256 x) public {
+        storedData = x;
+    }
+
+    function get() public view returns (uint256) {
+        return storedData;
+    }
+}
+\end{lstlisting}
+Il suo equivalente Yul, ottenuto tramite traduzione e compilazione via solc, \`{e} riportato di seguito, parzialmente modificato per ragioni di brevit\`{a}.\\
+\begin{lstlisting}[language=Solidity,caption=Versione Yul dello smart contract in \ref{lst:simple_storage_solidity},frame=tlrb]
+object "SimpleStorage_24" {
+    code {
+        mstore(64, 128)
+        if callvalue() { revert(0, 0) }
+        let _1 := datasize("SimpleStorage_24_deployed")
+        codecopy(128, dataoffset("SimpleStorage_24_deployed"), _1)
+        return(128, _1)
+    }
+    object "SimpleStorage_24_deployed" {
+        code {
+            mstore(64, 128)
+            if iszero(lt(calldatasize(), 4)) {
+                switch shr(224, calldataload(0))
+                case 0x60fe47b1 {
+                    if callvalue() { revert(0, 0) }
+                    if slt(add(calldatasize(), not(3)), 32) { revert(0, 0) }
+                    let var_x := calldataload(4)
+                    emit __cost0
+                    sstore(0, var_x)
+                    return(128, 0)
+                }
+                case 0x6d4ce63c {
+                    if callvalue() { revert(0, 0) }
+                    if slt(add(calldatasize(), not(3)), 0) { revert(0, 0) }
+                    emit __cost1
+                    return(128, add(abi_encode_uint256(sload(0)), not(127)))
+                }
+            }
+            revert(0, 0)
+        }
+    }
+}
+\end{lstlisting}
+Grazie alle label \texttt{\_\_cost0} e \texttt{\_\_cost1} possiamo individuare le parti di codice che corrispondono direttamente al sorgente in Solidity. Come si pu\`{o} notare per\`{o}, gran parte del codice presente nel frammento in Yul non ha un chiaro corrispettivo in Solidity ed \`{e} stato generato dal compilatore. Scopo di questo codice aggiuntivo \`{e} permettere il \textbf{deploy} del contratto (righe da 3 a 7), ovvero il suo caricamento all'interno della blockchain, e la corretta invocazione delle funzioni \texttt{set} (righe da 15 a 20) e \texttt{get} (righe da 23 a 26), per esempio controllando che gli argomenti passati siano in numero giusto e siano stati correttamente codificati. Queste righe costituiscono un problema non indifferente poich\'{e} essendo generate dal compilatore successivamente rispetto al processo di labelling, come si nota, non sono coperte da alcuna etichetta ma vengono eseguite ad ogni chiamata e non considerarle significherebbe quindi produrre annotazioni di costo \textit{unsound}.\\
+Per risolvere questo problema la procedura per l'assegnazione dei costi alle label (che si trova all'interno del file \texttt{src/asm/costs.js} in \cite{repo_thesis}) definisce una variabile interna \texttt{startupCost} proprio con lo scopo di tenere traccia dei costi legati all'inizializzazione. Lo pseudocodice dell'algoritmo completo \`{e} riportato nel Listato \ref{lst:impl:costs_attribution:algo}.
+\begin{lstlisting}[caption=Pseudocodice dell'algoritmo per l'assegnazione dei costi alle etichette,label={lst:impl:costs_attribution:algo},frame=tlrb]
+fn assignCosts(cfg, labelStack = [], startupCost = 0, skip = false) {
+    for i in cfg {
+      if i.type == "LABEL" {
+        if !i.visited {
+          skip = false;
+          costs[i.label] = 0
+        } else {
+          skip = true;
+        }
+
+        if labelStack.empty() {
+          costs[i.label] += startupCost;
+          startupCost = nil;
+        }
+
+        labelStack.push(i.label);
+        i.visited = true
+      } else if !skip {
+        if labelStack.empty() {
+          startupCost += i.gas
+        } else {
+          costs[labelStack.top] += i.gas;
+        }
+      }
+    }
+
+    if (cfg.last.type === "JUMPI") {
+        jumpi = cfg.last;
+        assign_costs(jumpi.trueBranch, labelStack, startupCost);
+        assign_costs(jumpi.falseBranch, labelStack, startupCost);
+    }
+}
+\end{lstlisting}
+La procedura \texttt{assignCosts} conduce una visita in profondit\`{a} (DFS) del CFG, chiamandosi ricorsivamente sui due rami dell'istruzione \texttt{JUMPI}. Durante la visita l'algoritmo tiene traccia delle label via via incontrate in uno stack, in modo che la label corrente si trovi sempre sulla cima. 
+Inoltre, se l'etichetta corrente \`{e} gi\`{a} stata visitata (ad esempio perch\'{e} parte di una funzione \texttt{private} che l'ottimizzatore ha sottoposto a \textit{inlining}) allora il suo costo \`{e} gi\`{a} stato calcolato e pertanto \`{e} possibile ignorare tutte le istruzioni seguenti fino alla prossima label. Questa operazione avviene attraverso l'uso della variabile \texttt{skip}. Ci\`{o} nonostante, le label ignorate vengono comunque aggiunte allo stack. Questo \`{e} necessario per far funzionare il meccanismo dello \texttt{startupCost}. Fin quando la visita non raggiunge un'etichetta infatti \texttt{labelStack} \`{e} vuoto, poich\'{e} come detto le istruzioni per l'inizializzazione non sono coperte da alcuna label. Il loro consumo di gas viene quindi sommato alla variabile \texttt{startupCost} fino a quando non si incontra la prima label, alla quale il costo accumulato viene infine assegnato. Per garantire che ci\`{o} si verifichi solo una volta \`{e} quindi fondamentale che tutte le etichette visitate siano aggiunte alla pila ma non vengano mai rimosse.\\
+Completata la visita, la variabile di tipo dizionario \texttt{costs}, che si suppone sia globale, contiene le associazioni \textit{etichetta-costo} per ciascuna delle label raggiunte da una possibile computazione del contratto (ricordiamo infatti che le label vengono generate dal compilatore nella fase di parsing ma potrebbero essere eliminate dalla fase di ottimizzazione se appartenti a \textit{dead code}).
+
+\section{Instrumentazione}\label{impl:instrumentation}
+L'ultima fase del metodo del labelling consiste, come riportato nel paragrafo \S\ref{cerco:labelling}, nell'operazione di \textit{instrumentazione} che, dato in input un programma scritto nel linguaggio sorgente etichettato $L_{1,l}$, genera in output un programma funzionalmente equivalente a quello originale ma capace di monitorare il costo della sua esecuzione. L'instrumentazione infatti non altera in alcun modo il comportamento del programma originale poich\'{e} le modifiche effettuate si limitano a:
+\begin{enumerate}
+    \item L'aggiunta di una porzione di codice che permetta di definire ed accedere ad una qualche variabile di costo
+    \item La sostituzione delle label contenute nel sorgente etichettato, con incrementi progressivi della variabile di costo sopracitata di valore pari al costo associato alla label rimpiazzata
+\end{enumerate}
+Nella nostra implementazione il punto 1 \`{e} affidato al compilatore che \`{e} stato quindi opportunamente modificato per emettere una versione parzialmente instrumentata del codice sorgente. Nel Listato \ref{lst:simple_storage_solidity_partially_instrumented} \`{e} riportato l'output corrispondente al sorgente del Listato \ref{lst:simple_storage_solidity}.
+\begin{lstlisting}[language=Solidity,caption=Instrumentazione parziale di \ref{lst:simple_storage_solidity},label={lst:simple_storage_solidity_partially_instrumented},frame=tlrb]
+contract SimpleStorageInstrumented {
+    uint256 storedData;
+
+    function set(uint256 x) public {
+        /* __cost0 */
+        storedData = x;
+    }
+
+    // NOTE: was a view function
+    function get() public returns (uint256) {
+        /* __cost1 */
+        return storedData;
+    }
+    
+    // Instrumentation Machinery
+    uint256 private __costAcc = 0;
+    function __SimpleStorage_getCost() public view returns(uint256) {
+        return __costAcc;
+    }
+    function __SimpleStorage_resetCost() public {
+        __costAcc = 0;
+    }
+}
+\end{lstlisting}
+Come si nota viene definita una variabile di stato del contratto denominata \texttt{\_\_costAcc}. La variabile \`{e} dichiarata \texttt{private} per evitare che si generino dei conflitti nel caso in cui all'interno dello stesso file sorgente vengano definiti due contratti e uno di questi erediti dall'altro. Solidity infatti non permette la ridichiarazione di una variabile di stato in un contratto derivato se questa \`{e} gi\`{a} presente nel contratto base, a meno che entrambe le variabili non siano dichiarate come \texttt{private}. Allo stesso modo le funzioni \texttt{getCost} e \texttt{resetCost}, necessarie per poter accedere a \texttt{\_\_costAcc} e resettarla fra un'esecuzione e la successiva, contengono nel nome anche quello del contratto originale (non instrumentato) per evitare che siano sovrascritte negli eventuali contratti derivati. Infine la procedura di instrumentazione rimuove i modificatori \texttt{pure} e \texttt{view} dalle definizioni delle funzioni poich\'{e} questi risultano chiaramente incompatibili con gli aggiornamenti della variabile di stato \texttt{\_\_costAcc} con cui le label verranno sostituite. Questa modifica non altera in alcun modo la bont\`{a} dell'instrumentazione in quanto non influisce sul comportamento del programma ma solo sull'insieme di ottimizzazioni che il compilatore pu\`{o} applicare e questo, nel caso del codice instrumentato, non ha nessuna importanza. \\
+Questo approccio per quanto possa apparire complesso permette di semplificare la realizzazione del punto 2, la cui implementazione \`{e} parte di Cerco2. Il compilatore non conosce infatti i costi che sono stati assegnati a ciascuna label e pertanto non pu\`{o} realizzare un'instrumentazione completa. Cerco2 prende quindi in input il file parzialmente instrumentato generato dal compilatore e sostituisce i commenti contenenti le label con opportuni incrementi della variabile di costo \texttt{\_\_costAcc}. Tuttavia, come sappiamo dal paragrafo \S\ref{impl:costs_calculation:cerco2_nonsolution}, il costo di ciascuna etichetta potrebbe contenere anche elementi simbolici che vengono quindi riportati nell'output finale (Listato \ref{lst:simple_storage_solidity_instrumented}) sotto forma di commenti in aggiunta agli incrementi della variabile \texttt{\_\_costAcc}.
+\begin{lstlisting}[language=Solidity,caption=Instrumentazione di \ref{lst:simple_storage_solidity},label={lst:simple_storage_solidity_instrumented},frame=tlrb]
+contract SimpleStorageInstrumented {
+    uint256 storedData;
+
+    function set(uint256 x) public {
+        /* __cost0 */
+        __costAcc = __costAcc + 153; /* + sstore(0, x) */
+        storedData = x;
+    }
+
+    // NOTE: was a view function
+    function get() public returns (uint256) {
+        /* __cost1 */
+        __costAcc = __costAcc + 1029; /* + memaccess(128, add(not(127),abi_encode_uint256(sload(0)))) */
+        return storedData;
+    }
+    
+    uint256 private __costAcc = 0;
+    function __SimpleStorage_getCost() public view returns(uint256) {
+        return __costAcc;
+    }
+    function __SimpleStorage_resetCost() public {
+        __costAcc = 0;
+    }
+}
+\end{lstlisting}
+Le funzioni top level in questi commenti, ovvero quelle che non appaiono mai come argomenti di altre funzioni, sono:
+\begin{itemize}
+    \item \texttt{memaccess(offset,size)}: rappresenta un'operazione di accesso alla memoria di dimensione pari a \texttt{size} a partire dalla posizione \texttt{offset}.
+    \item \texttt{sizeof(var)}: corrisponde all'operazione di calcolo della dimensione in \textit{parole di memoria} di \texttt{var}.
+    \item \texttt{sstore}: analoga dell'omonimo opcode del bytecode.
+    \item \texttt{exists(account)}: corrisponde all'operazione di verifica dell'esistenza di \texttt{account} all'interno della blockchain.
+\end{itemize}
+Il loro scopo \`{e} fornire delle indicazioni allo sviluppatore sull'origine dei consumi di gas di una certa porzione di codice quando non risulta possibile determinarli completamente. Per questo motivo, se le loro chiamate appaiono nei commenti a fianco degli aggiornamenti della variabile \texttt{\_\_costAcc}, la procedura di instrumentazione aggiunge al file generato anche le corrispettive definizioni in pseudocodice di queste funzioni. La definizione della funzione \texttt{memaccess(offset,size)}, per esempio, \`{e} riportata di seguito e corrisponde pressoch\'{e} alla sottrazione fra $C_{mem}(\boldsymbol{\mu}'_i)$ e $C_{mem}(\boldsymbol{\mu}_i)$ nell'espressione della funzione di costo del gas (\ref{def:cost_fn}).
+\begin{lstlisting}[language=Python,caption={Pseudocodice della funzione \texttt{memaccess(offset,size)}}]
+def memaccess(offset, length):
+    # access with zero length will not extend the memory
+    if length == 0:
+      return
+
+    newMemorySize = words(offset + length)
+    if newMemorySize < currentMemorySize:
+      return; # do nothing if we have enough memory
+
+    cost = newMemorySize * 3 +
+      newMemorySize * newMemorySize / 512
+    if cost > currentHighestMemCost:
+      # consume an amount of gas equal to cost - currentHighestMemCost
+      currentHighestMemCost = cost
+
+    currentMemorySize = newMemorySize
+\end{lstlisting}
+\subsection{Funzioni \texttt{public} e Costo dell'Inizializzazione}\label{impl:instrumentation:public}
+Il codice instrumentato riportato nel Listato \ref{lst:simple_storage_solidity_instrumented} per quanto sia corretto in relazione al sorgente originale non lo \`{e} per\`{o} in generale. Se infatti modificassimo il sorgente originale aggiungendo una chiamata alla funzione \texttt{get} all'interno della funzione \texttt{set}, come evidenziato nel codice del Listato \ref{lst:simple_storage_with_internal_call}, allora l'instrumentazione precedente non sarebbe pi\`{u} corretta. 
+\begin{lstlisting}[language=Solidity,caption=Parziale modifica di \ref{lst:simple_storage_solidity},label={lst:simple_storage_with_internal_call},frame=tlrb]
+contract SimpleStorage {
+    uint256 storedData;
+
+    function set(uint256 x) public {
+        get(); // aggiunta della chiamata a get()
+        storedData = x;
+    }
+    // -- get() --
+}
+\end{lstlisting}
+Quanto detto non dipende direttamente dalla modifica effettuata. Se la funzione \texttt{get} fosse stata dichiarata \texttt{private} infatti allora l'instrumentazione sarebbe ancora valida. Questo perch\'{e} le funzioni \texttt{private}, insieme con quelle \texttt{internal}, non possono essere chiamate esternamente (ossia attraverso una transazione) ma solamente da altri metodi dello stesso contratto o al pi\`{u} da metodi appartenenti a contratti derivati (nel caso delle funzioni \texttt{internal}). Pertanto il costo dell'inizializzazione pu\`{o} essere pagato solo dalle funzioni \texttt{public} o \texttt{external}. Tuttavia, anche questi metodi possono essere invocati internamente ma mentre le chiamate alle funzioni \texttt{external} avvengono attraverso una transazione, quelle ai metodi \texttt{public} attraverso un semplice salto, esattamente come per le funzioni \texttt{private} e \texttt{internal}. Chiaramente in quest'ultimo caso non \`{e} necessario sostenere alcun costo per il controllo dei paramentri della transazione o la decodifica degli argomenti, ma nell'instrumentazione nel Listato \ref{lst:simple_storage_solidity_instrumented} questi sono inclusi comunque nel costo del metodo \texttt{get}. Per risolvere questo problema abbiamo modificato la procedura di instrumentazione parziale del compilatore in modo da generare, per ciascun metodo \texttt{public}, una coppia di metodi. Il primo esattamente identico all'originale ma con visibilit\`{a} ristretta a \texttt{internal}, cos\`{i} da garantirne comunque l'accesso agli eventuali contratti derivati. Il secondo invece con un nome del tipo \texttt{<metodo-originale>\_external}, visibilit\`{a} \texttt{external} e corpo contente esclusivamente una chiamata al metodo originale e la prima label che appare nel corpo di quest'ultimo ma modificata con il nome seguente \texttt{<label-originale>.startup}. In seguito, abbiamo chiaramente corretto la procedura di sostituzione delle etichette di Cerco2 per far s\`{i} che le label con associato, oltre al costo "proprio", anche quello dell'inizializzazione venissero gestite correttamente. Per queste etichette infatti l'instrumentazione corretta assegna il costo dell'inizializzazione alla label con suffisso \texttt{startup} mentre quello "proprio" viene assegnato alla label originale. Nel Listato \ref{lst:simple_storage_instrumentation_correct} \`{e} possibile osservare il risultato finale di questo processo, che riporta quindi l'instrumentazione corretta.
+\begin{lstlisting}[language=Solidity,caption=Instrumentazione corretta di \ref{lst:simple_storage_solidity},label={lst:simple_storage_instrumentation_correct},frame=tlrb]
+contract SimpleStorageInstrumented {
+    uint256 storedData;
+
+    function set(uint256 x) internal {
+        /* __cost0 */
+        __costAcc = __costAcc + 14; /* + sstore(0, x) */
+        storedData = x;
+    }
+
+    function set_external(uint256 x) external {
+        /* __cost0.startup */
+        __costAcc = __costAcc + 139;
+        set(x);
+    }
+
+    // NOTE: was a view function
+    function get() internal returns (uint256) {
+        /* __cost1 */
+        __costAcc = __costAcc + 874; /* + memaccess(128, add(not(127),abi_encode_uint256(sload(0)))) */
+        return storedData;
+    }
+
+    function get_external() external returns (uint256) {
+        /* __cost1.startup */
+        __costAcc = __costAcc + 155;
+        return get();
+    }
+    
+    // -- definizioni funzioni getCost e resetCost
+}
+\end{lstlisting}
+
+\chapter{Testing}
+In questo capitolo presenteremo e discuteremo il risultato dell'applicazione della nostra implementazione del metodo del labelling ad alcuni esempi di smart contracts in Solidity. Gli esempi che tratteremo non rappresentano smart contract reali ma piuttosto casi costruiti ad-hoc col solo scopo di mostrare l'output generato ed evidenziare come questo sia in linea con le aspettative. Chiaramente testare l'implementazione significa molto di pi\`{u} che limitarsi ad osservare che gli output prodotti sembrino in qualche modo sensati. Allo stato attuale per\`{o}, la nostra implementazione presenta alcune limitazioni importanti e tali da rendere vano e improprio qualunque tentativo di test diverso da quello proposto. Di queste la principale, soprattutto nell'ottica di un testing pi\`{u} approfondito, \`{e} senza dubbio quella relativa all'impossibilit\`{a} di calcolare correttamente il consumo di gas di ciascuna delle istruzioni del bytecode e che abbiamo gi\`{a} parzialmente illustrato nel paragrafo \S\ref{impl:costs_calculation}. In futuro, una volta che questa e le altre limitazioni dell'attuale implementazione saranno state risolte, sar\`{a} senza dubbio possibile impiegare un qualche framework per il testing automatico di smart contracts, come Truffle\cite{truffle}, in maniera da porre a confronto i consumi di gas dei contratti originali, riportati dalla test suite, e quelli ottenuti tramite l'impiego del codice instrumentato in modo da verificare la correttezza (anche se non a livello formale) dell'implementazione e la bont\`{a} delle annotazioni di costo.
+
+\section{Costanti e Variabili \texttt{immutable}}
+Nell'esempio seguente sono presenti alcune variabili costanti, che vengono inizializzate dal codice che effettua il deploy del contratto sulla blockchain, e altre \texttt{immutable}, che vanno invece inizializzate dall'autore del contratto nel costruttore.
+\begin{lstlisting}[language=Solidity,caption={Esempio Solidity con variabili \texttt{const} e \texttt{immutable}},label={lst:const_and_immutable},frame=tlrb]
+uint256 constant X = 32**22 + 8;
+
+contract ConstAndImmutable {
+    string constant TEXT = "abc";
+    bytes32 constant MY_HASH = keccak256("abc");
+    uint256 immutable decimals;
+    uint256 immutable maxBalance;
+    address immutable owner = msg.sender;
+
+    constructor(uint256 _decimals, address _reference) {
+        decimals = _decimals;
+        maxBalance = _reference.balance;
+    }
+
+    function isBalanceTooHigh(address _other) public view returns (bool) {
+        return _other.balance > maxBalance;
+    }
+}
+\end{lstlisting}
+La rispettiva instrumentazione \`{e} riportata nel Listato \ref{lst:const_and_immutable_instrumented}. Come ci aspettavamo, il costo legato all'assegnamento dei valori alle variabili \texttt{immutable} \`{e} stato associato alla label \texttt{\_\_cost0} all'interno del costruttore, come testimoniato dalle operazioni \texttt{memaccess(128, sizeof(decimals))} e \texttt{memaccess(160, sizeof(balance(var\_reference)))}. Inoltre, grazie alla suddivisione del metodo \texttt{isBalanceTooHigh} nelle due versioni \texttt{internal} e \texttt{external}, possiamo osservare come il costo della label \texttt{\_\_cost1} sia probabilmente molto vicino a quello reale. Il consumo di gas dell'operazione \texttt{BALANCE}, nella quale l'espressione \texttt{\_other.balance} si traduce, \`{e} infatti pari a 700. In aggiunta ad essa a determinare significativamente il costo della label \texttt{\_\_cost1} vi \`{e} poi solamente un accesso alla memoria ma ad una locazione precedentemente inizializzata dal costruttore e che pertanto, non necessitando di espandere la memoria, avr\`{a} un costo pari a 0.
+\begin{lstlisting}[language=Solidity,caption={Instrumentazione di \ref{lst:const_and_immutable}},label={lst:const_and_immutable_instrumented},frame=tlrb]
+uint256 constant X = 32**22 + 8;
+
+contract ConstAndImmutableInstrumented {
+    string constant TEXT = "abc";
+    bytes32 constant MY_HASH = keccak256("abc");
+    uint256 immutable decimals;
+    uint256 immutable maxBalance;
+    address immutable owner = msg.sender;
+    
+    constructor(uint256 _decimals, address _reference) {
+        /* __cost0 */
+        __costAcc = __costAcc + 257; /* + memaccess(128, sizeof(decimals)) + memaccess(160, sizeof(balance(var_reference))) + memaccess(_1, _2) + 3 * sizeof(_2) + memaccess(_1, _2) + memaccess(224, argSize) + 3 * sizeof(argSize) + memaccess(192, sizeof(caller())) */
+        decimals = _decimals;
+        maxBalance = _reference.balance;
+    }
+
+    // NOTE: was a view function
+    function isBalanceTooHigh(address _other) internal returns (bool) {
+        /* __cost1 */
+        __costAcc = __costAcc + 731; /* + memaccess(128, sizeof(gt(loadimmutable(),expr))) */
+        return _other.balance > maxBalance;
+    }
+
+    function isBalanceTooHigh_external(address _other) external returns (bool) {
+        /* __cost1.startup */
+        __costAcc = __costAcc + 193;
+        return isBalanceTooHigh(_other);
+    }
+
+    // -- __costAcc, getCost(), resetCost() omessi --
+}
+\end{lstlisting}
+
+\section{Blocchi \texttt{checked} e \texttt{unchecked}}
+In questo secondo esempio \`{e} presente la stessa funzione ma in due versione leggermente differenti. Dalla versione 0.8.0 di Solidity, infatti, tutte le operazioni aritmetiche causano un revert della transazione in caso di overflow o underflow. Ci\`{o} accade di default, a meno che l'operazione in questione non venga inserita all'interno di un blocco \texttt{unchecked}. L'uso di questo blocco evita che il compilatore generi il codice necessario a gestire l'eventuale underflow o overflow e ad effettuare il revert della transazione.    
+\begin{lstlisting}[language=Solidity,caption={Esempio Solidity con blocchi \texttt{unchecked} e non},label={lst:checked_unchecked},frame=tlrb]
+contract CheckedUnchecked {
+    function f(uint256 a, uint256 b) public view returns (uint256) {
+        return a * (b + 42) + block.timestamp;
+    }
+
+    function f_unchecked(uint256 a, uint256 b) public view returns (uint256) {
+        unchecked {
+            return a * (b + 42) + block.timestamp;
+        }
+    }
+}
+\end{lstlisting}
+Per questo motivo nel corrispondente codice instrumentato, il costo delle label \texttt{\_\_cost0} e \texttt{\_\_cost2} \`{e} sensibilmente diverso, esattamente come ci saremmo aspettati. 
+\begin{lstlisting}[language=Solidity,caption={Instrumentazione di \ref{lst:checked_unchecked}},label={lst:checked_unchecked_instrumented},frame=tlrb]
+contract CheckedUncheckedInstrumented {
+    // NOTE: was a view function
+    function f(uint256 a, uint256 b) internal returns (uint256) {
+        /* __cost0 */
+        __costAcc = __costAcc + 389; /* + memaccess(memPos, sub(memPos,abi_encode_uint256(ret,memPos))) */
+        return a * (b + 42) + block.timestamp;
+    }
+
+    function f_external(uint256 a, uint256 b) external returns (uint256) {
+        /* __cost0.startup */
+        __costAcc = __costAcc + 163;
+        return f(a, b);
+    }
+
+    // NOTE: was a view function
+    function f_unchecked(uint256 a, uint256 b) internal returns (uint256) {
+        /* __cost1 */
+        __costAcc = __costAcc + 0;
+        unchecked {
+            /* __cost2 */
+            __costAcc = __costAcc + 142; /* + memaccess(memPos_1, sub(memPos_1,abi_encode_uint256(ret_1,memPos_1))) */
+            return a * (b + 42) + block.timestamp;
+        }
+    }
+
+    function f_unchecked_external(uint256 a, uint256 b)
+        external
+        returns (uint256)
+    {
+        /* __cost1.startup */
+        __costAcc = __costAcc + 243;
+        return f_unchecked(a, b);
+    }
+
+    // -- __costAcc, getCost(), resetCost() omessi --
+}
+\end{lstlisting}
+
+\clearpage{\pagestyle{empty}\cleardoublepage}
+
+\chapter*{Conclusioni}
+Abbiamo presentato e descritto in dettaglio il metodo del \textit{labelling}, proposto dal progetto CerCo \cite{cerco_website}, per realizzare compilatori capaci di riportare informazioni sul costo dell'esecuzione del codice oggetto all'interno del codice sorgente e lo abbiamo applicato con successo a \textit{solc}, il compilatore del linguaggio per smart contracts Solidity. Purtroppo per\`{o}, la nostra implementazione presenta attualmente due importanti limitazioni. La prima riguarda l'operazione di instrumentazione che, allo stato attuale, non gestisce correttamente le librerie in quanto al loro interno non \`{e} possibile dichiarare variabili di stato. La seconda invece, come osservato nel paragrafo \S\ref{impl:costs_calculation:cerco2_nonsolution}, riguarda il calcolo dei consumi di gas delle singole istruzioni del codice oggetto. Abbiamo infatti appurato come la definizione della funzione di costo del gas non permetta di ottenere dei valori esatti per tutte le istruzioni del bytecode. Tuttavia, ottenere delle stime pi\`{u} accurate, almeno per quanto concerne l'uso della memoria, permetterebbe di rimuovere le attuali rappresentazioni simboliche in favore di valori numerici o funzioni di costo sugli input. In letteratura, sono stati recentemente presentati alcuni lavori volti ad affrontare questo problema, come \cite{marescotti} e \cite{gastap}. In particolare, il lavoro svolto in \cite{gastap}, ha permesso la realizzazione di uno strumento simile a quello presentato in questo elaborato. Sviluppi futuri di questo lavoro potrebbero quindi estendere l'odierna implementazione attraverso uno o pi\`{u} degli approcci citati e migliorando la fase di instrumentazione, cos\`{i} da ottenere un \textit{cost annotating compiler} completo per il linguaggio Solidity.
+
+\rhead[\fancyplain{}{\bfseries
+CONCLUSIONI}]{\fancyplain{}{\bfseries\thepage}}
+\lhead[\fancyplain{}{\bfseries\thepage}]{\fancyplain{}{\bfseries
+CONCLUSIONI}}
+
+\addcontentsline{toc}{chapter}{Conclusioni}
+
+\printbibliography
+
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\chapter*{Ringraziamenti}
+Ringrazio il professor Sacerdoti Coen per la disponibilit\`{a} e il costante supporto ricevuto durante lo sviluppo di questo elaborato di tesi. Ringrazio la mia famiglia, in modo particolare mia sorella, per avermi sopportato in queste settimane di lavoro intenso necessario a completarla. Ringrazio infine tutte gli amici, colleghi e non, che in questi anni mi hanno aiutato, pi\`{u} o meno direttamente, a portare a termine questo percorso.
+\thispagestyle{empty}
+\end{document}

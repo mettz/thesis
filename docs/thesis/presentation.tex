@@ -1,0 +1,319 @@
+\documentclass{beamer}
+\usepackage{indentfirst}
+\usepackage[italian]{babel}
+\usepackage{newlfont}
+\usepackage{physics}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{xcolor}
+\usepackage{listings}
+\input{./solidity-highlighting.tex}
+\usepackage{tikz}
+\usepackage{xspace}
+\usepackage{adjustbox}
+
+\usepackage[all]{xy}
+\usepackage{array}
+\usepackage{xcolor}
+
+\newcommand{\cl}[1]{{\cal #1}}         
+\newcommand{\w}[1]{{\it #1}}
+
+\definecolor{primary}{RGB}{61,50,204} 
+
+\makeatletter
+\newcommand\listofframes{\@starttoc{lbf}}
+\makeatother
+
+\addtobeamertemplate{frametitle}{}{%
+  \addcontentsline{lbf}{section}{\protect\makebox[2em][l]{
+    \protect\usebeamercolor[fg]{structure}}
+  \insertframetitle\par}
+}
+
+\usetheme{Boadilla}
+\usecolortheme[RGB={61,50,204}]{structure}
+
+\title{Calcolo del Cost Model Esatto \\di un Programma in Solidity}
+\author{Mattia Guazzaloca}
+\institute{Alma Mater Studiorum - Università di Bologna}
+\date{13 Ottobre 2021}
+
+\begin{document}
+\abovedisplayskip=0pt
+\abovedisplayshortskip=0pt
+\belowdisplayskip=0pt
+\belowdisplayshortskip=0pt
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+    \frametitle{Sommario}
+    \tableofcontents
+\end{frame}
+
+\section{Background}
+\begin{frame}
+    \frametitle{Background}
+    \begin{block}{Ethereum}
+    Ethereum \`{e} una \textbf{piattaforma} open-source basata su blockchain per lo sviluppo di applicazioni distribuite denominate \textbf{smart contracts}.
+    \end{block}
+    \begin{block}{L'Ether e il Gas}
+    L'\textbf{Ether} (ETH) \`{e} la criptovaluta di Ethereum. Viene usata specialmente per l'acquisto del \textbf{gas}, l'unit\`{a} di misura dello sforzo computazionale richesto per l'esecuzione di uno smart contract.
+    \end{block}
+    \begin{block}{Solidity}
+    \textbf{Solidity} \`{e} il linguaggio di alto livello per lo sviluppo di smart contract pi\`{u} utilizzato. \`{E} object-oriented e la sua sintassi \`{e} largamente ispirata a quella del linguaggio JavaScript.
+    \end{block}
+\end{frame}
+
+\section{CerCo}
+\begin{frame}
+    \frametitle{CerCo}
+    CerCo \`{e} un progetto europeo di ricerca nato con lo scopo di sviluppare e provare formalmente un \textbf{cost annotating compiler}.
+    \begin{block}{Cost Annotating Compiler}
+    Un \textit{cost annotating compiler} $C$ \`{e} un compilatore che preso in input un programma $P$ produce in output un programma $An(P)$ "annotato", funzionalmente equivalente a $P$, ma capace di tracciare il costo della sua esecuzione.\\
+    \end{block}
+    Le informazioni che il compilatore $C$ inserisce nel programma annotato $An(P)$ per tracciare l'esecuzione si chiamano \textbf{annotazioni di costo}.
+\end{frame}
+% \begin{frame}{Correttezza delle Cost Annotation}
+% Un'annotazione di costo \`{e} corretta se e solamente se soddisfa sia la propriet\`{a} di \textit{soundness} che quella di \textit{preciseness}.
+% \begin{block}{Soundness}
+% Una cost annotation \`{e} \textit{sound} se il suo valore costituisce un upper bound al costo di esecuzione reale
+% \end{block}
+% \begin{block}{Preciseness}
+% Una cost annotation \`{e} \textit{precise} quando la differenza fra il costo reale dell'esecuzione e quello espresso dall'annotazione \`{e} limitata dal valore di una costante che dipende solo dal programma
+% \end{block}
+% \end{frame}
+\begin{frame}
+    \frametitle{Il Metodo del Labelling}
+    \begin{center}
+    \begin{tabular}{m{10cm}}
+    $$
+    \xymatrix{
+    % % Row 2
+      L_1 &
+      \ar[l]^{\cl{I}}
+      L_{1,\ell} 
+      \ar@/^/[d]^{er_1} 
+      \ar[r]^{\cl{C}_1}
+    %
+    & L_{2,\ell} 
+      \ar[d]^{er_2}  
+    %
+    & \ldots \hspace{0.3cm}\ar[r]^{\cl{C}_k} 
+    %
+    & L_{k+1,\ell} 
+      \ar[d]^{er_{k+1}}  \\
+    %
+    % Row 3
+    &
+      L_1                                  
+      \ar@/^/[u]^{\cl{L}} 
+      \ar[r]^{\cl{C}_1}
+    & L_2   
+    & \ldots\hspace{0.3cm}
+      \ar[r]^{\cl{C}_{k}}
+    & L_{k+1}
+    }
+    $$
+    \end{tabular}
+    \end{center}
+    \begin{block}{Labelling}
+    Un \textit{labelling} $L$ di un linguaggio sorgente $L_i$ \`{e} una funzione tale che $er_{L_i}{\circ}L$ \`{e} la funzione identit\`{a}
+    \end{block}
+    \begin{block}{Instrumentazione}
+    Una \textit{instrumentazione} $I$ di un linguaggio etichettato $L_{1,\ell}$ \`{e} una funzione che rimpiazza le label di $L_{1,\ell}$ con, per esempio, incrementi di una variabile di costo
+    \end{block}
+\end{frame}
+
+\section{Implementazione}
+\begin{frame}
+    \frametitle{Implementazione}
+    \begin{block}{Scopo della Tesi}
+    Realizzare un \textbf{cost annotating compiler} per il linguaggio Solidity applicando l'approccio sviluppato da CerCo.
+    \end{block}
+    \begin{block}{Risultato}
+    La complessit\`{a} di Solidity e le peculiarit\`{a} degli smart contract hanno generato problemi nuovi rispetto a CerCo e sono causa delle limitazioni dell'attuale implementazione.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Labelling}
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \begin{itemize}
+                \item L'inizio di \textbf{ciascun blocco} \`{e} etichettato con una label
+                \item Tutte le sequenze di istruzioni precedute da un qualche costrutto per il \textbf{controllo di flusso} sono etichettate con una label posta subito dopo la fine del costrutto
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.05\textwidth}
+        \end{column}
+        \begin{column}{0.55\textwidth}
+            \begin{adjustbox}{max height=3.5cm,keepaspectratio}
+            \begin{lstlisting}[language=Solidity,frame=trlb,linewidth=9.8cm]
+contract Fibonacci {
+  function fibonacci(uint256 n) public pure returns (uint256 b) {
+    /* __cost0 */
+    if (n == 0) {
+      /* __cost1 */
+      return 0;
+    }
+    /* __cost2 */
+    uint256 a = 1;
+    b = 1;
+    for (uint256 i = 2; i < n; i++) {
+      /* __cost3 */
+      uint256 c = a + b;
+      a = b;
+      b = c;
+    }
+    /* __cost4 */
+    return b;
+  }
+}
+            \end{lstlisting}
+            \end{adjustbox}
+            \end{column}
+    \end{columns}
+\end{frame}
+\begin{frame}
+    \frametitle{Calcolo dei Costi}
+    % Definizione super ridotta della funzione di costo del gas e come si è (non) risolto il problema
+    \begin{block}{Funzione di Costo del Gas}
+    La funzione di costo del gas $C(\boldsymbol{\sigma}, \boldsymbol{\mu}, w)$ associa all'istruzione $w$ il consumo di gas dato lo stato della blockchain $\boldsymbol{\sigma}$ e quello della EVM $\boldsymbol{\mu}$:
+    \begin{equation*}
+    \resizebox{.8\textwidth}{!}
+    {$
+    C(\boldsymbol{\sigma}, \boldsymbol{\mu}, w) \equiv C_{\mathrm{mem}}(\boldsymbol{\mu}'_{\mathrm{i}})-C_{\mathrm{mem}}(\boldsymbol{\mu}_{\mathrm{i}}) + 
+    \begin{cases}
+    C_\text{\tiny SSTORE}(\boldsymbol{\sigma}, \boldsymbol{\mu}) & \text{if} \quad w = \text{\small SSTORE} \\
+    G_{\mathrm{verylow}} + G_{\mathrm{copy}}\times\lceil\boldsymbol{\mu}_{\mathbf{s}}[2] \div 32\rceil & \text{if} \quad w \in W_{\mathrm{copy}} \\
+    C_\text{\tiny CALL}(\boldsymbol{\sigma}, \boldsymbol{\mu}) & \text{if} \quad w \in W_{\mathrm{call}} \\
+    C_\text{\tiny SELFDESTRUCT}(\boldsymbol{\sigma}, \boldsymbol{\mu}) & \text{if} \quad w = \text{\small SELFDESTRUCT} \\
+    G_{\mathrm{create}} & \text{if} \quad w = \text{\small CREATE}\\
+    G_{\mathrm{zero}} & \text{if} \quad w \in W_{\mathrm{zero}}\\
+    G_{\mathrm{base}} & \text{if} \quad w \in W_{\mathrm{base}}
+    \end{cases}
+    $}
+    \end{equation*}
+    dove:
+    \begin{equation*}
+    \resizebox{.4\textwidth}{!}
+    {$
+    C_{\mathrm{mem}}(a) \equiv G_{\mathrm{memory}} \cdot a + \left\lfloor \dfrac{a^2}{512} \right\rfloor
+    $}
+    \end{equation*}
+    \end{block}
+    Soluzione adottata:
+    \begin{itemize}
+        \item Simulazione \textbf{parziale} dell'esecuzione
+        \item Assegnamento diretto dei consumi per le istruzioni con costo costante
+        \item Rapprensetazione di $C(\boldsymbol{\sigma}, \boldsymbol{\mu}, w)$ per le istruzioni pi\`{u} complesse
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \frametitle{Attribuzione dei Costi}
+    \begin{enumerate}
+        \item
+        Si costruisce il \textbf{Control Flow Graph} del sorgente assembly
+        \begin{block}{Control Flow Graph}
+        Dato un qualche programma $P$, si definisce \textit{Control Flow Graph} il grafo orientanto $G = (N,E)$ dove ciascun nodo $n \in N$ \`{e} un blocco del programma $P$ e ogni arco $(n_i,n_j) \in E$ rappresenta il passaggio del flusso di esecuzione dal nodo $n_i$ al nodo $n_j$.
+        \end{block}
+        \item
+        Si visita in profondit\`{a} il CFG mantenendo uno stack $\mu$ delle label raggiunte. Durante la visita:
+        \begin{itemize}
+            \item i nodi \textbf{etichetta}, non precedentemente visitati, vengono aggiunti a $\mu$
+            \item il consumo di gas dei nodi \textbf{istruzione} viene sommato all'etichetta che si trova in cima a $\mu$
+        \end{itemize}
+    \end{enumerate}
+\end{frame}
+\begin{frame}
+    \frametitle{Costo dell'Inizializzazione}
+    Ogni smart contract necessita di codice aggiuntivo per:
+    \begin{itemize}
+        \item Il deploy, i.e. il caricamento del contratto sulla blockchain
+        \item La corretta invocazione dei metodi parte dell'API pubblica del contratto
+    \end{itemize}
+    Il codice generato non \`{e} coperto da label e genera quindi annotazioni di costo \textit{unsound}.
+    \begin{block}{\texttt{startupCost}}
+    L'algoritmo per l'attribuzione dei costi definisce una variabile ausiliaria \texttt{startupCost} che tiene traccia del costo dell'inizializzazione. Il suo valore viene assegnato alla prima label incontrata durante la visita.
+    \end{block}
+\end{frame}
+\begin{frame}[fragile]
+    \frametitle{Instrumentazione}
+    % Due "side":
+    % - sx: descrizione per punti dell'instrumentazione [var di costo, machinery, gestione funzioni public]
+    \begin{columns}
+        \begin{column}{0.4\textwidth}
+            \begin{enumerate}
+                \item Aggiunta del codice per definire ed accedere alla \textbf{variabile di costo}
+                \item Sostituzione delle label con i corrispettivi \textbf{incrementi} della variabile di costo
+            \end{enumerate}
+        \end{column}
+        \begin{column}{0.05\textwidth}
+        \end{column}
+        \begin{column}{0.55\textwidth}
+            \begin{adjustbox}{max height=4cm,margin=0pt,keepaspectratio}
+            \begin{lstlisting}[language=Solidity,frame=trlb,linewidth=12.3cm]
+contract SimpleStorageInstrumented {
+    uint256 storedData;
+
+    // NOTE: was a view function
+    function get() internal returns (uint256) {
+        /* __cost1 */
+        __costAcc = __costAcc + 874; /* + memaccess(128, add(not(127),abi_encode_uint256(sload(0)))) */
+        return storedData;
+    }
+
+    function get_external() external returns (uint256) {
+        /* __cost1.startup */
+        __costAcc = __costAcc + 155;
+        return get();
+    }
+    
+    // Instrumentation Machinery
+    uint256 private __costAcc = 0;
+    function __SimpleStorage_getCost() public view returns(uint256) { 
+        return __costAcc; 
+    }
+    function __SimpleStorage_resetCost() public {
+        __costAcc = 0;
+    }
+}
+            \end{lstlisting}
+            \end{adjustbox}
+            \end{column}
+    \end{columns}
+\end{frame}
+
+\section{Conclusioni}
+\begin{frame}
+    \frametitle{Conclusioni}
+    Stimare in maniera chiara e precisa i consumi di gas degli smart contract \`{e} un compito non triviale, specialmente quando questi sono scritti in un linguaggio di alto livello come Solidity. L'implementazione presentata risolve in parte il problema grazie al lavoro svolto dal progetto CerCo.\\
+    \vspace{1em}
+    Attuali limitazioni:
+    \begin{enumerate}
+        \item L'instrumentazione \`{e} \textbf{incompleta}: manca ad esempio il supporto per le \texttt{library}
+        \item Il calcolo dei consumi di gas rappresenta solo un'indicazione allo sviluppatore per via di quelle istruzioni il cui costo dipende dallo stato della EVM
+    \end{enumerate}
+    \vspace{1em}
+    Inoltre, principalmente a causa del punto 2, il testing dell'implementazione \`{e} avvenuto solo in maniera parziale.
+\end{frame}
+
+\begin{frame}
+    \frametitle{Metriche sul Lavoro Svolto}
+    In totale lo sviluppo dell'elaborato ha richiesto all'incirca \textbf{5 mesi}, da maggio a settembre compresi, per quanto le ore effettive di lavoro siano chiaramente in numero inferiore, ma difficilmente quantificabili.\\
+    \vspace{1em}
+    La scrittura del codice ha riguardato due aree distinte:
+    \begin{itemize}
+        \item Il \textbf{compilatore di Solidity} (solc): modifiche minime al sorgente in C++ per un totale di circa \textbf{100-200 LoC}.
+        \item \textbf{Cerco2}: tool esterno al compilatore principalmente legato alla fase di \textbf{calcolo e attribuzione dei costi}. Questo tool \`{e} stato scritto in JavaScript ed ha una dimensione pari a circa \textbf{2000 LoC}.
+    \end{itemize}
+\end{frame}
+\begin{frame}
+    \centering
+    \fontsize{24pt}{0pt}\selectfont
+    Grazie!
+\end{frame}
+\end{document}
